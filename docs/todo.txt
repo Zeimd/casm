@@ -1,0 +1,13 @@
+X86 Assembler
+
+TODO LIST:
+
+Add RIP-based addressing (and other 64-bit special cases)
+
+Add instruction alignment (with NOPs or static jumps)
+
+Add state changes (real mode -> protected mode)
+
+Add priviledge level checks to instruction encoding
+
+Add default address size information to instruction encoding

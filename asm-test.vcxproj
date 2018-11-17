@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4F0864E5-33AC-4E86-8CA9-B09889E3E55C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>asmtest</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include\;$(SolutionDir)\include\ceng;$(SolutionDir)\timerlib\;</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="asm-test.cpp" />
+    <ClCompile Include="source\assembler.cpp" />
+    <ClCompile Include="source\basic-block.cpp" />
+    <ClCompile Include="source\code-element.cpp" />
+    <ClCompile Include="source\code-generator.cpp" />
+    <ClCompile Include="source\code-label.cpp" />
+    <ClCompile Include="source\condition-jump.cpp" />
+    <ClCompile Include="source\encode-data.cpp" />
+    <ClCompile Include="source\executable.cpp" />
+    <ClCompile Include="source\function-builder.cpp" />
+    <ClCompile Include="source\keyword-group.cpp" />
+    <ClCompile Include="source\linker.cpp" />
+    <ClCompile Include="source\obj-function.cpp" />
+    <ClCompile Include="source\opcode-prefix.cpp" />
+    <ClCompile Include="source\parser-c-function.cpp" />
+    <ClCompile Include="source\parser-context.cpp" />
+    <ClCompile Include="source\parser-float.cpp" />
+    <ClCompile Include="source\parser-group.cpp" />
+    <ClCompile Include="source\parser-int64.cpp" />
+    <ClCompile Include="source\parser-memory.cpp" />
+    <ClCompile Include="source\parser-name.cpp" />
+    <ClCompile Include="source\parser-op-add.cpp" />
+    <ClCompile Include="source\parser-op-bracket.cpp" />
+    <ClCompile Include="source\parser-op-div.cpp" />
+    <ClCompile Include="source\parser-op-func.cpp" />
+    <ClCompile Include="source\parser-op-mul.cpp" />
+    <ClCompile Include="source\parser-op-size.cpp" />
+    <ClCompile Include="source\parser-op-sub.cpp" />
+    <ClCompile Include="source\parser-opcode.cpp" />
+    <ClCompile Include="source\parser-operator.cpp" />
+    <ClCompile Include="source\parser-register.cpp" />
+    <ClCompile Include="source\parser-state.cpp" />
+    <ClCompile Include="source\parser-uint64.cpp" />
+    <ClCompile Include="source\parser.cpp" />
+    <ClCompile Include="source\program-builder.cpp" />
+    <ClCompile Include="source\program.cpp" />
+    <ClCompile Include="source\relocation-data.cpp" />
+    <ClCompile Include="source\sse-compare.cpp" />
+    <ClCompile Include="source\sse-instruction.cpp" />
+    <ClCompile Include="source\sse-sign-mask.cpp" />
+    <ClCompile Include="source\symbol-ref.cpp" />
+    <ClCompile Include="source\symbol.cpp" />
+    <ClCompile Include="source\x86-add-variant.cpp" />
+    <ClCompile Include="source\x86-alu-ascii.cpp" />
+    <ClCompile Include="source\x86-alu-bswap.cpp" />
+    <ClCompile Include="source\x86-alu-cmov.cpp" />
+    <ClCompile Include="source\x86-alu-div.cpp" />
+    <ClCompile Include="source\x86-alu-incr.cpp" />
+    <ClCompile Include="source\x86-alu-setcc.cpp" />
+    <ClCompile Include="source\x86-alu-shift.cpp" />
+    <ClCompile Include="source\x86-alu-xchg.cpp" />
+    <ClCompile Include="source\x86-bit-scan.cpp" />
+    <ClCompile Include="source\x86-bit-test.cpp" />
+    <ClCompile Include="source\x86-call.cpp" />
+    <ClCompile Include="source\x86-cbw-variant.cpp" />
+    <ClCompile Include="source\x86-cond-jump.cpp" />
+    <ClCompile Include="source\x86-cpu-mode.cpp" />
+    <ClCompile Include="source\x86-fence.cpp" />
+    <ClCompile Include="source\x86-immediate-op.cpp" />
+    <ClCompile Include="source\x86-instruction.cpp" />
+    <ClCompile Include="source\x86-memory-op.cpp" />
+    <ClCompile Include="source\x86-modrm.cpp" />
+    <ClCompile Include="source\x86-move.cpp" />
+    <ClCompile Include="source\x86-opcode-map.cpp" />
+    <ClCompile Include="source\x86-opcodes-alu.cpp" />
+    <ClCompile Include="source\x86-opcodes-avx.cpp" />
+    <ClCompile Include="source\x86-opcodes-avx2.cpp" />
+    <ClCompile Include="source\x86-opcodes-sse.cpp" />
+    <ClCompile Include="source\x86-opcodes-sse2.cpp" />
+    <ClCompile Include="source\x86-opcodes-sse3.cpp" />
+    <ClCompile Include="source\x86-opcodes-sse41.cpp" />
+    <ClCompile Include="source\x86-operand.cpp" />
+    <ClCompile Include="source\x86-register-map.cpp" />
+    <ClCompile Include="source\x86-register-op.cpp" />
+    <ClCompile Include="source\x86-regs-alu.cpp" />
+    <ClCompile Include="source\x86-regs-simd.cpp" />
+    <ClCompile Include="source\x86-return.cpp" />
+    <ClCompile Include="source\x86-rex-byte.cpp" />
+    <ClCompile Include="source\x86-sib.cpp" />
+    <ClCompile Include="source\x86-simple-instruction.cpp" />
+    <ClCompile Include="source\x86-two-form-alu.cpp" />
+    <ClCompile Include="source\x86-vex-prefix.cpp" />
+    <ClCompile Include="source\x86-wide-shift.cpp" />
+    <ClCompile Include="source\x86-xsave.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\assembler.h" />
+    <ClInclude Include="include\basic-block.h" />
+    <ClInclude Include="include\build-params.h" />
+    <ClInclude Include="include\builder-options.h" />
+    <ClInclude Include="include\ceng\datatypes.h" />
+    <ClInclude Include="include\ceng\datatypes\abstract-data.h" />
+    <ClInclude Include="include\ceng\datatypes\aligned-buffer.h" />
+    <ClInclude Include="include\ceng\datatypes\array-atomic.h" />
+    <ClInclude Include="include\ceng\datatypes\base-ptr.h" />
+    <ClInclude Include="include\ceng\datatypes\basic-types.h" />
+    <ClInclude Include="include\ceng\datatypes\blend-state-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\boolean.h" />
+    <ClInclude Include="include\ceng\datatypes\bufferdata-2d.h" />
+    <ClInclude Include="include\ceng\datatypes\ce-string.h" />
+    <ClInclude Include="include\ceng\datatypes\color-format.h" />
+    <ClInclude Include="include\ceng\datatypes\condition-variable.h" />
+    <ClInclude Include="include\ceng\datatypes\cpu-info.h" />
+    <ClInclude Include="include\ceng\datatypes\critical-section.h" />
+    <ClInclude Include="include\ceng\datatypes\deleted-shared-ptr.h" />
+    <ClInclude Include="include\ceng\datatypes\fixedpoint32.h" />
+    <ClInclude Include="include\ceng\datatypes\float16.h" />
+    <ClInclude Include="include\ceng\datatypes\future.h" />
+    <ClInclude Include="include\ceng\datatypes\graphics-adapter-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\keyboard.h" />
+    <ClInclude Include="include\ceng\datatypes\leaf-vector.h" />
+    <ClInclude Include="include\ceng\datatypes\local-ptr.h" />
+    <ClInclude Include="include\ceng\datatypes\managed-ptr.h" />
+    <ClInclude Include="include\ceng\datatypes\multisample-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\mutex.h" />
+    <ClInclude Include="include\ceng\datatypes\platform\vstudio-win32.h" />
+    <ClInclude Include="include\ceng\datatypes\promise.h" />
+    <ClInclude Include="include\ceng\datatypes\rectangle.h" />
+    <ClInclude Include="include\ceng\datatypes\release-deleter.h" />
+    <ClInclude Include="include\ceng\datatypes\render-target-view-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\return-val.h" />
+    <ClInclude Include="include\ceng\datatypes\ring-buffer.h" />
+    <ClInclude Include="include\ceng\datatypes\sampler-state-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex1d.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex2d-multi.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex2d.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-array.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-buffer.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-cubemap.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex1d.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex2d-multi.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex2d.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex3d.h" />
+    <ClInclude Include="include\ceng\datatypes\shader-resource-view-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\sliding-window.h" />
+    <ClInclude Include="include\ceng\datatypes\string-manipulator.h" />
+    <ClInclude Include="include\ceng\datatypes\strings\buffer-ref.h" />
+    <ClInclude Include="include\ceng\datatypes\strings\character-ref.h" />
+    <ClInclude Include="include\ceng\datatypes\strings\character.h" />
+    <ClInclude Include="include\ceng\datatypes\strings\iterator.h" />
+    <ClInclude Include="include\ceng\datatypes\sub-resource-data.h" />
+    <ClInclude Include="include\ceng\datatypes\swap-chain-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\system-info.h" />
+    <ClInclude Include="include\ceng\datatypes\temp-ptr.h" />
+    <ClInclude Include="include\ceng\datatypes\tex2d-desc-gl.h" />
+    <ClInclude Include="include\ceng\datatypes\tex2d-desc.h" />
+    <ClInclude Include="include\ceng\datatypes\thread.h" />
+    <ClInclude Include="include\ceng\datatypes\window.h" />
+    <ClInclude Include="include\ceng\platform.h" />
+    <ClInclude Include="include\code-element.h" />
+    <ClInclude Include="include\code-label.h" />
+    <ClInclude Include="include\code-line.h" />
+    <ClInclude Include="include\condition-jump.h" />
+    <ClInclude Include="include\data-item.h" />
+    <ClInclude Include="include\encode-data.h" />
+    <ClInclude Include="include\enums\address-size.h" />
+    <ClInclude Include="include\enums\condition-codes.h" />
+    <ClInclude Include="include\enums\reference-type.h" />
+    <ClInclude Include="include\enums\x86-cpu-modes.h" />
+    <ClInclude Include="include\enums\x86-instruction-sets.h" />
+    <ClInclude Include="include\enums\x86-opcode-escape.h" />
+    <ClInclude Include="include\enums\x86-operand-place.h" />
+    <ClInclude Include="include\enums\x86-operand-sizes.h" />
+    <ClInclude Include="include\enums\x86-operand-types.h" />
+    <ClInclude Include="include\enums\x86-param-list.h" />
+    <ClInclude Include="include\enums\x86-prefix-bytes.h" />
+    <ClInclude Include="include\enums\x86-priviledge-levels.h" />
+    <ClInclude Include="include\enums\x86-register-types.h" />
+    <ClInclude Include="include\enums\x86-simd-encoding.h" />
+    <ClInclude Include="include\enums\x86-vex-w.h" />
+    <ClInclude Include="include\executable.h" />
+    <ClInclude Include="include\function-builder.h" />
+    <ClInclude Include="include\initializer.h" />
+    <ClInclude Include="include\keyword-array.h" />
+    <ClInclude Include="include\keyword-group.h" />
+    <ClInclude Include="include\keyword-hash.h" />
+    <ClInclude Include="include\keyword-map.h" />
+    <ClInclude Include="include\linker.h" />
+    <ClInclude Include="include\obj-function.h" />
+    <ClInclude Include="include\object-code.h" />
+    <ClInclude Include="include\opcode-prefix.h" />
+    <ClInclude Include="include\parser-c-function.h" />
+    <ClInclude Include="include\parser-c-global.h" />
+    <ClInclude Include="include\parser-comma.h" />
+    <ClInclude Include="include\parser-context.h" />
+    <ClInclude Include="include\parser-endline.h" />
+    <ClInclude Include="include\parser-float.h" />
+    <ClInclude Include="include\parser-group.h" />
+    <ClInclude Include="include\parser-instruction.h" />
+    <ClInclude Include="include\parser-int64.h" />
+    <ClInclude Include="include\parser-literal.h" />
+    <ClInclude Include="include\parser-memory.h" />
+    <ClInclude Include="include\parser-name.h" />
+    <ClInclude Include="include\parser-op-add.h" />
+    <ClInclude Include="include\parser-op-bracket.h" />
+    <ClInclude Include="include\parser-op-div.h" />
+    <ClInclude Include="include\parser-op-func.h" />
+    <ClInclude Include="include\parser-op-mul.h" />
+    <ClInclude Include="include\parser-op-size.h" />
+    <ClInclude Include="include\parser-op-sub.h" />
+    <ClInclude Include="include\parser-opcode.h" />
+    <ClInclude Include="include\parser-operand.h" />
+    <ClInclude Include="include\parser-operator.h" />
+    <ClInclude Include="include\parser-register.h" />
+    <ClInclude Include="include\parser-state.h" />
+    <ClInclude Include="include\parser-token.h" />
+    <ClInclude Include="include\parser-uint64.h" />
+    <ClInclude Include="include\parser-variable.h" />
+    <ClInclude Include="include\parser.h" />
+    <ClInclude Include="include\program-builder.h" />
+    <ClInclude Include="include\program.h" />
+    <ClInclude Include="include\relocation-data.h" />
+    <ClInclude Include="include\sse-compare.h" />
+    <ClInclude Include="include\sse-instruction.h" />
+    <ClInclude Include="include\sse-sign-mask.h" />
+    <ClInclude Include="include\symbol-ref.h" />
+    <ClInclude Include="include\symbol.h" />
+    <ClInclude Include="include\x86-add-variant.h" />
+    <ClInclude Include="include\x86-alu-ascii.h" />
+    <ClInclude Include="include\x86-alu-bswap.h" />
+    <ClInclude Include="include\x86-alu-cmov.h" />
+    <ClInclude Include="include\x86-alu-div.h" />
+    <ClInclude Include="include\x86-alu-incr.h" />
+    <ClInclude Include="include\x86-alu-setcc.h" />
+    <ClInclude Include="include\x86-alu-shift.h" />
+    <ClInclude Include="include\x86-alu-xchg.h" />
+    <ClInclude Include="include\x86-bit-scan.h" />
+    <ClInclude Include="include\x86-bit-test.h" />
+    <ClInclude Include="include\x86-call.h" />
+    <ClInclude Include="include\x86-cbw-variant.h" />
+    <ClInclude Include="include\x86-cond-jump.h" />
+    <ClInclude Include="include\x86-cpu-mode.h" />
+    <ClInclude Include="include\x86-enums.h" />
+    <ClInclude Include="include\x86-fence.h" />
+    <ClInclude Include="include\x86-immediate-op.h" />
+    <ClInclude Include="include\x86-instruction.h" />
+    <ClInclude Include="include\x86-int-simd.h" />
+    <ClInclude Include="include\x86-memory-op.h" />
+    <ClInclude Include="include\x86-modrm.h" />
+    <ClInclude Include="include\x86-move.h" />
+    <ClInclude Include="include\x86-opcode-map.h" />
+    <ClInclude Include="include\x86-opcodes-alu.h" />
+    <ClInclude Include="include\x86-opcodes-avx.h" />
+    <ClInclude Include="include\x86-opcodes-avx2.h" />
+    <ClInclude Include="include\x86-opcodes-sse.h" />
+    <ClInclude Include="include\x86-opcodes-sse2.h" />
+    <ClInclude Include="include\x86-opcodes-sse3.h" />
+    <ClInclude Include="include\x86-opcodes-sse41.h" />
+    <ClInclude Include="include\x86-operand.h" />
+    <ClInclude Include="include\x86-register-map.h" />
+    <ClInclude Include="include\x86-register-op.h" />
+    <ClInclude Include="include\x86-regs-alu-adr.h" />
+    <ClInclude Include="include\x86-regs-alu-cl.h" />
+    <ClInclude Include="include\x86-regs-alu.h" />
+    <ClInclude Include="include\x86-regs-simd.h" />
+    <ClInclude Include="include\x86-return.h" />
+    <ClInclude Include="include\x86-rex-byte.h" />
+    <ClInclude Include="include\x86-sib.h" />
+    <ClInclude Include="include\x86-simple-instruction.h" />
+    <ClInclude Include="include\x86-two-form-alu.h" />
+    <ClInclude Include="include\x86-vex-prefix.h" />
+    <ClInclude Include="include\x86-wide-shift.h" />
+    <ClInclude Include="include\x86-xsave.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,819 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\enums">
+      <UniqueIdentifier>{80c3f4b0-74ba-45d6-a736-6339288e7f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ceng">
+      <UniqueIdentifier>{1683ebfa-9d60-43b1-970c-439165ac1269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ceng\datatypes">
+      <UniqueIdentifier>{8884d340-0695-4724-96b0-9ed2315f11d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ceng\datatypes\platform">
+      <UniqueIdentifier>{862ba8ec-0ec9-4e1d-bafe-1238726d341b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ceng\datatypes\strings">
+      <UniqueIdentifier>{b0aff4ce-f59b-4e1a-97ba-16b61f563b3b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\assembler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\basic-block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\code-element.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\code-generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\code-label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\condition-jump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\encode-data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\executable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\function-builder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\keyword-group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\linker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\obj-function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\opcode-prefix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-c-function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-float.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-int64.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-name.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-add.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-bracket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-opcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-div.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-operator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-func.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-mul.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-size.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-op-sub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-register.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\parser-uint64.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\program-builder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\relocation-data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sse-compare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sse-instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sse-sign-mask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\symbol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\symbol-ref.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-add-variant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-ascii.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-bswap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-cmov.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-div.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-incr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-setcc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-shift.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-alu-xchg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-bit-scan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-bit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-call.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-cbw-variant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-cond-jump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-cpu-mode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-fence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-immediate-op.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-memory-op.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-modrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcode-map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-alu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-avx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-avx2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-sse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-sse2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-sse3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-opcodes-sse41.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-operand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-register-map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-register-op.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-regs-alu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-regs-simd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-return.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-rex-byte.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-sib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-simple-instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-two-form-alu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-vex-prefix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-wide-shift.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\x86-xsave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asm-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\assembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\basic-block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\builder-options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\build-params.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\code-element.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\code-label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\code-line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\condition-jump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\data-item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\encode-data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\executable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\function-builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\initializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\keyword-array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\keyword-group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\keyword-hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\keyword-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\linker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object-code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\obj-function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opcode-prefix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-c-function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-c-global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-comma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-endline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-float.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-int64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-literal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-name.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-add.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-bracket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-opcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-div.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-operand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-operator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-func.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-mul.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-size.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-op-sub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-register.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-uint64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\parser-variable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\program.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\program-builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\relocation-data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sse-compare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sse-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sse-sign-mask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\symbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\symbol-ref.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-add-variant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-ascii.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-bswap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-cmov.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-div.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-incr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-setcc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-shift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-alu-xchg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-bit-scan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-bit-test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-call.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-cbw-variant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-cond-jump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-cpu-mode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-fence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-immediate-op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-int-simd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-memory-op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-modrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcode-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-alu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-avx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-avx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-sse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-sse2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-sse3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-opcodes-sse41.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-operand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-register-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-register-op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-regs-alu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-regs-alu-adr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-regs-alu-cl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-regs-simd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-return.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-rex-byte.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-sib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-simple-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-two-form-alu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-vex-prefix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-wide-shift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\x86-xsave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\address-size.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\condition-codes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\reference-type.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-cpu-modes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-instruction-sets.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-opcode-escape.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-operand-place.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-operand-sizes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-operand-types.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-param-list.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-prefix-bytes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-priviledge-levels.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-register-types.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-simd-encoding.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enums\x86-vex-w.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes.h">
+      <Filter>Header Files\ceng</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\platform.h">
+      <Filter>Header Files\ceng</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\abstract-data.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\aligned-buffer.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\array-atomic.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\base-ptr.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\basic-types.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\blend-state-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\boolean.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\bufferdata-2d.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\ce-string.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\color-format.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\condition-variable.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\cpu-info.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\critical-section.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\deleted-shared-ptr.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\fixedpoint32.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\float16.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\future.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\graphics-adapter-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\keyboard.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\leaf-vector.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\local-ptr.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\managed-ptr.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\multisample-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\mutex.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\promise.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\rectangle.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\release-deleter.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\render-target-view-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\return-val.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\ring-buffer.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\sampler-state-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-array.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex1d.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex2d.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex2d-multi.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-buffer.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-cubemap.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-resource-view-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex1d.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex2d.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex2d-multi.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\shader-res-tex3d.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\sliding-window.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\string-manipulator.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\sub-resource-data.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\swap-chain-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\system-info.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\temp-ptr.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\tex2d-desc.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\tex2d-desc-gl.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\thread.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\window.h">
+      <Filter>Header Files\ceng\datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\platform\vstudio-win32.h">
+      <Filter>Header Files\ceng\datatypes\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\strings\buffer-ref.h">
+      <Filter>Header Files\ceng\datatypes\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\strings\character.h">
+      <Filter>Header Files\ceng\datatypes\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\strings\character-ref.h">
+      <Filter>Header Files\ceng\datatypes\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ceng\datatypes\strings\iterator.h">
+      <Filter>Header Files\ceng\datatypes\strings</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

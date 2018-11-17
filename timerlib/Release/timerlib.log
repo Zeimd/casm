@@ -1,0 +1,5 @@
+﻿  timerlib.CPP
+timerlib.CPP(17): warning C4244: '=': conversion from 'LONGLONG' to 'double', possible loss of data
+timerlib.CPP(18): warning C4244: '=': conversion from 'LONGLONG' to 'double', possible loss of data
+  timerlib.vcxproj -> C:\Projektit\Concept Engine\\lib\Release\timerlib.lib
+          1 file(s) copied.
