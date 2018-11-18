@@ -53,7 +53,7 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 
 	// Segment override or branch hint
 
-	if (optionPrefix & PREFIX_BYTE::CS_OVERRIDE)
+	if ( (optionPrefix & PREFIX_BYTE::CS_OVERRIDE) || (optionPrefix & PREFIX_BYTE::BRANCH_NOT_TAKEN) )
 	{
 		destBuffer.push_back(0x2e);
 	}
@@ -63,7 +63,7 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 		destBuffer.push_back(0x36);
 	}
 
-	if (optionPrefix & PREFIX_BYTE::DS_OVERRIDE)
+	if ( (optionPrefix & PREFIX_BYTE::DS_OVERRIDE) || (optionPrefix & PREFIX_BYTE::BRANCH_TAKEN) )
 	{
 		destBuffer.push_back(0x3e);
 	}
@@ -81,16 +81,6 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 	if (optionPrefix & PREFIX_BYTE::GS_OVERRIDE)
 	{
 		destBuffer.push_back(0x65);
-	}
-
-	if (optionPrefix & PREFIX_BYTE::BRANCH_NOT_TAKEN)
-	{
-		destBuffer.push_back(0x2e);
-	}
-
-	if (optionPrefix & PREFIX_BYTE::BRANCH_TAKEN)
-	{
-		destBuffer.push_back(0x3e);
 	}
 
 	// Operand size override
@@ -115,13 +105,22 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 		switch(opcodePrefix)
 		{
 		case PREFIX_BYTE::BYTE_66:
-			destBuffer.push_back(0x66);
+			if (!(optionPrefix & PREFIX_BYTE::OPERAND_SIZE))
+			{
+				destBuffer.push_back(0x66);
+			}
 			break;
 		case PREFIX_BYTE::BYTE_F2:
-			destBuffer.push_back(0xf2);
+			if (!(optionPrefix & PREFIX_BYTE::REPEAT_NOT_ZERO) )
+			{
+				destBuffer.push_back(0xf2);
+				}
 			break;
 		case PREFIX_BYTE::BYTE_F3:
-			destBuffer.push_back(0xf3);
+			if (!(optionPrefix & PREFIX_BYTE::REPEAT) )
+			{
+				destBuffer.push_back(0xf3);
+			}
 			break;
 		}
 
