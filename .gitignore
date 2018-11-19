@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Backup files
+*.vpp.bak*
+
+# Visual Studio databases
+*.VC.db
