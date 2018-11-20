@@ -36,3 +36,4 @@
 
 # Visual Studio databases
 *.VC.db
+*.suo
