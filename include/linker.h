@@ -9,9 +9,9 @@
 #ifndef X86_LINKER_H
 #define X86_LINKER_H
 
-#include <datatypes/basic-types.h>
-#include <datatypes/return-val.h>
-#include <datatypes/ce-string.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/return-val.h>
+#include <ceng/datatypes/ce-string.h>
 
 namespace X86
 {

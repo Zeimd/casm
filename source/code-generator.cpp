@@ -6,8 +6,12 @@
 *
 ******************************************************************************/
 
-#include "../include/code-generator.h"
+// TODO: is this file obsolete?
 
+
+//#include "../include/code-generator.h"
+
+/*
 using namespace X86;
 
 Ceng::CRESULT CodeGenerator::Create(const AssemblerState &state,CodeGenerator **output)
@@ -393,3 +397,5 @@ const Ceng::INT32 CodeGenerator::EncodeOperands_RegMem(Ceng::UINT8 *destBuffer,c
 
 	return length;
 }
+
+*/

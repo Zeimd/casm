@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,32 +22,32 @@
     <ProjectGuid>{4F0864E5-33AC-4E86-8CA9-B09889E3E55C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>asmtest</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -71,13 +71,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include\;$(SolutionDir)\include\ceng;$(SolutionDir)\timerlib\;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include\;$(SolutionDir)\..\ceng-core\inc\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)\..\ceng-core\lib\win32\Debug\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\..\ceng-core\inc</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(SolutionDir)\..\ceng-core\lib\win32\Release</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,6 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);timerlib.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -233,65 +237,6 @@
     <ClInclude Include="include\basic-block.h" />
     <ClInclude Include="include\build-params.h" />
     <ClInclude Include="include\builder-options.h" />
-    <ClInclude Include="include\ceng\datatypes.h" />
-    <ClInclude Include="include\ceng\datatypes\abstract-data.h" />
-    <ClInclude Include="include\ceng\datatypes\aligned-buffer.h" />
-    <ClInclude Include="include\ceng\datatypes\array-atomic.h" />
-    <ClInclude Include="include\ceng\datatypes\base-ptr.h" />
-    <ClInclude Include="include\ceng\datatypes\basic-types.h" />
-    <ClInclude Include="include\ceng\datatypes\blend-state-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\boolean.h" />
-    <ClInclude Include="include\ceng\datatypes\bufferdata-2d.h" />
-    <ClInclude Include="include\ceng\datatypes\ce-string.h" />
-    <ClInclude Include="include\ceng\datatypes\color-format.h" />
-    <ClInclude Include="include\ceng\datatypes\condition-variable.h" />
-    <ClInclude Include="include\ceng\datatypes\cpu-info.h" />
-    <ClInclude Include="include\ceng\datatypes\critical-section.h" />
-    <ClInclude Include="include\ceng\datatypes\deleted-shared-ptr.h" />
-    <ClInclude Include="include\ceng\datatypes\fixedpoint32.h" />
-    <ClInclude Include="include\ceng\datatypes\float16.h" />
-    <ClInclude Include="include\ceng\datatypes\future.h" />
-    <ClInclude Include="include\ceng\datatypes\graphics-adapter-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\keyboard.h" />
-    <ClInclude Include="include\ceng\datatypes\leaf-vector.h" />
-    <ClInclude Include="include\ceng\datatypes\local-ptr.h" />
-    <ClInclude Include="include\ceng\datatypes\managed-ptr.h" />
-    <ClInclude Include="include\ceng\datatypes\multisample-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\mutex.h" />
-    <ClInclude Include="include\ceng\datatypes\platform\vstudio-win32.h" />
-    <ClInclude Include="include\ceng\datatypes\promise.h" />
-    <ClInclude Include="include\ceng\datatypes\rectangle.h" />
-    <ClInclude Include="include\ceng\datatypes\release-deleter.h" />
-    <ClInclude Include="include\ceng\datatypes\render-target-view-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\return-val.h" />
-    <ClInclude Include="include\ceng\datatypes\ring-buffer.h" />
-    <ClInclude Include="include\ceng\datatypes\sampler-state-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex1d.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex2d-multi.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-array-tex2d.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-array.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-buffer.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-cubemap.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-tex1d.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-tex2d-multi.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-tex2d.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-res-tex3d.h" />
-    <ClInclude Include="include\ceng\datatypes\shader-resource-view-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\sliding-window.h" />
-    <ClInclude Include="include\ceng\datatypes\string-manipulator.h" />
-    <ClInclude Include="include\ceng\datatypes\strings\buffer-ref.h" />
-    <ClInclude Include="include\ceng\datatypes\strings\character-ref.h" />
-    <ClInclude Include="include\ceng\datatypes\strings\character.h" />
-    <ClInclude Include="include\ceng\datatypes\strings\iterator.h" />
-    <ClInclude Include="include\ceng\datatypes\sub-resource-data.h" />
-    <ClInclude Include="include\ceng\datatypes\swap-chain-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\system-info.h" />
-    <ClInclude Include="include\ceng\datatypes\temp-ptr.h" />
-    <ClInclude Include="include\ceng\datatypes\tex2d-desc-gl.h" />
-    <ClInclude Include="include\ceng\datatypes\tex2d-desc.h" />
-    <ClInclude Include="include\ceng\datatypes\thread.h" />
-    <ClInclude Include="include\ceng\datatypes\window.h" />
-    <ClInclude Include="include\ceng\platform.h" />
     <ClInclude Include="include\code-element.h" />
     <ClInclude Include="include\code-label.h" />
     <ClInclude Include="include\code-line.h" />

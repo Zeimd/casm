@@ -9,7 +9,7 @@
 #ifndef CASM_BUILDER_OPTIONS_H
 #define CASM_BUILDER_OPTIONS_H
 
-#include <datatypes/boolean.h>
+#include <ceng/datatypes/boolean.h>
 
 namespace Casm
 {

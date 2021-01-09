@@ -16,7 +16,7 @@
 #include "../include/x86-immediate-op.h"
 #include "../include/x86-memory-op.h"
 
-#include <datatypes/string-manipulator.h>
+#include <ceng/datatypes/string-manipulator.h>
 
 #include "../include/parser-float.h"
 #include "../include/parser-uint64.h"

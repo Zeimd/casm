@@ -20,7 +20,7 @@
 
 #include "enums/x86-param-list.h"
 
-#include <datatypes/boolean.h>
+#include <ceng/datatypes/boolean.h>
 
 namespace X86
 {

@@ -31,11 +31,11 @@
 
 #include "include/linker.h"
 
-#include <datatypes/basic-types.h>
-#include <datatypes/boolean.h>
-#include <datatypes/string-manipulator.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/boolean.h>
+#include <ceng/datatypes/string-manipulator.h>
 
-#include <lib/liblog.h>
+#include <ceng/lib/liblog.h>
 
 
 using namespace Ceng;

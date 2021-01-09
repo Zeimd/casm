@@ -11,8 +11,8 @@
 
 #include <vector>
 
-#include <datatypes/basic-types.h>
-#include <datatypes/return-val.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/return-val.h>
 
 #include "enums/x86-prefix-bytes.h"
 

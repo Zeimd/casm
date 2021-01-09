@@ -9,8 +9,8 @@
 #ifndef X86_RELOCATION_DATA_H
 #define X86_RELOCATION_DATA_H
 
-#include <datatypes/basic-types.h>
-#include <datatypes/return-val.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/return-val.h>
 
 #include "enums/reference-type.h"
 #include "enums/x86-operand-sizes.h"

@@ -13,7 +13,7 @@
 
 #include "enums/x86-operand-sizes.h"
 
-#include <datatypes/boolean.h>
+#include <ceng/datatypes/boolean.h>
 
 namespace X86
 {

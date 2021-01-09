@@ -9,10 +9,10 @@
 #ifndef X86_SYMBOL_H
 #define X86_SYMBOL_H
 
-#include <datatypes/basic-types.h>
-#include <datatypes/boolean.h>
-#include <datatypes/ce-string.h>
-#include <datatypes/temp-ptr.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/boolean.h>
+#include <ceng/datatypes/ce-string.h>
+#include <ceng/datatypes/temp-ptr.h>
 
 namespace X86
 {

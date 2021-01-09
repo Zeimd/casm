@@ -9,8 +9,8 @@
 #ifndef X86_EXECUTABLE_H
 #define X86_EXECUTABLE_H
 
-#include <datatypes/basic-types.h>
-#include <datatypes/aligned-buffer.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/aligned-buffer.h>
 
 namespace X86
 {

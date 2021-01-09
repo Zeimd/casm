@@ -22,7 +22,7 @@
 
 #include "../include/keyword-hash.h"
 
-#include <lib/liblog.h>
+#include <ceng/lib/liblog.h>
 
 using namespace X86;
 

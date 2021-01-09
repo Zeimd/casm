@@ -9,8 +9,8 @@
 #ifndef X86_INSTRUCTION_H
 #define X86_INSTRUCTION_H
 
-#include <datatypes/basic-types.h>
-#include <datatypes/return-val.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/return-val.h>
 
 #include <vector>
 

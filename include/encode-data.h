@@ -9,7 +9,7 @@
 #ifndef X86_ENCODE_DATA_H
 #define X86_ENCODE_DATA_H
 
-#include <datatypes/basic-types.h>
+#include <ceng/datatypes/basic-types.h>
 
 #include "enums/x86-operand-place.h"
 #include "enums/x86-operand-sizes.h"

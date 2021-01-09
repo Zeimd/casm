@@ -13,8 +13,8 @@
 #include "symbol-ref.h"
 #include "relocation-data.h"
 
-#include <datatypes/basic-types.h>
-#include <datatypes/return-val.h>
+#include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/return-val.h>
 #include <memory>
 
 namespace X86

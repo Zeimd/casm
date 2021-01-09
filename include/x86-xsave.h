@@ -11,7 +11,7 @@
 
 #include "x86-instruction.h"
 
-#include <datatypes/boolean.h>
+#include <ceng/datatypes/boolean.h>
 
 namespace X86
 {

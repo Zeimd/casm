@@ -9,7 +9,7 @@
 #ifndef CASM_PARSER_GROUP_H
 #define CASM_PARSER_GROUP_H
 
-#include <datatypes/return-val.h>
+#include <ceng/datatypes/return-val.h>
 
 #include "parser-operand.h"
 

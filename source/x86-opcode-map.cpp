@@ -19,7 +19,7 @@
 
 #include "../include/parser-opcode.h"
 
-#include <timerlib.h>
+#include <ceng/lib/timerlib.h>
 
 using namespace X86;
 
@@ -75,7 +75,7 @@ std::shared_ptr<OpcodeMap> OpcodeMap::GetInstance()
 
 void OpcodeMap::BuildMap()
 {
-	Ceng::FLOAT64 start = Timer();
+	Ceng::FLOAT64 start = Ceng_HighPrecisionTimer();
 
 	//*****************************************************
 	// Subroutines
@@ -904,7 +904,7 @@ void OpcodeMap::BuildMap()
 	//*************************************************
 	// Timing
 
-	Ceng::FLOAT64 time = Timer() - start;
+	Ceng::FLOAT64 time = Ceng_HighPrecisionTimer() - start;
 
 	Ceng::FileLog tempLog;
 
