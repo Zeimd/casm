@@ -1,2 +1,13 @@
-# asm-test
-x86 assembler intended to be used for dynamic code creation.
+Concept Assembler
+-------------------------------------
+
+intended to be used for JIT code generation.
+
+asm-test:
+
+    test app
+
+casm:
+
+    dynamic library
+
