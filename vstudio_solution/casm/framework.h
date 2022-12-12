@@ -4,9 +4,4 @@
 // Windows Header Files
 #include <windows.h>
 
-
-#ifdef CASM_DLL_EXPORT
-#define CASM_DLL_API __declspec(dllexport)
-#else
-#define CASM_DLL_API __declspec(dllimport)
-#endif
+#include "dllexport.h"

@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="dllexport.h" />
     <ClInclude Include="framework.h" />
   </ItemGroup>
   <ItemGroup>
