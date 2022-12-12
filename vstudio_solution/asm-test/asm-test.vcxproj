@@ -20,6 +20,209 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\asm-test\asm-test.cpp" />
+    <ClCompile Include="..\..\asm-test\source\assembler.cpp" />
+    <ClCompile Include="..\..\asm-test\source\basic-block.cpp" />
+    <ClCompile Include="..\..\asm-test\source\code-element.cpp" />
+    <ClCompile Include="..\..\asm-test\source\code-generator.cpp" />
+    <ClCompile Include="..\..\asm-test\source\code-label.cpp" />
+    <ClCompile Include="..\..\asm-test\source\condition-jump.cpp" />
+    <ClCompile Include="..\..\asm-test\source\encode-data.cpp" />
+    <ClCompile Include="..\..\asm-test\source\executable.cpp" />
+    <ClCompile Include="..\..\asm-test\source\function-builder.cpp" />
+    <ClCompile Include="..\..\asm-test\source\keyword-group.cpp" />
+    <ClCompile Include="..\..\asm-test\source\linker.cpp" />
+    <ClCompile Include="..\..\asm-test\source\obj-function.cpp" />
+    <ClCompile Include="..\..\asm-test\source\opcode-prefix.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-c-function.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-context.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-float.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-group.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-int64.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-memory.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-name.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-add.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-bracket.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-div.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-func.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-mul.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-size.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-op-sub.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-opcode.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-operator.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-register.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-state.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser-uint64.cpp" />
+    <ClCompile Include="..\..\asm-test\source\parser.cpp" />
+    <ClCompile Include="..\..\asm-test\source\program-builder.cpp" />
+    <ClCompile Include="..\..\asm-test\source\program.cpp" />
+    <ClCompile Include="..\..\asm-test\source\relocation-data.cpp" />
+    <ClCompile Include="..\..\asm-test\source\sse-compare.cpp" />
+    <ClCompile Include="..\..\asm-test\source\sse-instruction.cpp" />
+    <ClCompile Include="..\..\asm-test\source\sse-sign-mask.cpp" />
+    <ClCompile Include="..\..\asm-test\source\symbol-ref.cpp" />
+    <ClCompile Include="..\..\asm-test\source\symbol.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-add-variant.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-ascii.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-bswap.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-cmov.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-div.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-incr.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-setcc.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-shift.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-alu-xchg.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-bit-scan.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-bit-test.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-call.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-cbw-variant.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-cond-jump.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-cpu-mode.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-fence.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-immediate-op.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-instruction.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-memory-op.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-modrm.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-move.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcode-map.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-alu.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-avx.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-avx2.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse2.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse3.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse41.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-operand.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-register-map.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-register-op.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-regs-alu.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-regs-simd.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-return.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-rex-byte.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-sib.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-simple-instruction.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-two-form-alu.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-vex-prefix.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-wide-shift.cpp" />
+    <ClCompile Include="..\..\asm-test\source\x86-xsave.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\asm-test\include\assembler.h" />
+    <ClInclude Include="..\..\asm-test\include\basic-block.h" />
+    <ClInclude Include="..\..\asm-test\include\build-params.h" />
+    <ClInclude Include="..\..\asm-test\include\builder-options.h" />
+    <ClInclude Include="..\..\asm-test\include\code-element.h" />
+    <ClInclude Include="..\..\asm-test\include\code-label.h" />
+    <ClInclude Include="..\..\asm-test\include\code-line.h" />
+    <ClInclude Include="..\..\asm-test\include\condition-jump.h" />
+    <ClInclude Include="..\..\asm-test\include\data-item.h" />
+    <ClInclude Include="..\..\asm-test\include\encode-data.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\address-size.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\condition-codes.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\reference-type.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-cpu-modes.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-instruction-sets.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-opcode-escape.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-operand-place.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-operand-sizes.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-operand-types.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-param-list.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-prefix-bytes.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-priviledge-levels.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-register-types.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-simd-encoding.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-vex-w.h" />
+    <ClInclude Include="..\..\asm-test\include\executable.h" />
+    <ClInclude Include="..\..\asm-test\include\function-builder.h" />
+    <ClInclude Include="..\..\asm-test\include\initializer.h" />
+    <ClInclude Include="..\..\asm-test\include\keyword-array.h" />
+    <ClInclude Include="..\..\asm-test\include\keyword-group.h" />
+    <ClInclude Include="..\..\asm-test\include\keyword-hash.h" />
+    <ClInclude Include="..\..\asm-test\include\keyword-map.h" />
+    <ClInclude Include="..\..\asm-test\include\linker.h" />
+    <ClInclude Include="..\..\asm-test\include\obj-function.h" />
+    <ClInclude Include="..\..\asm-test\include\object-code.h" />
+    <ClInclude Include="..\..\asm-test\include\opcode-prefix.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-c-function.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-c-global.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-comma.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-context.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-endline.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-float.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-group.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-instruction.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-int64.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-literal.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-memory.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-name.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-add.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-bracket.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-div.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-func.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-mul.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-size.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-op-sub.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-opcode.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-operand.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-operator.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-register.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-state.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-token.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-uint64.h" />
+    <ClInclude Include="..\..\asm-test\include\parser-variable.h" />
+    <ClInclude Include="..\..\asm-test\include\parser.h" />
+    <ClInclude Include="..\..\asm-test\include\program-builder.h" />
+    <ClInclude Include="..\..\asm-test\include\program.h" />
+    <ClInclude Include="..\..\asm-test\include\relocation-data.h" />
+    <ClInclude Include="..\..\asm-test\include\sse-compare.h" />
+    <ClInclude Include="..\..\asm-test\include\sse-instruction.h" />
+    <ClInclude Include="..\..\asm-test\include\sse-sign-mask.h" />
+    <ClInclude Include="..\..\asm-test\include\symbol-ref.h" />
+    <ClInclude Include="..\..\asm-test\include\symbol.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-add-variant.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-ascii.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-bswap.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-cmov.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-div.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-incr.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-setcc.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-shift.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-alu-xchg.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-bit-scan.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-bit-test.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-call.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-cbw-variant.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-cond-jump.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-cpu-mode.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-enums.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-fence.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-immediate-op.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-instruction.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-int-simd.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-memory-op.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-modrm.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-move.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcode-map.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-alu.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-avx.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-avx2.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse2.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse3.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse41.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-operand.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-register-map.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-register-op.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-regs-alu-adr.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-regs-alu-cl.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-regs-alu.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-regs-simd.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-return.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-rex-byte.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-sib.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-simple-instruction.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-two-form-alu.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-vex-prefix.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-wide-shift.h" />
+    <ClInclude Include="..\..\asm-test\include\x86-xsave.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -33,14 +236,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -75,9 +278,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\..\..\ceng-core\inc\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\bin\$(Platform)\</OutDir>
+    <TargetName>$(ProjectName)-debug</TargetName>
+    <IncludePath>$(SolutionDir)\..\..\ceng-core\inc\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

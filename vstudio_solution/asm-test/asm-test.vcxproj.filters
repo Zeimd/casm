@@ -13,10 +13,621 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\casm">
+      <UniqueIdentifier>{c282f664-9ead-4eda-8b4d-e4f08fdbe51d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\enums">
+      <UniqueIdentifier>{8eaaaf88-6356-4d5e-8f6f-ce8490a40021}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\asm-test\asm-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\assembler.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\basic-block.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\code-element.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\code-generator.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\code-label.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\condition-jump.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\encode-data.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\executable.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\function-builder.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\keyword-group.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\linker.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\obj-function.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\opcode-prefix.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-c-function.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-context.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-float.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-group.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-int64.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-memory.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-name.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-add.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-bracket.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-opcode.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-div.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-operator.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-func.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-mul.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-size.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-op-sub.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-register.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-state.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\parser-uint64.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\program.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\program-builder.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\relocation-data.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\sse-compare.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\sse-instruction.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\sse-sign-mask.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\symbol.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\symbol-ref.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-add-variant.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-ascii.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-bswap.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-cmov.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-div.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-incr.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-setcc.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-shift.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-alu-xchg.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-bit-scan.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-bit-test.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-call.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-cbw-variant.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-cond-jump.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-cpu-mode.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-fence.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-immediate-op.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-instruction.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-memory-op.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-modrm.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-move.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcode-map.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-alu.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-avx.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-avx2.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse2.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse3.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-opcodes-sse41.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-operand.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-register-map.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-register-op.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-regs-alu.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-regs-simd.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-return.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-rex-byte.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-sib.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-simple-instruction.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-two-form-alu.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-vex-prefix.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-wide-shift.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\x86-xsave.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\asm-test\include\enums\address-size.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\condition-codes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\reference-type.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-cpu-modes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-instruction-sets.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-opcode-escape.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-operand-place.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-operand-sizes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-operand-types.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-param-list.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-prefix-bytes.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-priviledge-levels.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-register-types.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-simd-encoding.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-vex-w.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\assembler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\basic-block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\builder-options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\build-params.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\code-element.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\code-label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\code-line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\condition-jump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\data-item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\encode-data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\executable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\function-builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\initializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\keyword-array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\keyword-group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\keyword-hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\keyword-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\linker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\object-code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\obj-function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\opcode-prefix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-c-function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-c-global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-comma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-endline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-float.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-int64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-literal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-name.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-add.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-bracket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-opcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-div.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-operand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-operator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-func.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-mul.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-size.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-op-sub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-register.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-uint64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\parser-variable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\program.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\program-builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\relocation-data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\sse-compare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\sse-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\sse-sign-mask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\symbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\symbol-ref.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-add-variant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-ascii.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-bswap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-cmov.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-div.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-incr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-setcc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-shift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-alu-xchg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-bit-scan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-bit-test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-call.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-cbw-variant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-cond-jump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-cpu-mode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-fence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-immediate-op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-int-simd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-memory-op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-modrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcode-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-alu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-avx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-avx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-opcodes-sse41.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-operand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-register-map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-register-op.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-regs-alu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-regs-alu-adr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-regs-alu-cl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-regs-simd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-return.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-rex-byte.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-sib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-simple-instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-two-form-alu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-vex-prefix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-wide-shift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\x86-xsave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

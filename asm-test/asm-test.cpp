@@ -33,10 +33,9 @@
 
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/boolean.h>
-#include <ceng/datatypes/string-manipulator.h>
+//#include <ceng/datatypes/string-manipulator.h>
 
 #include <ceng/lib/liblog.h>
-
 
 using namespace Ceng;
 
@@ -142,10 +141,10 @@ int main()
 	//*************************************
 	// main()
 
-	X86::FunctionBuilder *mainFunc;
-	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&mainFunc);
+	//X86::FunctionBuilder *mainFunc;
+	//programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&mainFunc);
 
-	mainFunc->AddInstruction("mov ecx,[esp+4]");
+	//mainFunc->AddInstruction("mov ecx,[esp+4]");
 
 	// Integer test
 
@@ -155,7 +154,7 @@ int main()
 	
 	//mainFunc->AddInstruction("add eax,dword 4");
 
-	mainFunc->AddInstruction("add [ecx],dword 4");	
+	//mainFunc->AddInstruction("add [ecx],dword 4");	
 
 	// Float test
 
@@ -173,20 +172,18 @@ int main()
 	
 
 	// Return
-	mainFunc->AddInstruction("ret");
+	//mainFunc->AddInstruction("ret");
 
 	//*****************************************
 	// TestFunction
 	
-	/*
 	X86::FunctionBuilder *testFunc;
 	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"TestFunction",&testFunc);
 
-	testFunc->AddInstruction(X86::MOV,&X86::EAX,new X86::ImmediateOperand(12345));
+	//testFunc->AddInstruction(X86::MOV,&X86::EAX,new X86::ImmediateOperand(12345));
 
-	testFunc->AddInstruction(X86::RET_NEAR,new X86::ImmediateOperand(0));
-	*/
-
+	//testFunc->AddInstruction(X86::RET_NEAR,new X86::ImmediateOperand(0));
+	
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
 	{
