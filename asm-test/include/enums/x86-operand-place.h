@@ -15,37 +15,26 @@ namespace X86
 	{
 		enum value
 		{
-			/**
-			 * Register operand's index added to opcode field.
-			 */
+			// Register operand's index added to opcode field.
 			OPCODE = 1 ,
 
-			/**
-			 * Register operand to regField of mod-byte.
-			 */
+			// Register operand to regField of mod-byte.
 			REG_FIELD = 2 ,
 
-			/**
-			 * Register operand to rmField of mod-byte.
-			 * Memory operand in modRM (+sib).
-			 */
+			// Register operand to rmField of mod-byte.
+			// Memory operand in modRM (+sib).
 			RM_FIELD = 3 ,
 
-			/**
-			 * Register operand to VEX.vvvv.
-			 */
+			// Register operand to VEX.vvvv.
 			VEX_VVVV = 4 ,
 
-			/**
-			 * Register operand to immediate field.
-			 */
+			// Register operand to immediate field.
 			IMM = 5 ,
 
-			/**
-			 * Do not encode this operand.
-			 */
+			// Do not encode this operand.
 			NOT_USED = 6 ,
 
+			// Unused. Forces enumeration storage format to int32
 			FORCE_32B = 1 << 30 ,
 		};
 	}

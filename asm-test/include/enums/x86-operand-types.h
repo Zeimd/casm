@@ -15,11 +15,16 @@ namespace X86
 	{
 		enum value
 		{
+			// Register operand
 			REG = 1 ,
 			
+			// Register or memory operand
 			REG_MEM = 3 ,
 
+			// Memory operand
 			MEM = 2 ,
+
+			// Immediate operand
 			IMM = 4 ,
 
 			FORCE_32B = 1 << 30 ,
