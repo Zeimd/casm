@@ -21,6 +21,61 @@ namespace X86
 {
 	class BuildParams;
 
+	// VEX encoded legacy SIMD instruction opcode prefix
+	namespace VEX_PP
+	{
+		enum value
+		{
+			NONE = 0,
+			BYTE_66 = 1,
+			BYTE_F3 = 2,
+			BYTE_F2 = 3,
+
+			FORCE_32B = 1 << 30,
+		};
+	}
+
+	// For 3 byte VEX prefix: legacy SIMD instruction opcode escape
+	// NOTE: 2 byte VEX prefix has implicit 0x0F.
+	namespace VEX_M_MMMMM
+	{
+		enum value
+		{
+			BYTE_0F = 1,
+			BYTES_0F_38 = 2,
+			BYTES_0F_3A = 3,
+
+			FORCE_32B = 1 << 30,
+		};
+	}
+
+	namespace VEX_FORMAT
+	{
+		enum value
+		{
+			TWO_BYTE = 2,
+			THREE_BYTE = 3,
+
+			FORCE_32B = 1 << 30,
+		};
+	}
+
+	namespace VEX_VECTOR_SIZE
+	{
+		enum value
+		{
+			// 16 bytes, 128 bits
+			XMM = 0,
+
+			// 32 bytes, 256 bits
+			YMM = 1,
+
+			FORCE_32B = 1 << 30,
+		};
+	}
+
+
+
 	class VEX_Prefix
 	{
 	protected:
@@ -57,48 +112,11 @@ namespace X86
 
 	public:
 
-		// For 3 byte VEX prefix: legacy SIMD instruction opcode escape
-		// NOTE: 2 byte VEX prefix has implicit 0x0F.
-		enum VEX_M_MMMMM
-		{
-			BYTE_0F = 1,
-			BYTES_0F_38 = 2,
-			BYTES_0F_3A = 3,
-		};
 
-		// VEX encoded legacy SIMD instruction opcode prefix
-		enum VEX_PP
-		{
-			NONE = 0,
-			BYTE_66 = 1,
-			BYTE_F3 = 2,
-			BYTE_F2 = 3,
-
-			FORCE_32B = 1 << 30,
-		};
-
-		enum VEX_BYTES
-		{
-			TWO_BYTE = 2 ,
-			THREE_BYTE = 3 ,
-
-			FORCE_32B = 1 << 30,
-		};
-
-		enum VECTOR_SIZE
-		{
-			// 16 bytes, 128 bits
-			XMM = 0 ,
-
-			// 32 bytes, 256 bits
-			YMM = 1 ,
-
-			FORCE_32B = 1 << 30,
-		};
 
 		VEX_Prefix();
 		
-		VEX_Prefix(const VEX_BYTES bytes);
+		VEX_Prefix(const VEX_FORMAT::value bytes);
 
 		const Ceng::CRESULT Set_VVVV(const Ceng::INT32 index);
 
@@ -108,7 +126,7 @@ namespace X86
 		const Ceng::CRESULT SetIndexReg(const Ceng::INT32 index);
 		const Ceng::CRESULT SetBaseReg(const Ceng::INT32 index);
 
-		const Ceng::CRESULT SetVectorSize(const VECTOR_SIZE size);
+		const Ceng::CRESULT SetVectorSize(const VEX_VECTOR_SIZE::value size);
 		
 		const Ceng::CRESULT SetPrefixCode(const PREFIX_BYTE::value prefixCode);
 
@@ -116,7 +134,7 @@ namespace X86
 
 		const Ceng::CRESULT Encode(BuildParams *params,std::vector<Ceng::UINT8> &destBuffer) const;
 
-		void SetBytes(const VEX_BYTES bytes);
+		void SetFormat(const VEX_FORMAT::value bytes);
 
 	protected:
 

@@ -284,11 +284,11 @@ const Ceng::CRESULT SSE_Instruction::AVX_R_R_R(BuildParams *params,
 
 	// Operand size
 
-	VEX_Prefix::VECTOR_SIZE opSize = VEX_Prefix::XMM;
+	VEX_VECTOR_SIZE::value opSize = VEX_VECTOR_SIZE::XMM;
 
 	if (dest->Size() == OPERAND_SIZE::YMMWORD)
 	{
-		opSize = VEX_Prefix::YMM;
+		opSize = VEX_VECTOR_SIZE::YMM;
 	}
 
 	AVX_StandardOpcode3(params,encodeData,prefixByte,escapeCode,opcode_r_rm,
@@ -326,11 +326,11 @@ const Ceng::CRESULT SSE_Instruction::AVX_R_R_M(BuildParams *params,
 
 	// Operand size
 
-	VEX_Prefix::VECTOR_SIZE opSize = VEX_Prefix::XMM;
+	VEX_VECTOR_SIZE::value opSize = VEX_VECTOR_SIZE::XMM;
 
 	if (dest->Size() == OPERAND_SIZE::YMMWORD)
 	{
-		opSize = VEX_Prefix::YMM;
+		opSize = VEX_VECTOR_SIZE::YMM;
 	}
 
 	AVX_StandardOpcode3(params,encodeData,prefixByte,escapeCode,opcode_r_rm,
@@ -345,14 +345,14 @@ void SSE_Instruction::AVX_StandardOpcode3(BuildParams *params,EncodeData *encode
 										 const OPCODE_ESCAPE::value escapeCode,
 										 const Ceng::UINT8 opcode_r_rm,
 										 const VEX_W_FUNCTION::value wFunction,
-										 const VEX_Prefix::VECTOR_SIZE opSize) const
+										 const VEX_VECTOR_SIZE::value opSize) const
 {
 	encodeData->useVEX = true;
 
 	encodeData->escapeCode = escapeCode;
 	encodeData->opcode = opcode_r_rm;
 
-	encodeData->vex.SetBytes(VEX_Prefix::TWO_BYTE);
+	encodeData->vex.SetFormat(VEX_FORMAT::TWO_BYTE);
 
 	if (wFunction == VEX_W_FUNCTION::ONE)
 	{
@@ -394,11 +394,11 @@ const Ceng::CRESULT SSE_Instruction::AVX_R_R(BuildParams *params,EncodeData *enc
 
 	// Operand size
 
-	VEX_Prefix::VECTOR_SIZE opSize = VEX_Prefix::XMM;
+	VEX_VECTOR_SIZE::value opSize = VEX_VECTOR_SIZE::XMM;
 
 	if (dest->Size() == OPERAND_SIZE::YMMWORD)
 	{
-		opSize = VEX_Prefix::YMM;
+		opSize = VEX_VECTOR_SIZE::YMM;
 	}
 
 	AVX_StandardOpcode2(params,encodeData,prefixByte,escapeCode,opcode_r_rm,
@@ -429,11 +429,11 @@ const Ceng::CRESULT SSE_Instruction::AVX_R_M(BuildParams *params,EncodeData *enc
 
 	// Operand size
 
-	VEX_Prefix::VECTOR_SIZE opSize = VEX_Prefix::XMM;
+	VEX_VECTOR_SIZE::value opSize = VEX_VECTOR_SIZE::XMM;
 
 	if (dest->Size() == OPERAND_SIZE::YMMWORD)
 	{
-		opSize = VEX_Prefix::YMM;
+		opSize = VEX_VECTOR_SIZE::YMM;
 	}
 
 	AVX_StandardOpcode2(params,encodeData,prefixByte,escapeCode,opcode_r_rm,
@@ -457,18 +457,18 @@ const Ceng::CRESULT SSE_Instruction::AVX_M_R(BuildParams *params,EncodeData *enc
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
 	
-	VEX_Prefix::VECTOR_SIZE opSize = VEX_Prefix::XMM;
+	VEX_VECTOR_SIZE::value opSize = VEX_VECTOR_SIZE::XMM;
 
 	if (source->Size() == OPERAND_SIZE::YMMWORD)
 	{
-		opSize = VEX_Prefix::YMM;
+		opSize = VEX_VECTOR_SIZE::YMM;
 	}
 
 	encodeData->useVEX = true;
 
 	encodeData->opcode = opcode_rm_r;
 
-	encodeData->vex.SetBytes(VEX_Prefix::TWO_BYTE);
+	encodeData->vex.SetFormat(VEX_FORMAT::TWO_BYTE);
 
 	if (wFunction == VEX_W_FUNCTION::ONE)
 	{
@@ -491,13 +491,13 @@ void SSE_Instruction::AVX_StandardOpcode2(BuildParams *params,EncodeData *encode
 										 const OPCODE_ESCAPE::value escapeCode,
 										 const Ceng::UINT8 opcode_r_rm,
 										 const VEX_W_FUNCTION::value wFunction,
-										 const VEX_Prefix::VECTOR_SIZE opSize) const
+										 const VEX_VECTOR_SIZE::value opSize) const
 {
 	encodeData->useVEX = true;
 
 	encodeData->opcode = opcode_r_rm;
 
-	encodeData->vex.SetBytes(VEX_Prefix::TWO_BYTE);
+	encodeData->vex.SetFormat(VEX_FORMAT::TWO_BYTE);
 
 	if (wFunction == VEX_W_FUNCTION::ONE)
 	{

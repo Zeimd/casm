@@ -12,7 +12,7 @@
 
 using namespace X86;
 
-REX_Byte::REX_Byte() : rex(0)
+REX_Byte::REX_Byte() : rex(1 << 6)
 {
 }
 

@@ -207,7 +207,7 @@ namespace X86
 									const OPCODE_ESCAPE::value escapeCode,
 									const Ceng::UINT8 opcode_r_rm,
 									const VEX_W_FUNCTION::value wFunction,
-									VEX_Prefix::VECTOR_SIZE opSize) const;
+									const VEX_VECTOR_SIZE::value opSize) const;
 
 		void AVX_StandardOpcode3(BuildParams *params,
 									EncodeData *encodeData,
@@ -215,7 +215,7 @@ namespace X86
 									const OPCODE_ESCAPE::value escapeCode,
 									const Ceng::UINT8 opcode_r_rm,
 									const VEX_W_FUNCTION::value wFunction,
-									VEX_Prefix::VECTOR_SIZE opSize) const;
+									const VEX_VECTOR_SIZE::value opSize) const;
 
 	};
 }

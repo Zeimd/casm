@@ -46,6 +46,8 @@ namespace X86
 
 		VEX_Prefix vex;
 
+		Ceng::BOOL useREX;
+
 		REX_Byte rex;
 
 		ModRM_Byte modRM;
@@ -62,7 +64,7 @@ namespace X86
 		OPERAND_SIZE::value dispEncoding;
 		Ceng::INT64 displacement;
 
-		OPERAND_PLACE::value operandPlace[4];
+		OPERAND_PLACE::value operandPlace[5];
 
 	public:
 		EncodeData();

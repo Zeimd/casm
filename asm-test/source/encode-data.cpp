@@ -16,7 +16,7 @@ using namespace X86;
 EncodeData::EncodeData() 
 	: hasImmediate(false),
 	hasDisplacement(false),
-	optionPrefix(0),escapeCode(OPCODE_ESCAPE::NONE),useVEX(false),
+	optionPrefix(0),escapeCode(OPCODE_ESCAPE::NONE),useVEX(false),useREX(false),
 	opcodePrefix(PREFIX_BYTE::NONE)
 {
 	modRM = ModRM_Byte();
@@ -29,25 +29,44 @@ EncodeData::EncodeData()
 	operandPlace[1] = OPERAND_PLACE::NOT_USED;
 	operandPlace[2] = OPERAND_PLACE::NOT_USED;
 	operandPlace[3] = OPERAND_PLACE::NOT_USED;
+	operandPlace[4] = OPERAND_PLACE::NOT_USED;
 }
 
 const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vector<Ceng::UINT8> &destBuffer,
 												  InstructionPrefix *prefix) const
 {
+	Ceng::CRESULT cresult;
+
 	// Lock & repeat prefixes
 
 	if (optionPrefix & PREFIX_BYTE::LOCK)
 	{
+		// Ensure no other group 1 prefixes present
+		if ((optionPrefix & (~PREFIX_BYTE::LOCK)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0xf0);
 	}
-
-	if (optionPrefix & PREFIX_BYTE::REPEAT)
+	else if (optionPrefix & PREFIX_BYTE::REPEAT)
 	{
+		// Ensure no other group 1 prefixes present
+		if ((optionPrefix & (~PREFIX_BYTE::REPEAT)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0xf3);
 	}
-
-	if (optionPrefix & PREFIX_BYTE::REPEAT_NOT_ZERO)
+	else if (optionPrefix & PREFIX_BYTE::REPEAT_NOT_ZERO)
 	{
+		// Ensure no other group 1 prefixes present
+		if ((optionPrefix & (~PREFIX_BYTE::REPEAT_NOT_ZERO)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0xf2);
 	}
 
@@ -55,31 +74,56 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 
 	if ( (optionPrefix & PREFIX_BYTE::CS_OVERRIDE) || (optionPrefix & PREFIX_BYTE::BRANCH_NOT_TAKEN) )
 	{
+		if ((optionPrefix & (~PREFIX_BYTE::CS_OVERRIDE)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0x2e);
 	}
-
-	if (optionPrefix & PREFIX_BYTE::SS_OVERRIDE)
+	else if (optionPrefix & PREFIX_BYTE::SS_OVERRIDE)
 	{
+		if ((optionPrefix & (~PREFIX_BYTE::SS_OVERRIDE)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0x36);
 	}
-
-	if ( (optionPrefix & PREFIX_BYTE::DS_OVERRIDE) || (optionPrefix & PREFIX_BYTE::BRANCH_TAKEN) )
+	else if ( (optionPrefix & PREFIX_BYTE::DS_OVERRIDE) || (optionPrefix & PREFIX_BYTE::BRANCH_TAKEN) )
 	{
+		if ((optionPrefix & (~PREFIX_BYTE::DS_OVERRIDE)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0x3e);
 	}
-
-	if (optionPrefix & PREFIX_BYTE::ES_OVERRIDE)
+	else if (optionPrefix & PREFIX_BYTE::ES_OVERRIDE)
 	{
+		if ((optionPrefix & (~PREFIX_BYTE::ES_OVERRIDE)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0x26);
 	}
-
-	if (optionPrefix & PREFIX_BYTE::FS_OVERRIDE)
+	else if (optionPrefix & PREFIX_BYTE::FS_OVERRIDE)
 	{
+		if ((optionPrefix & (~PREFIX_BYTE::FS_OVERRIDE)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0x64);
 	}
-
-	if (optionPrefix & PREFIX_BYTE::GS_OVERRIDE)
+	else if (optionPrefix & PREFIX_BYTE::GS_OVERRIDE)
 	{
+		if ((optionPrefix & (~PREFIX_BYTE::GS_OVERRIDE)) != 0)
+		{
+			return Ceng::CRESULT::CE_ERR_FAIL;
+		}
+
 		destBuffer.push_back(0x65);
 	}
 
@@ -126,16 +170,24 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 
 		// REX
 
-		if (rex != 0)
+		if (useREX)
 		{
-			destBuffer.push_back(rex | (1 << 6));
+			destBuffer.push_back(rex);
 		}
 
-		WriteEscapeBytes(params,escapeCode,destBuffer);
+		cresult = WriteEscapeBytes(params,escapeCode,destBuffer);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
 	}
 	else
 	{
-		vex.Encode(params,destBuffer);
+		cresult = vex.Encode(params,destBuffer);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
 	}
 
 	// Opcode
@@ -156,7 +208,11 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 	{
 		params->out_dispOffset = destBuffer.size();
 
-		EncodeDisplacement(params,destBuffer,dispEncoding,displacement);
+		cresult = EncodeDisplacement(params,destBuffer,dispEncoding,displacement);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
 	}
 
 	// immediate
@@ -165,7 +221,12 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 	{
 		params->out_immOffset = destBuffer.size();
 
-		EncodeImmediate(params,destBuffer,immEncoding,immediate);
+		cresult = EncodeImmediate(params,destBuffer,immEncoding,immediate);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+
 	}
 
 	return Ceng::CE_OK;

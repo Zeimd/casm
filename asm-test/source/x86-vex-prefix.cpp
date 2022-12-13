@@ -16,12 +16,12 @@ VEX_Prefix::VEX_Prefix()
 	bytes = 0;
 }
 
-VEX_Prefix::VEX_Prefix(const VEX_BYTES bytes)
+VEX_Prefix::VEX_Prefix(const VEX_FORMAT::value bytes)
 {	
-	SetBytes(bytes);
+	SetFormat(bytes);
 }
 
-void VEX_Prefix::SetBytes(const VEX_BYTES bytes)
+void VEX_Prefix::SetFormat(const VEX_FORMAT::value bytes)
 {
 	// Assume two-byte form
 
@@ -65,7 +65,7 @@ void VEX_Prefix::Promote()
 	SetEscapeCode(escapeCode);
 }
 
-const Ceng::CRESULT VEX_Prefix::SetVectorSize(const VECTOR_SIZE size)
+const Ceng::CRESULT VEX_Prefix::SetVectorSize(const VEX_VECTOR_SIZE::value size)
 {
 	if (bytes == 2)
 	{
