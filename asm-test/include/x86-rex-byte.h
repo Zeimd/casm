@@ -17,6 +17,12 @@ namespace X86
 	class REX_Byte
 	{
 	protected:
+		// REX byte. Encoding:
+		// 7:4 - 0100b
+		// 3 - W : If set, operand size is 64 bits
+		// 2 - R : Extension to Mod/RM reg field
+		// 1 - X : Extension to SIB index field
+		// 0 - B : Extension to Mod/RM r/m field, SIB base field, or Opcode reg field
 		Ceng::UINT8 rex;
 
 	public:

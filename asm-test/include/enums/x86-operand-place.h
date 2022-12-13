@@ -11,6 +11,7 @@
 
 namespace X86
 {
+	// Indicates where the operand should be encoded.
 	namespace OPERAND_PLACE
 	{
 		enum value

@@ -22,21 +22,34 @@ namespace X86
 	class ModRM_Byte
 	{
 	protected:
+
+		// Mod/RM encoding:
+		// 7:6 - mod
+		// 5:3 - reg
+		// 2:0 - r/m
 		Ceng::UINT8 modRM;
 
 		Ceng::BOOL used;
 
 	public:
 
+		// Allowed Mod field values
 		enum RM_TYPE
 		{
+			// addressing mode [reg]
 			BASE = 0 ,
+
+			// addressing mode [reg+disp8]
 			BASE_DISP8 = 1 ,
+
+			// addressing mode [reg+disp32]
 			BASE_DISP32 = 2 ,
+
+			// Register operand, no memory access
 			REGISTER = 3 ,
 
+			// Unused. Forces enum storage type to int32
 			FORCE_32B = 1 << 30 ,
-
 		};
 
 		ModRM_Byte();

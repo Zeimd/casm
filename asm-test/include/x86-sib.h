@@ -22,12 +22,19 @@ namespace X86
 	class SIB_Byte
 	{
 	protected:
+
+		// SIB byte. Encoding:
+		// 7:6 - index scale
+		// 5:3 - index register
+		// 2:0 - base register
 		Ceng::UINT8 sib;
 
 		Ceng::BOOL used;
 
 	public:
 
+		// Allowed multipliers for [reg*scale] type
+		// memory access
 		enum INDEX_SCALE
 		{
 			ONE = 0 ,
@@ -35,6 +42,7 @@ namespace X86
 			FOUR = 2 ,
 			EIGHT = 8 ,
 
+			// Unused. Forces enumeration storage to int32.
 			FORCE_32B = 1 << 30 ,
 		};
 
