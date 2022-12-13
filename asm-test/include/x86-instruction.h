@@ -45,6 +45,10 @@ namespace X86
 								const Operand *dest,const Operand *source1,
 								const Operand *source2) const;
 
+		virtual const Ceng::CRESULT EncodeFourForm(BuildParams* params, std::vector<Ceng::UINT8>& destBuffer,
+			const Operand* dest, const Operand* source1,
+			const Operand* source2,const Operand* source3) const;
+
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,EncodeData *encodeData) const;
 		
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
@@ -58,6 +62,11 @@ namespace X86
 											EncodeData *encodeData,const Operand *dest,
 											const Operand *source1,
 											const Operand *source2) const;
+
+		virtual const Ceng::CRESULT SelectOpcode(BuildParams* params,
+			EncodeData* encodeData, const Operand* dest,
+			const Operand* source1,	const Operand* source2,
+			const Operand* source3) const;
 
 		virtual const Ceng::CRESULT ValidatePrefixes(const Ceng::UINT32 prefixes) const;
 

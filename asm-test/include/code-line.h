@@ -156,6 +156,40 @@ namespace X86
 			return instruction->EncodeThreeForm(params,destBuffer,operand,source,source2);
 		};
 	};
+
+
+	class FourOp : public ThreeOp
+	{
+	protected:
+		const Operand* source3;
+
+	public:
+
+		FourOp()
+		{
+		}
+
+		FourOp(const Instruction& instruction, const Operand* dest,
+			const Operand* source, const Operand* source2, const Operand* source3) :
+			ThreeOp(instruction, dest, source,source2), source3(source3)
+		{
+		}
+
+		virtual ~FourOp()
+		{
+			if (!source3->IsRegisterOperand())
+			{
+				delete source3;
+			}
+		}
+
+		virtual Ceng::CRESULT Encode(BuildParams* params,
+			std::vector<Ceng::UINT8>& destBuffer) override
+		{
+			return instruction->EncodeFourForm(params, destBuffer, operand, source, source2,source3);
+		};
+	};
+
 }
 
 #endif

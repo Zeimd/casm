@@ -59,6 +59,13 @@ const Ceng::CRESULT Instruction::SelectOpcode(BuildParams *params,
 	return Ceng::CE_OK;
 }
 
+const Ceng::CRESULT Instruction::SelectOpcode(BuildParams* params,
+	EncodeData* encodeData, const Operand* dest,const Operand* source1,
+	const Operand* source2, const Operand* source3) const
+{
+	return Ceng::CE_OK;
+}
+
 const Ceng::CRESULT Instruction::EncodeBare(BuildParams *params,
 											std::vector<Ceng::UINT8> &destBuffer) const
 {
@@ -195,3 +202,53 @@ const Ceng::CRESULT Instruction::EncodeThreeForm(BuildParams *params,std::vector
 	return encodeData.EncodeInstruction(params,destBuffer,&optionPrefix);
 }
 
+const Ceng::CRESULT Instruction::EncodeFourForm(BuildParams* params, std::vector<Ceng::UINT8>& destBuffer,
+	const Operand* dest, const Operand* source1,
+	const Operand* source2, const Operand* source3) const
+{
+	EncodeData encodeData;
+
+	InstructionPrefix optionPrefix;
+
+	// Validate operands
+
+	Ceng::CRESULT cresult;
+
+	cresult = ValidatePrefixes(optionPrefix.flags);
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	cresult = SelectOpcode(params, &encodeData, dest, source1, source2, source3);
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	cresult = dest->EncodeAsOperand(params, &encodeData, 0);
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	cresult = source1->EncodeAsOperand(params, &encodeData, 1);
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	cresult = source2->EncodeAsOperand(params, &encodeData, 2);
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	cresult = source3->EncodeAsOperand(params, &encodeData, 3);
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	return encodeData.EncodeInstruction(params, destBuffer, &optionPrefix);
+}
