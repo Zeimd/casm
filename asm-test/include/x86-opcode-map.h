@@ -9,10 +9,13 @@
 #ifndef CASM_X86_OPCODE_MAP_H
 #define CASM_X86_OPCODE_MAP_H
 
+/*
 #include "keyword-map.h"
 #include "x86-instruction.h"
 
 #include <memory>
+
+#include <ceng/datatypes/ce-string.h>
 
 #include <string>
 #include <unordered_map>
@@ -44,6 +47,7 @@ namespace X86
 		void BuildMap();
 	};
 }
+*/
 
 
 #endif

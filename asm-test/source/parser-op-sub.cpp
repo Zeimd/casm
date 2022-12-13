@@ -8,6 +8,8 @@
 
 #include "../include/parser-op-sub.h"
 
+/*
+
 using namespace Casm;
 
 ParserOp_Sub::ParserOp_Sub(const TokenData &data) 
@@ -46,3 +48,5 @@ const std::shared_ptr<ParserOperand> ParserOp_Unary_Sub::LocalAction(ParserState
 {
 	return *right *= -1;
 }
+
+*/

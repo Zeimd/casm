@@ -8,7 +8,7 @@
 
 #include "../include/parser.h"
 
-using namespace Casm;
+//using namespace Casm;
 
 /*
 Parser::Parser()

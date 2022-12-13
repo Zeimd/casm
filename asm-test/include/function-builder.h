@@ -92,8 +92,9 @@ namespace X86
 
 		Ceng::CRESULT AddInstruction(const Instruction &instruction);
 
-		Ceng::CRESULT AddInstruction(Ceng::String &instruction,
-								const Operand *operand);		
+
+		//Ceng::CRESULT AddInstruction(Ceng::String &instruction,
+		//						const Operand *operand);		
 		
 		Ceng::CRESULT AddInstruction(const Instruction &instruction,
 								const Operand *operand);
@@ -103,8 +104,8 @@ namespace X86
 
 		//const Operand* ParseOperand(const Ceng::String &operand);
 		
-		Ceng::CRESULT AddInstruction(Ceng::String &instruction,
-								const Operand *dest,const Operand *source);
+		//Ceng::CRESULT AddInstruction(Ceng::String &instruction,
+		//						const Operand *dest,const Operand *source);
 
 		Ceng::CRESULT AddInstruction(const Instruction &instruction,
 								const Operand *dest,const Operand *source);
@@ -113,9 +114,10 @@ namespace X86
 								const Operand *dest,const Operand *source1,
 								const Operand *source2);
 
-		const Ceng::CRESULT AddInstruction(Ceng::String &instruction,
-								const Operand *dest,const Operand *source1,
-								const Operand *source2);
+
+		//const Ceng::CRESULT AddInstruction(Ceng::String &instruction,
+		//						const Operand *dest,const Operand *source1,
+		//						const Operand *source2);
 
 		Ceng::CRESULT AddInstruction(const Instruction &instruction,const Ceng::String &destSymbol,const Operand *source);
 

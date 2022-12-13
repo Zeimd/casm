@@ -8,6 +8,7 @@
 
 #include "../include/parser-op-size.h"
 
+/*
 using namespace Casm;
 
 ParserOp_SizeCast::ParserOp_SizeCast(const Ceng::UINT32 newSize,const TokenData &data) 
@@ -27,3 +28,4 @@ const std::shared_ptr<ParserOperand> ParserOp_SizeCast::LocalAction(ParserState 
 {
 	return right->SizeCast(state,right,newSize);
 }
+*/

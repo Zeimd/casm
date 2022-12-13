@@ -175,6 +175,7 @@ Ceng::CRESULT FunctionBuilder::AddInstruction(const Ceng::String &instruction)
 }
 */
 
+/*
 Ceng::CRESULT FunctionBuilder::AddInstruction(Ceng::String &instruction,
 											  const Operand *dest,const Operand *source)
 {
@@ -189,6 +190,7 @@ Ceng::CRESULT FunctionBuilder::AddInstruction(Ceng::String &instruction,
 
 	return AddInstruction(*opcode,dest,source);
 }
+*/
 
 Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction &instruction,const Operand *dest,
 											  const Ceng::String &sourceSymbol)
@@ -206,6 +208,7 @@ Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction &instruction,con
 	return Ceng::CE_OK;	
 }
 
+/*
 Ceng::CRESULT FunctionBuilder::AddInstruction(Ceng::String &instruction,
 											  const Operand *operand)
 {
@@ -220,6 +223,7 @@ Ceng::CRESULT FunctionBuilder::AddInstruction(Ceng::String &instruction,
 
 	return AddInstruction(*opcode,operand);
 }
+*/
 
 Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction &instruction,const Operand *operand)
 {
@@ -291,6 +295,7 @@ Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction &instruction,con
 	return Ceng::CE_OK;
 }
 
+/*
 const Ceng::CRESULT FunctionBuilder::AddInstruction(Ceng::String &instruction,
 													const Operand *dest,const Operand *source1,
 													const Operand *source2)
@@ -308,6 +313,7 @@ const Ceng::CRESULT FunctionBuilder::AddInstruction(Ceng::String &instruction,
 
 	return Ceng::CE_OK;
 }
+*/
 
 const Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction &instruction,
 													const Operand *dest,const Operand *source1,

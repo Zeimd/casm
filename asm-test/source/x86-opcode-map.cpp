@@ -21,6 +21,8 @@
 
 #include <ceng/lib/timerlib.h>
 
+/*
+
 using namespace X86;
 
 std::shared_ptr<OpcodeMap> OpcodeMap::instance = nullptr;
@@ -916,3 +918,4 @@ void OpcodeMap::BuildMap()
 
 	//return Ceng::CE_OK;
 }
+*/

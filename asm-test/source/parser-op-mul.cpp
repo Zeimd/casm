@@ -8,6 +8,8 @@
 
 #include "../include/parser-op-mul.h"
 
+/*
+
 using namespace Casm;
 
 ParserOp_Mul::ParserOp_Mul(const TokenData &data) 
@@ -28,3 +30,4 @@ const std::shared_ptr<ParserOperand> ParserOp_Mul::LocalAction(ParserState *stat
 
 	return left->BinaryMul(state,left,right);
 }
+*/

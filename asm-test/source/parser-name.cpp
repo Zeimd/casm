@@ -8,6 +8,7 @@
 
 #include "../include/parser-name.h"
 
+/*
 using namespace Casm;
 
 ParserName::ParserName(const Ceng::String &name,const TokenData &data)
@@ -23,3 +24,4 @@ const Ceng::String& ParserName::Name() const
 {
 	return name;
 }
+*/
