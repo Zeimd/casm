@@ -31,6 +31,12 @@
 
 #include "include/linker.h"
 
+#include "include/x86-opcodes-alu.h"
+#include "include/x86-regs-alu.h"
+
+#include "include/x86-immediate-op.h"
+#include "include/x86-memory-op.h"
+
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/boolean.h>
 //#include <ceng/datatypes/string-manipulator.h>
@@ -104,7 +110,7 @@ int main()
 			"," << vector[k][2] << "," << vector[k][3] << std::endl;
 	}
 
-	Ceng::INT32 work[4] = {10,20,30,40};
+	Ceng::INT32 work[4] = {0,1,2,3};
 
 	Ceng::FLOAT32 floatWork = 0.0f;
 
@@ -136,7 +142,7 @@ int main()
 
 	assembler.CreateProgram(Casm::BuilderOptions(false),&programBuild);
 
-	programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",new X86::Initializer<Ceng::INT32>(12345));
+	programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",new X86::Initializer<Ceng::INT32>(0));
 
 	//*************************************
 	// main()
@@ -178,11 +184,18 @@ int main()
 	// TestFunction
 	
 	X86::FunctionBuilder *testFunc;
-	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"TestFunction",&testFunc);
+	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
-	//testFunc->AddInstruction(X86::MOV,&X86::EAX,new X86::ImmediateOperand(12345));
+	testFunc->AddInstruction(X86::MOV,&X86::EAX,new X86::ImmediateOperand(1));
+	testFunc->AddInstruction(X86::MOV,&X86::ECX,new X86::MemoryOperand(X86::ESP,4));
+	
+	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX) , &X86::EAX);
 
-	//testFunc->AddInstruction(X86::RET_NEAR,new X86::ImmediateOperand(0));
+
+	//X86::ImmediateOperand *op1 = new X86::ImmediateOperand(4);
+
+	//testFunc->AddInstruction(X86::RET_NEAR, op1);
+	testFunc->AddInstruction(X86::RET_NEAR);
 	
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
@@ -193,6 +206,12 @@ int main()
 
 	delete programBuild;
 
+	std::wcout << "object code dump:" << std::endl;
+
+	testObject->Print(std::wcout);
+
+	std::wcout << "object code end" << std::endl;
+
 	Casm::Linker linker = Casm::Linker(64);
 
 	std::vector<X86::ObjectCode*> objects;
@@ -201,28 +220,47 @@ int main()
 
 	X86::Program *testLink;
 
-	linker.LinkProgram("main",objects,&testLink);
+	cresult = linker.LinkProgram("main",objects,&testLink);
+
+	if (cresult != Ceng::CE_OK)
+	{
+		std::wcout << "Error : Linking failed" << std::endl;
+		return 0;
+	}
+
+	std::wcout << "program dump:" << std::endl;
+
+	testLink->Print(std::wcout);
+
+	std::wcout << "program end" << std::endl;
 
 	delete testObject;
 
 	X86::Executable *testProgram;
 
-	testLink->GetExecutable(&testProgram);
+	cresult = testLink->GetExecutable(&testProgram);
+
+	if (cresult != Ceng::CE_OK)
+	{
+		std::wcout << "Error : relocation failed" << std::endl;
+		return 0;
+	}
 
 	delete testLink;
 	
 	std::wcout << "&test = " << (Ceng::POINTER)&work << std::endl;
 
 	std::wcout << "test in = " << work[0] << std::endl;
-	std::wcout << "ftest in = " << floatWork << std::endl;
+	//std::wcout << "ftest in = " << floatWork << std::endl;
 
 	testProgram->Execute((Ceng::POINTER)&work[0]);
 	//testProgram->Execute((Ceng::POINTER)&floatWork);
 	//testProgram->Execute((Ceng::POINTER)&vector[0]);
 
 	std::wcout << "test out = " << work[0] << std::endl;
-	std::wcout << "float test out = " << floatWork << std::endl;
+	//std::wcout << "float test out = " << floatWork << std::endl;
 
+	/*
 	std::wcout << "Output: " << std::endl;
 
 	for(k=0;k<4;k++)
@@ -230,6 +268,7 @@ int main()
 		std::wcout << vector[k][0] << "," << vector[k][1] <<
 			"," << vector[k][2] << "," << vector[k][3] << std::endl;
 	}
+	*/
 
 	delete testProgram;
 
