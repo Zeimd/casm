@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\asm-test\source\encode-data.cpp" />
     <ClCompile Include="..\..\asm-test\source\executable.cpp" />
     <ClCompile Include="..\..\asm-test\source\function-builder.cpp" />
+    <ClCompile Include="..\..\asm-test\source\hex-dump.cpp" />
     <ClCompile Include="..\..\asm-test\source\keyword-group.cpp" />
     <ClCompile Include="..\..\asm-test\source\linker.cpp" />
     <ClCompile Include="..\..\asm-test\source\obj-function.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="..\..\asm-test\include\enums\x86-vex-w.h" />
     <ClInclude Include="..\..\asm-test\include\executable.h" />
     <ClInclude Include="..\..\asm-test\include\function-builder.h" />
+    <ClInclude Include="..\..\asm-test\include\hex-dump.h" />
     <ClInclude Include="..\..\asm-test\include\initializer.h" />
     <ClInclude Include="..\..\asm-test\include\keyword-array.h" />
     <ClInclude Include="..\..\asm-test\include\keyword-group.h" />

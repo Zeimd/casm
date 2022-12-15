@@ -8,6 +8,8 @@
 
 #include "../include/program.h"
 
+#include "../include/hex-dump.h"
+
 #include <Windows.h>
 
 using namespace X86;
@@ -76,60 +78,10 @@ void Program::Print(std::wostream& out) const
 
 	out << "section data (size=" << dataSection.GetSize() << ")" << std::endl << std::endl;
 
-	{
-		int groups = dataSection.GetSize() / groupSize;
-
-		int remainder = dataSection.GetSize() % groupSize;
-
-		for (int k = 0; k < groups; k++)
-		{
-			out << "    ";
-
-			for (int j = 0; j < groupSize; j++)
-			{
-				out << "0x" << std::hex << dataSection[k * groupSize + j] << " ";
-			}
-
-			out << std::endl;
-		}
-
-		out << "    ";
-
-		for (int j = 0; j < remainder; j++)
-		{
-			out << "0x" << std::hex << codeBuffer[groups * groupSize + j] << " ";
-		}
-
-		out << std::endl;
-	}
+	Casm::HexDump(out, 16, dataSection.GetSize(), &dataSection[0]);
 
 	out << "section code (size=" << codeBuffer.GetSize() << ")" << std::endl << std::endl;
 
-	{
-		int groups = codeBuffer.GetSize() / groupSize;
-
-		int remainder = codeBuffer.GetSize() % groupSize;
-
-		for (int k = 0; k < groups; k++)
-		{
-			out << "    ";
-
-			for (int j = 0; j < groupSize; j++)
-			{
-				out << "0x" << std::hex << codeBuffer[k * groupSize + j] << " ";
-			}
-
-			out << std::endl;
-		}
-
-		out << "    ";
-
-		for (int j = 0; j < remainder; j++)
-		{
-			out << "0x" << std::hex << codeBuffer[groups * groupSize + j] << " ";
-		}
-
-		out << std::endl;
-	}
+	Casm::HexDump(out, 16, codeBuffer.GetSize(), &codeBuffer[0]);
 
 }
