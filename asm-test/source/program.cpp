@@ -48,7 +48,7 @@ Ceng::CRESULT Program::GetExecutable(Executable **output)
 	
 	Ceng::AlignedBuffer<Ceng::UINT8> dataCopy;
 	
-	dataCopy = Ceng::AlignedBuffer<Ceng::UINT8>::AlignedBuffer(dataSection.GetElements(),dataCopy.GetAlignment());
+	dataCopy = Ceng::AlignedBuffer<Ceng::UINT8>::AlignedBuffer(dataSection.GetElements(),dataSection.GetAlignment());
 
 	memcpy(&dataCopy[0],&dataSection[0],dataSection.GetElements());
 
