@@ -11,6 +11,8 @@
 
 #include <vector>
 
+#include <ostream>
+
 #include <ceng/datatypes/basic-types.h>
 
 #include "relocation-data.h"
@@ -35,6 +37,8 @@ namespace X86
 		~Program();
 
 		Ceng::CRESULT GetExecutable(Executable **output);
+
+		void Print(std::wostream& out) const;
 
 	};
 }

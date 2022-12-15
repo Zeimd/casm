@@ -69,3 +69,67 @@ Ceng::CRESULT Program::GetExecutable(Executable **output)
 
 	return Ceng::CE_OK;
 }
+
+void Program::Print(std::wostream& out) const
+{
+	const int groupSize = 16;
+
+	out << "section data (size=" << dataSection.GetSize() << ")" << std::endl << std::endl;
+
+	{
+		int groups = dataSection.GetSize() / groupSize;
+
+		int remainder = dataSection.GetSize() % groupSize;
+
+		for (int k = 0; k < groups; k++)
+		{
+			out << "    ";
+
+			for (int j = 0; j < groupSize; j++)
+			{
+				out << "0x" << std::hex << dataSection[k * groupSize + j] << " ";
+			}
+
+			out << std::endl;
+		}
+
+		out << "    ";
+
+		for (int j = 0; j < remainder; j++)
+		{
+			out << "0x" << std::hex << codeBuffer[groups * groupSize + j] << " ";
+		}
+
+		out << std::endl;
+	}
+
+	out << "section code (size=" << codeBuffer.GetSize() << ")" << std::endl << std::endl;
+
+	{
+		int groups = codeBuffer.GetSize() / groupSize;
+
+		int remainder = codeBuffer.GetSize() % groupSize;
+
+		for (int k = 0; k < groups; k++)
+		{
+			out << "    ";
+
+			for (int j = 0; j < groupSize; j++)
+			{
+				out << "0x" << std::hex << codeBuffer[k * groupSize + j] << " ";
+			}
+
+			out << std::endl;
+		}
+
+		out << "    ";
+
+		for (int j = 0; j < remainder; j++)
+		{
+			out << "0x" << std::hex << codeBuffer[groups * groupSize + j] << " ";
+		}
+
+		out << std::endl;
+	}
+
+}
