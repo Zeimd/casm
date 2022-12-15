@@ -100,7 +100,7 @@ Ceng::CRESULT ObjectFunction::WriteAllOffsets()
 
 Ceng::CRESULT ObjectFunction::ToCodeBuffer(Ceng::UINT8 *buffer) const
 {
-	memcpy(&buffer[offset],&(*codeBuffer)[0],codeBuffer->size());
+	memcpy(buffer,&(*codeBuffer)[0],codeBuffer->size());
 
 	return Ceng::CE_OK;
 }

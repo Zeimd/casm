@@ -129,18 +129,24 @@ Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
 
 	codeBuffer = Ceng::AlignedBuffer<Ceng::UINT8>::AlignedBuffer(codeSegSize,cacheLine);
 
+	memset(&codeBuffer[0], 0, codeBuffer.GetSize());
+
 	program->entryPoint = 0;
-	program->codeBuffer = codeBuffer;
-	program->dataSection = dataSegment;
 
 	for(k=0;k<linkFunctions->size();k++)
 	{
 		X86::ObjectFunction *objFunc = (*linkFunctions)[k]->AsObjectFunction();
 
 		objFunc->WriteAllOffsets();
-		objFunc->ToCodeBuffer(&codeBuffer[0]);
+
+		uint32_t offset = uint32_t(objFunc->Offset());
+
+		objFunc->ToCodeBuffer(&codeBuffer[offset]);
 		objFunc->AppendRelocationData(program->relocationData);
 	}
+
+	program->codeBuffer = std::move(codeBuffer);
+	program->dataSection = std::move(dataSegment);
 
 	delete linkData;
 	delete linkDisplacements;
