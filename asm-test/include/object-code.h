@@ -15,6 +15,8 @@
 #include <ceng/datatypes/basic-types.h>
 #include <memory>
 
+#include <ostream>
+
 
 namespace X86
 {
@@ -26,24 +28,12 @@ namespace X86
 
 		std::vector<std::shared_ptr<ObjectFunction>> *functions;
 
-		ObjectCode(std::vector<std::shared_ptr<Symbol>> *dataSection,
-			std::vector<std::shared_ptr<ObjectFunction>> *functions)
-			: dataSection(dataSection),functions(functions)
-		{
-		}
+		ObjectCode(std::vector<std::shared_ptr<Symbol>>* dataSection,
+			std::vector<std::shared_ptr<ObjectFunction>>* functions);
 
-		~ObjectCode()
-		{
-			if (dataSection != nullptr)
-			{
-				delete dataSection;
-			}
+		~ObjectCode();
 
-			if (functions != nullptr)
-			{
-				delete functions;
-			}
-		}
+		void Print(std::wostream& out) const;
 	};
 }
 

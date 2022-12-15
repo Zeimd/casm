@@ -50,6 +50,8 @@ namespace X86
 		Ceng::CRESULT ToCodeBuffer(Ceng::UINT8 *buffer) const;
 
 		Ceng::CRESULT AppendRelocationData(std::vector<RelocationData> &relocationData) const;
+
+		void Print(std::wostream& out) const;
 	};
 }
 

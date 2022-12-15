@@ -36,6 +36,42 @@ ObjectFunction::~ObjectFunction()
 	}
 }
 
+void ObjectFunction::Print(std::wostream& out) const
+{
+	out << "function " << name << " (size=" << SizeBytes() << ")" << std::endl;
+
+	const int groupSize = 16;
+
+	int groups = SizeBytes() / groupSize;
+
+	int remainder = SizeBytes() % groupSize;
+
+	for (int k = 0; k < groups; k++)
+	{
+		out << "    ";
+
+		for (int j = 0; j < groupSize; j++)
+		{
+			out << "0x" << std::hex << (*codeBuffer)[k * groupSize + j] << " ";
+		}
+
+		out << std::endl;
+	}
+
+	out << "    ";
+
+	for (int j = 0; j < remainder; j++)
+	{
+		out << "0x" << std::hex << (*codeBuffer)[groups * groupSize + j] << " ";
+	}
+
+	out << std::endl;
+
+
+	out << "end function" << std::endl;
+	
+}
+
 Ceng::CRESULT ObjectFunction::Append(std::vector<Ceng::UINT8> &destBuffer) const
 {
 	std::copy(codeBuffer->begin(),codeBuffer->end(),std::back_inserter(destBuffer));

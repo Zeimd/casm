@@ -32,6 +32,7 @@
     <ClCompile Include="..\..\asm-test\source\keyword-group.cpp" />
     <ClCompile Include="..\..\asm-test\source\linker.cpp" />
     <ClCompile Include="..\..\asm-test\source\obj-function.cpp" />
+    <ClCompile Include="..\..\asm-test\source\object-code.cpp" />
     <ClCompile Include="..\..\asm-test\source\opcode-prefix.cpp" />
     <ClCompile Include="..\..\asm-test\source\parser-c-function.cpp" />
     <ClCompile Include="..\..\asm-test\source\parser-context.cpp" />

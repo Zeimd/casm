@@ -273,6 +273,9 @@
     <ClCompile Include="..\..\asm-test\source\x86-xsave.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\object-code.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\asm-test\include\enums\address-size.h">
