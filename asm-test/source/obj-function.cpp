@@ -14,7 +14,7 @@
 
 using namespace X86;
 
-ObjectFunction::ObjectFunction()
+ObjectFunction::ObjectFunction() : references(nullptr), codeBuffer(nullptr)
 {
 }
 
