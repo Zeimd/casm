@@ -20,6 +20,11 @@ ImmediateOperand::ImmediateOperand(std::shared_ptr<Symbol> &symbol) :
 	value = 0;
 }
 
+ImmediateOperand::~ImmediateOperand()
+{
+
+}
+
 ImmediateOperand::ImmediateOperand(const Ceng::INT64 value) :
 	Operand(OPERAND_TYPE::IMM,false,OPERAND_SIZE::IMPLICIT),
 	value(value),bytes(8)

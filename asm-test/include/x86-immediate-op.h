@@ -28,6 +28,8 @@ namespace X86
 
 	public:
 
+		~ImmediateOperand() override;
+
 		ImmediateOperand(std::shared_ptr<Symbol> &symbol);
 
 		ImmediateOperand(const Ceng::INT64 value);
@@ -46,8 +48,8 @@ namespace X86
 
 		const std::shared_ptr<Symbol> GetSymbol() const;
 
-		virtual const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
-														const Ceng::UINT32 operandIndex) const override;
+		const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
+			const Ceng::UINT32 operandIndex) const override;
 	};
 }
 
