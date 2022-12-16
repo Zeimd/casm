@@ -47,12 +47,17 @@ Ceng::CRESULT BasicBlock::Build(BuildParams *params,
 	
 		if (params->immRef != nullptr)
 		{
-			params->immRef->ConfigIPdelta(codeBuffer.size());
+			params->memRef->encodeOffset = params->out_immOffset;
+			params->memRef->encodeSize = params->out_immSize;
+
+			//params->immRef->ConfigIPdelta(codeBuffer.size());
 		}
 
 		if (params->memRef != nullptr)
 		{
-			params->memRef->ConfigIPdelta(codeBuffer.size());
+			params->memRef->encodeOffset = params->out_dispOffset;
+			params->memRef->encodeSize = params->out_dispSize;
+			//params->memRef->ConfigIPdelta(codeBuffer.size());
 		}
 
 		params->Clean();

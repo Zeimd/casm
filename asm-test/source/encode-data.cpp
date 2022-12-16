@@ -37,6 +37,8 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 {
 	Ceng::CRESULT cresult;
 
+	size_t startOffset = destBuffer.size();
+
 	// Lock & repeat prefixes
 
 	if (optionPrefix & PREFIX_BYTE::LOCK)
@@ -207,6 +209,7 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 	if (hasDisplacement)
 	{
 		params->out_dispOffset = destBuffer.size();
+		params->out_dispSize = dispEncoding;
 
 		cresult = EncodeDisplacement(params,destBuffer,dispEncoding,displacement);
 		if (cresult != Ceng::CE_OK)
@@ -220,6 +223,7 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 	if (hasImmediate)
 	{
 		params->out_immOffset = destBuffer.size();
+		params->out_immSize = immEncoding;
 
 		cresult = EncodeImmediate(params,destBuffer,immEncoding,immediate);
 		if (cresult != Ceng::CE_OK)
@@ -228,6 +232,8 @@ const Ceng::CRESULT EncodeData::EncodeInstruction(BuildParams *params,std::vecto
 		}
 
 	}
+
+	//params->out_length = destBuffer.size() - startOffset;
 
 	return Ceng::CE_OK;
 }

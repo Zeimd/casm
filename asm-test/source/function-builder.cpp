@@ -73,6 +73,8 @@ FunctionBuilder::~FunctionBuilder()
 Ceng::CRESULT FunctionBuilder::AddSymbolRef(SymbolRef* symbolRef)
 {
 	references->push_back(std::shared_ptr<SymbolRef>(symbolRef));
+
+	return Ceng::CE_OK;
 }
 
 /*
