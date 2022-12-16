@@ -32,14 +32,16 @@ Ceng::CRESULT Program::GetExecutable(Executable **output)
 
 	// Pad size to nearest multiple of 4096
 
-	if (programSize & 4095)
+	Ceng::UINT32 allocSize = programSize;
+	
+	if (allocSize & 4095)
 	{
-		programSize = (programSize + 4095) & ~4095;
+		allocSize = (allocSize + 4095) & ~4095;
 	}
 
 	Ceng::UINT8 *execPage = nullptr;
 
-	execPage = (Ceng::UINT8*)VirtualAlloc(nullptr,programSize,MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
+	execPage = (Ceng::UINT8*)VirtualAlloc(nullptr, allocSize,MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
 
 	if (execPage == nullptr)
 	{
