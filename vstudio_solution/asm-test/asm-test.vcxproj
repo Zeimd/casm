@@ -57,6 +57,7 @@
     <ClCompile Include="..\..\asm-test\source\parser-uint64.cpp" />
     <ClCompile Include="..\..\asm-test\source\parser.cpp" />
     <ClCompile Include="..\..\asm-test\source\program-builder.cpp" />
+    <ClCompile Include="..\..\asm-test\source\builder-section.cpp" />
     <ClCompile Include="..\..\asm-test\source\program.cpp" />
     <ClCompile Include="..\..\asm-test\source\relocation-data.cpp" />
     <ClCompile Include="..\..\asm-test\source\sse-compare.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="..\..\asm-test\include\parser-variable.h" />
     <ClInclude Include="..\..\asm-test\include\parser.h" />
     <ClInclude Include="..\..\asm-test\include\program-builder.h" />
+    <ClInclude Include="..\..\asm-test\include\builder-section.h" />
     <ClInclude Include="..\..\asm-test\include\program.h" />
     <ClInclude Include="..\..\asm-test\include\relocation-data.h" />
     <ClInclude Include="..\..\asm-test\include\sse-compare.h" />

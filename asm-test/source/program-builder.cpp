@@ -48,6 +48,8 @@
 
 #include "../include/data-descriptor.h"
 
+#include "../include/builder-section.h"
+
 using namespace X86;
 
 namespace X86
@@ -79,10 +81,7 @@ namespace X86
 
 ProgramBuilder::~ProgramBuilder()
 {
-	if (dataSection != nullptr)
-	{
-		delete dataSection;
-	}
+
 }
 
 const Assembler* ProgramBuilder::Assembler() const
@@ -93,6 +92,184 @@ const Assembler* ProgramBuilder::Assembler() const
 const Casm::BuilderOptions* ProgramBuilder::BuildOptions() const
 {
 	return &options;
+}
+
+Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::String& name, const SectionType::value type,
+	std::shared_ptr<BuilderSection>& out_section)
+{
+	out_section = nullptr;
+
+	for (auto& x : sections)
+	{
+		if (x->Name() == name)
+		{
+			return Ceng::CE_ERR_INVALID_PARAM;
+		}
+	}
+
+	if (type == SectionType::force_32b)
+	{
+		return Ceng::CE_ERR_INVALID_PARAM;
+	}
+
+	sections.emplace_back(name, type, this);
+
+	out_section = sections.back();
+
+	return Ceng::CE_OK;
+}
+
+/*
+Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
+	const InitializerType* initializer)
+{
+	DataItem* temp = new DataItem();
+
+	temp->options = dataDesc.options;
+	temp->elementSize = dataDesc.size;
+	temp->name = name;
+	temp->initializer = initializer;
+
+	dataSection->push_back(std::shared_ptr<DataItem>(temp));
+
+	return Ceng::CE_OK;
+}
+*/
+
+/*
+std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String& name)
+{
+	std::shared_ptr<Symbol> temp;
+
+	temp = FindData(name);
+
+	if (temp != nullptr)
+	{
+		return temp;
+	}
+
+	temp = FindFunction(name);
+
+	return temp;
+}
+*/
+
+/*
+std::shared_ptr<Symbol> ProgramBuilder::FindData(const Ceng::String& name)
+{
+	Ceng::UINT32 k;
+
+	for (k = 0; k < dataSection->size(); k++)
+	{
+		if ((*dataSection)[k]->name == name)
+		{
+			return (*dataSection)[k];
+		}
+	}
+
+	return nullptr;
+}
+*/
+
+/*
+std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String& name)
+{
+	Ceng::UINT32 k;
+
+	for (k = 0; k < functions.size(); k++)
+	{
+		if (functions[k]->name == name)
+		{
+			return functions[k];
+		}
+	}
+
+	// Add forward declaration
+
+	std::shared_ptr<FunctionBuilder> temp;
+
+	temp = std::shared_ptr<FunctionBuilder>(new FunctionBuilder(name, this));
+
+	functions.push_back(temp);
+
+	return temp;
+}
+*/
+
+/*
+Ceng::CRESULT ProgramBuilder::AddFunction(const Ceng::UINT32 options, const CPU_Mode& startMode,
+	const PRIVILEDGE_LEVEL::value prLevel,
+	const Ceng::String& name, FunctionBuilder** function)
+{
+	Ceng::UINT32 k;
+
+	FunctionBuilder* temp = nullptr;
+
+	for (k = 0; k < functions.size(); k++)
+	{
+		if (functions[k]->name == name)
+		{
+			if (functions[k]->IsDefined() == true)
+			{
+				return Ceng::CE_ERR_INVALID_PARAM;
+			}
+			else
+			{
+				functions[k]->MarkDefined();
+				functions[k]->SetStartMode(&startMode, prLevel);
+				*function = functions[k].get();
+
+				return Ceng::CE_OK;
+			}
+		}
+	}
+
+	if (temp == nullptr)
+	{
+		*function = new FunctionBuilder(name, this, &startMode, prLevel);
+		functions.push_back(std::shared_ptr<FunctionBuilder>(*function));
+	}
+
+	return Ceng::CE_OK;
+}
+*/
+
+Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
+{
+	Ceng::INT32 k;
+	Ceng::CRESULT cresult;
+
+	std::vector<std::shared_ptr<ObjectFunction>>* objFunctions;
+
+	objFunctions = new std::vector<std::shared_ptr<ObjectFunction>>();
+
+	for (k = 0; k < functions.size(); k++)
+	{
+		std::shared_ptr<ObjectFunction> temp;
+
+		cresult = functions[k]->Build(&temp);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+
+		objFunctions->push_back(temp);
+	}
+
+	// Re-link all function references to object functions
+
+	for (k = 0; k < functions.size(); k++)
+	{
+		functions[k]->MoveReferencesToObjectCode();
+	}
+
+	*output = new ObjectCode(dataSection, objFunctions);
+
+	functions.clear();
+
+	dataSection = nullptr;
+
+	return Ceng::CE_OK;
 }
 
 /*
@@ -1116,148 +1293,6 @@ const Ceng::String ProgramBuilder::CleanParserLine(const Ceng::String &line)
 }
 */
 
-Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor &dataDesc,const Ceng::String &name,
-									  const InitializerType *initializer)
-{
-	DataItem *temp = new DataItem();
-
-	temp->options = dataDesc.options;
-	temp->elementSize = dataDesc.size;
-	temp->name = name;
-	temp->initializer = initializer;
-
-	dataSection->push_back(std::shared_ptr<DataItem>(temp));
-
-	return Ceng::CE_OK;
-}
-
-std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String &name)
-{
-	std::shared_ptr<Symbol> temp;
-
-	temp = FindData(name);
-
-	if (temp != nullptr)
-	{
-		return temp;
-	}
-
-	temp = FindFunction(name);
-
-	return temp;
-}
-
-std::shared_ptr<Symbol> ProgramBuilder::FindData(const Ceng::String &name)
-{
-	Ceng::UINT32 k;
-
-	for(k=0;k<dataSection->size();k++)
-	{
-		if ( (*dataSection)[k]->name == name)
-		{
-			return (*dataSection)[k];
-		}
-	}
-
-	return nullptr;
-}
-
-std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String &name)
-{
-	Ceng::UINT32 k;
-
-	for(k=0;k<functions.size();k++)
-	{
-		if (functions[k]->name == name)
-		{
-			return functions[k];
-		}
-	}
-
-	// Add forward declaration
-
-	std::shared_ptr<FunctionBuilder> temp;
-
-	temp = std::shared_ptr<FunctionBuilder>(new FunctionBuilder(name,this));
-
-	functions.push_back(temp);
-
-	return temp;
-}
-
-Ceng::CRESULT ProgramBuilder::AddFunction(const Ceng::UINT32 options,const CPU_Mode &startMode,
-										  const PRIVILEDGE_LEVEL::value prLevel,
-										  const Ceng::String &name,FunctionBuilder **function)
-{
-	Ceng::UINT32 k;
-
-	FunctionBuilder *temp = nullptr;
-
-	for(k=0;k<functions.size();k++)
-	{
-		if (functions[k]->name == name)
-		{
-			if (functions[k]->IsDefined() == true)
-			{
-				return Ceng::CE_ERR_INVALID_PARAM;
-			}
-			else
-			{
-				functions[k]->MarkDefined();
-				functions[k]->SetStartMode(&startMode,prLevel);
-				*function = functions[k].get();
-
-				return Ceng::CE_OK;
-			}
-		}
-	}
-
-	if (temp == nullptr)
-	{
-		*function = new FunctionBuilder(name,this,&startMode,prLevel);
-		functions.push_back(std::shared_ptr<FunctionBuilder>(*function));
-	}
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT ProgramBuilder::Build(ObjectCode **output)
-{
-	Ceng::INT32 k;
-	Ceng::CRESULT cresult;
-
-	std::vector<std::shared_ptr<ObjectFunction>> *objFunctions;
-
-	objFunctions = new std::vector<std::shared_ptr<ObjectFunction>>();
-
-	for(k=0;k<functions.size();k++)
-	{
-		std::shared_ptr<ObjectFunction> temp;
-
-		cresult = functions[k]->Build(&temp);
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-
-		objFunctions->push_back(temp);
-	}
-
-	// Re-link all function references to object functions
-
-	for(k=0;k<functions.size();k++)
-	{
-		functions[k]->MoveReferencesToObjectCode();
-	}
-
-	*output = new ObjectCode(dataSection,objFunctions);
-
-	functions.clear();
-
-	dataSection = nullptr;
-
-	return Ceng::CE_OK;
-}
 
 /*
 Ceng::CRESULT ProgramBuilder::LinkProgram(const Ceng::String &entryFunction,

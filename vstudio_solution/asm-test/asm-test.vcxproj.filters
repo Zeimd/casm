@@ -282,6 +282,9 @@
     <ClCompile Include="..\..\asm-test\source\data-descriptor.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\asm-test\source\builder-section.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\asm-test\include\enums\address-size.h">
@@ -646,6 +649,9 @@
     </ClInclude>
     <ClInclude Include="..\..\asm-test\include\enums\x86-data-options.h">
       <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\builder-section.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

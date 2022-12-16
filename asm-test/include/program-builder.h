@@ -15,6 +15,7 @@
 
 #include "enums/x86-operand-sizes.h"
 #include "enums/x86-priviledge-levels.h"
+#include "enums/section-type.h"
 
 #include "object-code.h"
 
@@ -50,6 +51,8 @@ namespace X86
 
 	class Symbol;
 
+	class BuilderSection;
+
 	class ProgramBuilder
 	{
 	protected:
@@ -58,15 +61,21 @@ namespace X86
 
 		std::stringstream errorLog;
 
+		std::vector<std::shared_ptr<BuilderSection>> sections;
+
+		std::vector<std::shared_ptr<Symbol>> symbolTable;
+
+		/*
 		std::vector<std::shared_ptr<FunctionBuilder>> functions;
 
 		std::vector<std::shared_ptr<Symbol>> *dataSection;
+		*/
 
-		std::list<std::shared_ptr<Symbol>> undefinedList; 
+		//std::list<std::shared_ptr<Symbol>> undefinedList; 
 
 		const Assembler *assembler;
 
-		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions()),dataSection(nullptr)
+		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions())
 		{
 		}
 	public:
@@ -74,7 +83,7 @@ namespace X86
 		ProgramBuilder(const Casm::BuilderOptions &options,const Assembler *assembler) :
 			options(options),assembler(assembler)
 		{
-			dataSection = new std::vector<std::shared_ptr<Symbol>>();
+
 		}
 
 		const Casm::BuilderOptions* BuildOptions() const; 
@@ -83,18 +92,20 @@ namespace X86
 
 		const Assembler* Assembler() const;
 
-		Ceng::CRESULT AddData(const DataDescriptor &dataDesc,const Ceng::String &name,
-								const InitializerType *initializer);
-
 		std::shared_ptr<Symbol> FindData(const Ceng::String &name);
 
 		std::shared_ptr<Symbol> FindFunction(const Ceng::String &name);
 
 		std::shared_ptr<Symbol> FindSymbol(const Ceng::String &name);
 
+		Ceng::CRESULT AddSection(const Ceng::String& name, const SectionType::value type,
+			std::shared_ptr<BuilderSection> &out_section);
+
+		/*
 		Ceng::CRESULT AddFunction(const Ceng::UINT32 options,
 									const CPU_Mode &startMode,const PRIVILEDGE_LEVEL::value prLevel,
 									const Ceng::String &name,FunctionBuilder **function);
+		*/
 
 		//const Ceng::CRESULT AddFromString(const Ceng::String &code);
 		
