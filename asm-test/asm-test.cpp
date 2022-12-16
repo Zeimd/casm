@@ -37,6 +37,8 @@
 #include "include/x86-immediate-op.h"
 #include "include/x86-memory-op.h"
 
+#include "include/data-descriptor.h"
+
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/boolean.h>
 //#include <ceng/datatypes/string-manipulator.h>

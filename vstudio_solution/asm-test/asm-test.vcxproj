@@ -26,6 +26,7 @@
     <ClCompile Include="..\..\asm-test\source\code-generator.cpp" />
     <ClCompile Include="..\..\asm-test\source\code-label.cpp" />
     <ClCompile Include="..\..\asm-test\source\condition-jump.cpp" />
+    <ClCompile Include="..\..\asm-test\source\data-descriptor.cpp" />
     <ClCompile Include="..\..\asm-test\source\encode-data.cpp" />
     <ClCompile Include="..\..\asm-test\source\executable.cpp" />
     <ClCompile Include="..\..\asm-test\source\function-builder.cpp" />
@@ -115,12 +116,14 @@
     <ClInclude Include="..\..\asm-test\include\code-label.h" />
     <ClInclude Include="..\..\asm-test\include\code-line.h" />
     <ClInclude Include="..\..\asm-test\include\condition-jump.h" />
+    <ClInclude Include="..\..\asm-test\include\data-descriptor.h" />
     <ClInclude Include="..\..\asm-test\include\data-item.h" />
     <ClInclude Include="..\..\asm-test\include\encode-data.h" />
     <ClInclude Include="..\..\asm-test\include\enums\address-size.h" />
     <ClInclude Include="..\..\asm-test\include\enums\condition-codes.h" />
     <ClInclude Include="..\..\asm-test\include\enums\reference-type.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-cpu-modes.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-data-options.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-instruction-sets.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-opcode-escape.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-operand-place.h" />

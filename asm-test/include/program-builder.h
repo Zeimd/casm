@@ -43,17 +43,7 @@ namespace X86
 
 	class CPU_Mode;
 
-	class DataDescriptor
-	{
-	public:
-		Ceng::UINT32 options;
-		OPERAND_SIZE::value size;
-
-		DataDescriptor(const Ceng::UINT32 options,const OPERAND_SIZE::value size)
-			: options(options),size(size)
-		{
-		}
-	};
+	class DataDescriptor;
 
 	class ImmediateOperand;
 	class MemoryOperand;

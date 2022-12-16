@@ -46,6 +46,8 @@
 
 #include "../include/parser-c-global.h"
 
+#include "../include/data-descriptor.h"
+
 using namespace X86;
 
 namespace X86
