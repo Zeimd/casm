@@ -244,11 +244,12 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		functions[k]->MoveReferencesToObjectCode();
 	}
 
-	*output = new ObjectCode(dataSection, objFunctions);
+	*output = new ObjectCode(dataSection, bssSection, objFunctions);
 
 	functions.clear();
 
 	dataSection = nullptr;
+	bssSection = nullptr;
 
 	return Ceng::CE_OK;
 }

@@ -26,9 +26,12 @@ namespace X86
 
 		std::vector<std::shared_ptr<Symbol>> *dataSection;
 
+		std::vector<std::shared_ptr<Symbol>>* bssSection;
+
 		std::vector<std::shared_ptr<ObjectFunction>> *functions;
 
 		ObjectCode(std::vector<std::shared_ptr<Symbol>>* dataSection,
+			std::vector<std::shared_ptr<Symbol>>* bssSection,
 			std::vector<std::shared_ptr<ObjectFunction>>* functions);
 
 		~ObjectCode();

@@ -417,6 +417,8 @@ Ceng::CRESULT FunctionBuilder::MoveReferencesToObjectCode()
 		}
 	}
 
+	references = nullptr;
+
 	return Ceng::CE_OK;
 }
 
