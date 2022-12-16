@@ -66,7 +66,7 @@ namespace X86
 
 		const Assembler *assembler;
 
-		ProgramBuilder() : options(Casm::BuilderOptions())
+		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions()),dataSection(nullptr)
 		{
 		}
 	public:

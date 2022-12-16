@@ -35,7 +35,7 @@ namespace X86
 		Ceng::UINT32 position;
 		TYPE type;
 
-		CodeElement()
+		CodeElement() : offset(0),position(0),type(BASIC_BLOCK)
 		{
 		}
 
