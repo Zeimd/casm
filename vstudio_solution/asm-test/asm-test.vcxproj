@@ -123,6 +123,7 @@
     <ClInclude Include="..\..\asm-test\include\enums\address-size.h" />
     <ClInclude Include="..\..\asm-test\include\enums\condition-codes.h" />
     <ClInclude Include="..\..\asm-test\include\enums\reference-type.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\section-type.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-cpu-modes.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-data-options.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-instruction-sets.h" />
