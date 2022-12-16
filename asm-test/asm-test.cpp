@@ -122,65 +122,13 @@ int main()
 	// New code generator test
 	
 	X86::ObjectCode *testObject;
-
-	/*
-	Ceng::String sourceString;
-	
-	sourceString += "a+++b\n";
-	sourceString +=	"function main\n";
-	sourceString += "\tret\n";
-
-	sourceString += "end function\n";
-
-	//std::wcout << sourceString << std::endl;
-
-
-	cresult = assembler.CreateProgram(sourceString,&testObject);
-
-	return 0;
-	*/
 	
 	X86::ProgramBuilder *programBuild;
 
 	assembler.CreateProgram(Casm::BuilderOptions(false),&programBuild);
 
-	programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",new X86::Initializer<Ceng::INT32>(0));
-
-	//*************************************
-	// main()
-
-	//X86::FunctionBuilder *mainFunc;
-	//programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&mainFunc);
-
-	//mainFunc->AddInstruction("mov ecx,[esp+4]");
-
-	// Integer test
-
-	//mainFunc->AddInstruction("mov edx,-4");
-	
-	//mainFunc->AddInstruction("mov eax,[ecx]");
-	
-	//mainFunc->AddInstruction("add eax,dword 4");
-
-	//mainFunc->AddInstruction("add [ecx],dword 4");	
-
-	// Float test
-
-	/*
-	mainFunc->AddInstruction(X86::MOVSS,&X86::XMM0,new X86::MemoryOperand(X86::ECX));
-	
-	mainFunc->AddInstruction("mov eax,-4.0*-4.0");
-	mainFunc->AddInstruction(X86::MOV,new X86::MemoryOperand(X86::ECX),&X86::EAX);
-
-	mainFunc->AddInstruction(X86::ADDSS,&X86::XMM0,new X86::MemoryOperand(X86::ECX));
-
-	mainFunc->AddInstruction(X86::MOVSS,new X86::MemoryOperand(X86::ECX),&X86::XMM0);
-	*/
-	
-	
-
-	// Return
-	//mainFunc->AddInstruction("ret");
+	programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",
+		new X86::Initializer<Ceng::INT32>(1));
 
 	//*****************************************
 	// TestFunction
@@ -188,16 +136,27 @@ int main()
 	X86::FunctionBuilder *testFunc;
 	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
+	/*
 	testFunc->AddInstruction(X86::MOV,&X86::EAX,new X86::ImmediateOperand(1));
 	testFunc->AddInstruction(X86::MOV,&X86::ECX,new X86::MemoryOperand(X86::ESP,4));
 	
 	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX) , &X86::EAX);
+	*/
+
+	cresult = testFunc->AddInstruction(X86::MOV, &X86::EAX, "test");
+
+	if (cresult != Ceng::CE_OK)
+	{
+		std::wcout << "Error on instruction: mov eax, [test]" << std::endl;
+		return 0;
+	}
+
+	//testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
+
+	//->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
 
 
-	//X86::ImmediateOperand *op1 = new X86::ImmediateOperand(4);
-
-	//testFunc->AddInstruction(X86::RET_NEAR, op1);
-	testFunc->AddInstruction(X86::RET_NEAR);
+	//testFunc->AddInstruction(X86::RET_NEAR);
 	
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
@@ -236,6 +195,8 @@ int main()
 
 	std::wcout << "program end" << std::endl;
 
+	//return 0;
+
 	delete testObject;
 
 	X86::Executable *testProgram;
@@ -248,10 +209,19 @@ int main()
 		return 0;
 	}
 
+	std::wcout << "&test = " << std::hex << (Ceng::POINTER)&work << std::dec << std::endl;
+
+	std::wcout << "executable dump:" << std::endl;
+
+	testProgram->Print(std::wcout);
+
+	std::wcout << "executable end" << std::endl;
+
+	return 0;
+
+
 	delete testLink;
 	
-	std::wcout << "&test = " << (Ceng::POINTER)&work << std::endl;
-
 	std::wcout << "test in = " << work[0] << std::endl;
 	//std::wcout << "ftest in = " << floatWork << std::endl;
 
