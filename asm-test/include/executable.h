@@ -12,6 +12,8 @@
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/aligned-buffer.h>
 
+#include <ostream>
+
 namespace X86
 {
 	class Executable
@@ -38,7 +40,7 @@ namespace X86
 
 		void Execute(Ceng::POINTER param) const;
 
-		
+		void Print(std::wostream& out) const;
 	};
 
 	inline void Executable::Execute(Ceng::POINTER param) const

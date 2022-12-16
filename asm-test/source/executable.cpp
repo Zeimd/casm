@@ -8,6 +8,8 @@
 
 #include "../include/executable.h"
 
+#include "../include/hex-dump.h"
+
 #include <Windows.h>
 
 using namespace X86;
@@ -34,4 +36,20 @@ Executable* Executable::Create(void *functionPage,const Ceng::UINT32 pageSize,
 	temp->dataSegment = dataSegment;
 
 	return temp;
+}
+
+void Executable::Print(std::wostream& out) const
+{
+	const int groupSize = 16;
+
+	out << "section data (size=" << dataSegment.GetSize() << ")" << std::endl << std::endl;
+
+	Casm::HexDump(out, 16, dataSegment.GetSize(), &dataSegment[0]);
+
+	uint8_t* textSection = (uint8_t*)callback;
+
+	out << "section code (size=" << pageSize << ")" << std::endl << std::endl;
+
+	Casm::HexDump(out, 16, pageSize, &textSection[0]);
+
 }
