@@ -14,23 +14,20 @@
 
 using namespace X86;
 
-Symbol::Symbol()
+Symbol::Symbol() 
+	: type(SymbolType::unknown), section(SectionType::unknown),
+	offset(0), refCount(0), defined(false), external(false)
 {
-	type = TYPE::UNKNOWN;
-	offset = 0;
-	refCount = 0;
-	defined = false;
-	external = false;
+
 }
 
-Symbol::Symbol(const Ceng::String &name) 
-	: name(name),defined(true),external(false),refCount(0),offset(0)
+Symbol::Symbol(const Ceng::String& name, const SectionType::value section, 
+	const SymbolType::value type,
+	const Ceng::BOOL defined,const Ceng::BOOL external)
+	: name(name), section(section), type(type), offset(0), 
+	refCount(0), defined(defined),external(external)
 {
-}
 
-Symbol::Symbol(const Ceng::String &name,const TYPE type,const Ceng::BOOL defined,const Ceng::BOOL external) 
-	: name(name),type(type),defined(defined),external(external),refCount(0),offset(0)
-{
 }
 
 Symbol::~Symbol()

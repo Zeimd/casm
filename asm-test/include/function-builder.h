@@ -56,9 +56,7 @@ namespace X86
 
 		std::shared_ptr<BasicBlock> currentBlock;
 
-		FunctionBuilder()
-		{
-		}
+		FunctionBuilder();
 
 	public:
 
@@ -78,7 +76,7 @@ namespace X86
 
 		Ceng::CRESULT MoveReferencesToObjectCode();
 
-		Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;
+		//Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;
 
 		Ceng::CRESULT Finalize();
 

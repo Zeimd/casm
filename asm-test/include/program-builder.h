@@ -62,11 +62,14 @@ namespace X86
 
 		std::vector<std::shared_ptr<Symbol>> *dataSection;
 
+		std::vector<std::shared_ptr<Symbol>>* bssSection;
+
 		std::list<std::shared_ptr<Symbol>> undefinedList; 
 
 		const Assembler *assembler;
 
-		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions()),dataSection(nullptr)
+		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions()),dataSection(nullptr),
+			bssSection(nullptr)
 		{
 		}
 	public:
@@ -75,6 +78,7 @@ namespace X86
 			options(options),assembler(assembler)
 		{
 			dataSection = new std::vector<std::shared_ptr<Symbol>>();
+			bssSection = new std::vector<std::shared_ptr<Symbol>>();
 		}
 
 		const Casm::BuilderOptions* BuildOptions() const; 
@@ -83,8 +87,12 @@ namespace X86
 
 		const Assembler* Assembler() const;
 
+		// Add initialized data (section .data)
 		Ceng::CRESULT AddData(const DataDescriptor &dataDesc,const Ceng::String &name,
 								const InitializerType *initializer);
+
+		// Add uninitialized data (section .bss)
+		Ceng::CRESULT AddData(const DataDescriptor& dataDesc, const Ceng::String& name);
 
 		std::shared_ptr<Symbol> FindData(const Ceng::String &name);
 

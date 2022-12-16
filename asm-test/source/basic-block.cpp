@@ -30,13 +30,11 @@ Ceng::CRESULT BasicBlock::Build(BuildParams *params,
 								const std::vector<std::shared_ptr<Label>> &labels,
 								const std::vector<std::shared_ptr<CodeElement>> &codeList)
 {
-	Ceng::INT32 k;
-
 	Ceng::CRESULT cresult;
 
 	params->codeElement = this;
 
-	for(k=0;k<lines.size();k++)
+	for(size_t k=0;k<lines.size();k++)
 	{
 		cresult = lines[k]->Encode(params,codeBuffer);
 		if (cresult != Ceng::CE_OK)

@@ -13,6 +13,9 @@
 #include <ceng/datatypes/boolean.h>
 #include <ceng/datatypes/ce-string.h>
 
+#include "enums/x86-section-type.h"
+#include "enums/x86-symbol-type.h"
+
 namespace X86
 {
 	class DataItem;
@@ -21,18 +24,6 @@ namespace X86
 
 	class Symbol
 	{
-	public:
-
-		enum TYPE
-		{
-			UNKNOWN = 0 ,
-			DATA = 1 ,
-			FUNCTION = 2 ,
-			OBJECT_FUNCTION = 4 ,
-
-			TYPE_FORCE_32B = 1 << 30 ,
-		};
-
 	protected:
 		Ceng::UINT32 refCount;
 		Ceng::BOOL defined;
@@ -43,16 +34,19 @@ namespace X86
 		 */
 		Ceng::INT64 offset;
 
-		TYPE type;
+		SymbolType::value type;
+		SectionType::value section;
+	protected:
+
+		Symbol();
+
 	public:
 
 		Ceng::String name;
 
-		Symbol();	
 
-		Symbol(const Ceng::String &name);
-		Symbol(const Ceng::String &name,const TYPE type,const Ceng::BOOL defined,
-					const Ceng::BOOL external);
+		Symbol(const Ceng::String& name, const SectionType::value section, const SymbolType::value type,
+			const Ceng::BOOL defined, const Ceng::BOOL external);
 			
 		virtual ~Symbol();
 
@@ -71,7 +65,7 @@ namespace X86
 
 		const Ceng::UINT32 RefCount() const;
 	
-		const TYPE Type() const;
+		const SymbolType::value Type() const;
 
 		DataItem* AsData() const;
 		FunctionBuilder* AsFunction() const;
@@ -114,7 +108,7 @@ namespace X86
 		return refCount;
 	}
 
-	inline const Symbol::TYPE Symbol::Type() const
+	inline const SymbolType::value Symbol::Type() const
 	{
 		return type;
 	}

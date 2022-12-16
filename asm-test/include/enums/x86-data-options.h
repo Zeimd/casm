@@ -7,6 +7,11 @@ namespace X86
 	{
 		enum value
 		{
+			// Data is not visible outside of compilation unit
+			no_export = 1,
+
+			constant = 1 << 1,
+
 			// Unused. Forces enum storage to int32
 			force_32b = 1 << 30 ,
 		};

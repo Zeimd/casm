@@ -647,5 +647,11 @@
     <ClInclude Include="..\..\asm-test\include\enums\x86-data-options.h">
       <Filter>Header Files\enums</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-section-type.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\asm-test\include\enums\x86-symbol-type.h">
+      <Filter>Header Files\enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

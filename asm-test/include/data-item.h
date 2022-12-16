@@ -14,22 +14,13 @@
 
 #include "enums/x86-operand-sizes.h"
 
+#include "enums/x86-data-options.h"
+
 #include "symbol.h"
 #include "initializer.h"
 
 namespace X86
 {
-	namespace DATA_OPTION
-	{
-		enum value
-		{
-			CONSTANT = 1 ,
-			STATIC = 1 << 1 ,
-
-			FORCE_32B = 1 << 30 ,
-		};
-	}
-
 	class DataItem : public Symbol
 	{
 	public:
@@ -39,9 +30,22 @@ namespace X86
 
 		const InitializerType *initializer;
 
-		DataItem()
+	protected:
+
+		DataItem() : 
+			options(0), elementSize(OPERAND_SIZE::OPERAND_SIZE_FORCE_32B), initializer(nullptr)
 		{
-			initializer = nullptr;
+
+		}
+
+	public:
+
+		DataItem(const Ceng::String& name, Ceng::UINT32 options, X86::OPERAND_SIZE::value size, 
+			SectionType::value section, const InitializerType* initializer)
+			: Symbol(name, section, SymbolType::data,true,false), initializer(initializer),
+			options(options), elementSize(size)
+		{
+
 		}
 
 		~DataItem()

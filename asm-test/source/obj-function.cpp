@@ -21,7 +21,8 @@ ObjectFunction::ObjectFunction() : references(nullptr), codeBuffer(nullptr)
 ObjectFunction::ObjectFunction(const Ceng::String &name,
 							   std::vector<std::shared_ptr<SymbolRef>> *references,
 							   std::vector<Ceng::UINT8> *codeBuffer)
-	: Symbol(name,Symbol::OBJECT_FUNCTION,true,false),references(references),codeBuffer(codeBuffer)
+	: Symbol(name,SectionType::text,SymbolType::object_function,true,false),
+	references(references),codeBuffer(codeBuffer)
 {
 }
 
@@ -70,11 +71,11 @@ Ceng::CRESULT ObjectFunction::ReferenceAll(std::vector<std::shared_ptr<Symbol>> 
 
 		if ( temp->RefCount() == 0)
 		{
-			if (temp->Type() == Symbol::DATA)
+			if (temp->Type() == SymbolType::data)
 			{
 				dataList->push_back( (*references)[k]->symbol);
 			}
-			else if (temp->Type() == Symbol::OBJECT_FUNCTION)
+			else if (temp->Type() == SymbolType::object_function)
 			{
 				functionList->push_back( (*references)[k]->symbol);
 			}
@@ -117,7 +118,7 @@ Ceng::CRESULT ObjectFunction::AppendRelocationData(std::vector<RelocationData> &
 
 			Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
 
-			if ( (*references)[k]->symbol->Type() == Symbol::OBJECT_FUNCTION)
+			if ( (*references)[k]->symbol->Type() == SymbolType::object_function)
 			{
 				symbolSection = RelocationData::CODE_SECTION;
 			}
