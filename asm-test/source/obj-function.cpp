@@ -41,7 +41,8 @@ ObjectFunction::~ObjectFunction()
 
 void ObjectFunction::Print(std::wostream& out) const
 {
-	out << "function " << name << " (size=" << SizeBytes() << ")" << std::endl;
+	out << "function " << name << " (size=" << 
+		std::dec << SizeBytes() << ")" << std::endl;
 	
 	Casm::HexDump(out, 16, SizeBytes(), &(*codeBuffer)[0]);
 

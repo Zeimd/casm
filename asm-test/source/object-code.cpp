@@ -39,7 +39,8 @@ void ObjectCode::Print(std::wostream& out) const
 	{
 		DataItem* data = x->AsData();
 
-		out << x->Offset() << " : " << x->name << " (size=" << data->initializer->Size() << ") : ";
+		out << x->Offset() << " : " << x->name << " (size=" << 
+			std::dec << data->initializer->Size() << ") : ";
 
 		std::vector<uint8_t> values(data->initializer->Size());
 
@@ -51,6 +52,8 @@ void ObjectCode::Print(std::wostream& out) const
 		}
 
 		out << std::endl;
+
+		out << std::dec;
 	}
 
 	out << std::endl;

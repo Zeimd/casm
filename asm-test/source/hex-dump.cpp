@@ -29,6 +29,8 @@ namespace Casm
 		}
 
 		out << std::endl;
+
+		out << std::dec;
 	}
 
 }
