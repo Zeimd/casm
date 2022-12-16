@@ -369,8 +369,6 @@ Ceng::CRESULT FunctionBuilder::Build(std::shared_ptr<ObjectFunction>* output)
 		return cresult;
 	}
 
-	references = new std::vector<std::shared_ptr<SymbolRef>>();
-
 	std::vector<Ceng::UINT8>* codeBuffer;
 
 	codeBuffer = new std::vector<Ceng::UINT8>();
@@ -378,14 +376,6 @@ Ceng::CRESULT FunctionBuilder::Build(std::shared_ptr<ObjectFunction>* output)
 	for (size_t k = 0; k < codeList.size(); k++)
 	{
 		codeList[k]->offset = codeBuffer->size();
-
-		// Add all displacements from the code element
-
-		for (size_t j = 0; j < codeList[k]->references.size(); j++)
-		{
-			codeList[k]->references[j]->encodeOffset += codeBuffer->size();
-			references->push_back(codeList[k]->references[j]);
-		}
 
 		cresult = codeList[k]->Append(*codeBuffer);
 		if (cresult != Ceng::CE_OK)

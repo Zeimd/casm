@@ -43,8 +43,6 @@ namespace X86
 
 		Ceng::INT64 offset;
 
-		std::vector<std::shared_ptr<SymbolRef>> references;
-
 		CodeElement(const Ceng::UINT32 position);
 
 		virtual ~CodeElement();	
