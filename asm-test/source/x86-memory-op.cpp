@@ -14,6 +14,10 @@
 #include "../include/build-params.h"
 #include "../include/encode-data.h"
 
+#include "../include/symbol-ref.h"
+
+#include "../include/function-builder.h"
+
 using namespace X86;
 
 MemoryOperand::MemoryOperand()
@@ -233,6 +237,8 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 
 		if (baseReg == X86::RIP.index)
 		{
+			// TODO: check mode
+
 			return Ceng::CE_ERR_INVALID_PARAM;
 		}
 	}
@@ -395,23 +401,23 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 
 	encodeData->displacement = displacement;
 
-	/*
-	if (memoryOp->symbol != nullptr)
+	if (symbol != nullptr)
 	{
-		REFERENCE_TYPE::value refType = REFERENCE_TYPE::ADDRESS;
+		Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
 
+		/*
 		if (params->mode->cpuMode == CPU_MODE::X64)
 		{
-			refType = REFERENCE_TYPE::IP_RELATIVE;
+			refType = Casm::REFERENCE_TYPE::IP_RELATIVE;
 		}
+		*/
 
-		SymbolRef *temp = new SymbolRef(memoryOp->symbol,params->out_dispOffset,
-											params->out_dispSize,refType);
+		SymbolRef* temp = new SymbolRef(symbol, params->out_dispOffset,
+			params->out_dispSize, refType);
 
-		params->codeElement->references.push_back(temp);
+		params->function->AddSymbolRef(temp);
 		params->memRef = temp;
 	}
-	*/
 
 	return Ceng::CE_OK;
 }

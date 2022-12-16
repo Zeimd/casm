@@ -60,9 +60,7 @@ namespace X86
 
 	public:
 
-		virtual ~FunctionBuilder()
-		{
-		}
+		virtual ~FunctionBuilder();
 
 		FunctionBuilder(const Ceng::String &name,ProgramBuilder *program);
 
@@ -76,13 +74,19 @@ namespace X86
 
 		Ceng::CRESULT MoveReferencesToObjectCode();
 
-		//Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;
-
 		Ceng::CRESULT Finalize();
+
+		Ceng::CRESULT AddSymbolRef(SymbolRef* symbolRef);
+		/*
+		Ceng::CRESULT AddSymbolRef(std::shared_ptr<Symbol> symbol, const Ceng::UINT64 offset,
+			const OPERAND_SIZE::value encodeSize,
+			const Casm::REFERENCE_TYPE::value refType);
+			*/
 
 		Ceng::CRESULT AddLabel(const Ceng::String &label);
 
-		Ceng::CRESULT ConditionalJump(const Casm::CONDITION::value condition,const Ceng::String &label);
+		Ceng::CRESULT ConditionalJump(const Casm::CONDITION::value condition,
+			const Ceng::String &label);
 
 		Ceng::CRESULT Call(const Ceng::String &functionName);
 

@@ -34,9 +34,11 @@ FunctionBuilder::FunctionBuilder()
 FunctionBuilder::FunctionBuilder(const Ceng::String &name,ProgramBuilder *program)
 	: Symbol(name,SectionType::text, SymbolType::function,false,false),
 	program(program),
-	currentMode(nullptr), currentPR(PRIVILEDGE_LEVEL::ANY),references(nullptr)
+	currentMode(nullptr), currentPR(PRIVILEDGE_LEVEL::ANY)
 {
-	
+	InitializeParams();
+
+	references = new std::vector<std::shared_ptr<SymbolRef>>();
 }
 
 FunctionBuilder::FunctionBuilder(const Ceng::String &name,ProgramBuilder *program,
@@ -45,6 +47,8 @@ FunctionBuilder::FunctionBuilder(const Ceng::String &name,ProgramBuilder *progra
 	program(program),currentMode(startMode),currentPR(prLevel)
 {
 	InitializeParams();
+
+	references = new std::vector<std::shared_ptr<SymbolRef>>();
 }
 
 Ceng::CRESULT FunctionBuilder::InitializeParams()
@@ -57,6 +61,30 @@ Ceng::CRESULT FunctionBuilder::InitializeParams()
 
 	return Ceng::CE_OK;
 }
+
+FunctionBuilder::~FunctionBuilder()
+{
+	if (references != nullptr)
+	{
+		delete references;
+	}
+}
+
+Ceng::CRESULT FunctionBuilder::AddSymbolRef(SymbolRef* symbolRef)
+{
+	references->push_back(std::shared_ptr<SymbolRef>(symbolRef));
+}
+
+/*
+Ceng::CRESULT FunctionBuilder::AddSymbolRef(std::shared_ptr<Symbol> symbol, const Ceng::UINT64 offset,
+	const OPERAND_SIZE::value encodeSize,
+	const Casm::REFERENCE_TYPE::value refType)
+{
+	references->emplace_back(symbol, offset, encodeSize, refType);
+
+	return Ceng::CE_OK;
+}
+*/
 
 Ceng::CRESULT FunctionBuilder::SetStartMode(const CPU_Mode *startMode,
 											const PRIVILEDGE_LEVEL::value prLevel)
@@ -181,7 +209,8 @@ Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction& instruction, co
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction& instruction, const Operand* dest, const Operand* source)
+Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction& instruction, const Operand* dest, 
+	const Operand* source)
 {
 	StartBlock();
 
