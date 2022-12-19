@@ -50,13 +50,15 @@ void Executable::Print(std::wostream& out) const
 {
 	const int groupSize = 16;
 
-	out << "section data (size=" << dataSegment.GetSize() << ")" << std::endl << std::endl;
+	out << "section .data (base=0x" << std::hex << &dataSegment[0] << std::dec <<
+		", size = " << dataSegment.GetSize() << ")" << std::endl << std::endl;
 
 	Casm::HexDump(out, 16, dataSegment.GetSize(), &dataSegment[0]);
 
 	uint8_t* textSection = (uint8_t*)callback;
 
-	out << "section code (size=" << pageSize << ")" << std::endl << std::endl;
+	out << "section .text (base=0x" << std::hex << callback << std::dec <<
+		", size = " << pageSize << ")" << std::endl << std::endl;
 
 	Casm::HexDump(out, 16, pageSize, &textSection[0]);
 
