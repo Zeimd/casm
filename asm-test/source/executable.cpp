@@ -14,14 +14,22 @@
 
 using namespace X86;
 
+Executable::Executable()
+	: callback(nullptr), pageSize(0)
+{
+
+}
+
 Executable::~Executable()
 {
-	VirtualFree((void*)callback,pageSize,MEM_RELEASE);
-	//dataSegment.Release();
+	if (callback != nullptr)
+	{
+		VirtualFree((void*)callback, pageSize, MEM_RELEASE);
+	}
 }
 
 Executable* Executable::Create(void *functionPage,const Ceng::UINT32 pageSize,
-							   Ceng::AlignedBuffer<Ceng::UINT8> dataSegment)
+							   Ceng::AlignedBuffer<Ceng::UINT8> &&dataSegment)
 {
 	if (functionPage == nullptr)
 	{
@@ -33,7 +41,7 @@ Executable* Executable::Create(void *functionPage,const Ceng::UINT32 pageSize,
 	temp->pageSize = pageSize;
 	temp->callback = (void(*)(Ceng::POINTER))functionPage;
 
-	temp->dataSegment = dataSegment;
+	temp->dataSegment = std::move(dataSegment);
 
 	return temp;
 }

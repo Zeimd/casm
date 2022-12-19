@@ -67,7 +67,7 @@ Ceng::CRESULT Program::GetExecutable(Executable **output)
 		relocationData[k].Relocate((Ceng::UINT64)&dataCopy[0],(Ceng::UINT64)&execPage[0]);
 	}
 
-	Executable *temp = Executable::Create(execPage,programSize,dataCopy);
+	Executable *temp = Executable::Create(execPage,programSize,std::move(dataCopy));
 
 	*output = temp;
 

@@ -25,18 +25,15 @@ namespace X86
 
 		Ceng::AlignedBuffer<Ceng::UINT8> dataSegment;
 
-	private:
-		Executable()
-		{
-			callback = nullptr;
-		}
-
+	protected:
+		Executable();
+		
 	public:
 
 		~Executable();
 
 		static Executable* Create(void *functionPage,const Ceng::UINT32 pageSize,
-								Ceng::AlignedBuffer<Ceng::UINT8> dataSegment);
+								Ceng::AlignedBuffer<Ceng::UINT8> &&dataSegment);
 
 		void Execute(Ceng::POINTER param) const;
 
