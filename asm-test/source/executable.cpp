@@ -24,7 +24,7 @@ Executable::~Executable()
 {
 	if (callback != nullptr)
 	{
-		VirtualFree((void*)callback, pageSize, MEM_RELEASE);
+		VirtualFree((void*)callback, 0, MEM_RELEASE);
 	}
 }
 
