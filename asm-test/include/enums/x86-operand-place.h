@@ -34,7 +34,7 @@ namespace X86
 			imm = 5 ,
 
 			// Do not encode this operand.
-			NOT_USED = 6 ,
+			unused = 6 ,
 
 			// Unused. Forces enumeration storage format to int32
 			force_32b = 1 << 30 ,
