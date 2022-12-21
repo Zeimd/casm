@@ -217,19 +217,16 @@ int main()
 
 	std::wcout << "executable end" << std::endl;
 
-	return 0;
-
-
 	delete testLink;
 	
-	std::wcout << "test in = " << work[0] << std::endl;
+	std::wcout << "test in = " << work[0] << " (0x" << std::hex << work[0] << std::dec << ")" << std::endl;
 	//std::wcout << "ftest in = " << floatWork << std::endl;
 
 	testProgram->Execute((Ceng::POINTER)&work[0]);
 	//testProgram->Execute((Ceng::POINTER)&floatWork);
 	//testProgram->Execute((Ceng::POINTER)&vector[0]);
 
-	std::wcout << "test out = " << work[0] << std::endl;
+	std::wcout << "test out = " << work[0] << " (0x" << std::hex << work[0] << std::dec << ")" << std::endl;
 	//std::wcout << "float test out = " << floatWork << std::endl;
 
 	/*
