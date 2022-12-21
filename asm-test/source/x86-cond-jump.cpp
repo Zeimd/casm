@@ -35,7 +35,7 @@ const Ceng::CRESULT CondJumpInstruction::Select_I(BuildParams *params,EncodeData
 	{
 		encodeData->opcode = opcode_imm8;
 
-		encodeData->operandPlace[0] = OPERAND_PLACE::IMM;
+		encodeData->operandPlace[0] = OperandPlace::imm;
 		encodeData->immEncoding = X86::OPERAND_SIZE::BYTE;
 	}
 	else
@@ -48,7 +48,7 @@ const Ceng::CRESULT CondJumpInstruction::Select_I(BuildParams *params,EncodeData
 		encodeData->escapeCode = OPCODE_ESCAPE::BYTE_0F;
 		encodeData->opcode = opcode_imm32;
 
-		encodeData->operandPlace[0] = OPERAND_PLACE::IMM;
+		encodeData->operandPlace[0] = OperandPlace::imm;
 		encodeData->immEncoding = params->mode->defaultOpSize;
 	}
 

@@ -64,7 +64,7 @@ const Ceng::CRESULT ALU_Incr::Select_R(BuildParams *params,EncodeData *encodeDat
 
 		encodeData->modRM.SetRegField(option);
 
-		encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+		encodeData->operandPlace[0] = OperandPlace::rm_field;
 	}
 	else
 	{
@@ -76,11 +76,11 @@ const Ceng::CRESULT ALU_Incr::Select_R(BuildParams *params,EncodeData *encodeDat
 				 
 			encodeData->modRM.SetRegField(option);
 			
-			encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+			encodeData->operandPlace[0] = OperandPlace::rm_field;
 		}
 		else
 		{
-			encodeData->operandPlace[0] = OPERAND_PLACE::OPCODE;
+			encodeData->operandPlace[0] = OperandPlace::opcode;
 		}
 	}
 
@@ -106,7 +106,7 @@ const Ceng::CRESULT ALU_Incr::Select_M(BuildParams *params,EncodeData *encodeDat
 
 	encodeData->modRM.SetRegField(option);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }

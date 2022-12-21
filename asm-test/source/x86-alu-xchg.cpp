@@ -90,8 +90,8 @@ const Ceng::CRESULT Exchange::Select_R_R(BuildParams *params,
 	{
 		encodeData->opcode = opcode_r8_rm8;
 
-		encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-		encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+		encodeData->operandPlace[0] = OperandPlace::reg_field;
+		encodeData->operandPlace[1] = OperandPlace::rm_field;
 	}
 	else
 	{
@@ -101,20 +101,20 @@ const Ceng::CRESULT Exchange::Select_R_R(BuildParams *params,
 		{
 			encodeData->opcode = opcode_EAX_r32;
 
-			encodeData->operandPlace[1] = OPERAND_PLACE::OPCODE;
+			encodeData->operandPlace[1] = OperandPlace::opcode;
 		}
 		else if (source->index == X86::EAX.index)
 		{
 			encodeData->opcode = opcode_EAX_r32;
 
-			encodeData->operandPlace[0] = OPERAND_PLACE::OPCODE;
+			encodeData->operandPlace[0] = OperandPlace::opcode;
 		}
 		else
 		{
 			encodeData->opcode = opcode_r32_rm32;
 
-			encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-			encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+			encodeData->operandPlace[0] = OperandPlace::reg_field;
+			encodeData->operandPlace[1] = OperandPlace::rm_field;
 		}
 	}
 
@@ -139,8 +139,8 @@ const Ceng::CRESULT Exchange::Select_R_M(BuildParams *params,
 		encodeData->opcode = opcode_r8_rm8;	
 	}
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }

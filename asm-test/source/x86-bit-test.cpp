@@ -94,8 +94,8 @@ const Ceng::CRESULT ALU_BitTest::Select_R_R(BuildParams *params,EncodeData *enco
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
 
 	return Ceng::CE_OK;
 }
@@ -119,8 +119,8 @@ const Ceng::CRESULT ALU_BitTest::Select_M_R(BuildParams *params,EncodeData *enco
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
 
 	return Ceng::CE_OK;
 }
@@ -161,8 +161,8 @@ const Ceng::CRESULT ALU_BitTest::Select_R_I(BuildParams *params,EncodeData *enco
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::imm;
 
 	return Ceng::CE_OK;
 }
@@ -205,8 +205,8 @@ const Ceng::CRESULT ALU_BitTest::Select_M_I(BuildParams *params,EncodeData *enco
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::imm;
 
 	return Ceng::CE_OK;
 }

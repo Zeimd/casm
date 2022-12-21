@@ -60,7 +60,7 @@ const Ceng::CRESULT ALU_Div::Select_R(BuildParams *params,EncodeData *encodeData
 
 	EncodeOperandSize(params,encodeData,operand->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }
@@ -84,7 +84,7 @@ const Ceng::CRESULT ALU_Div::Select_M(BuildParams *params,EncodeData *encodeData
 
 	EncodeOperandSize(params,encodeData,operand->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }

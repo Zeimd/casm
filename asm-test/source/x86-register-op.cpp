@@ -36,7 +36,7 @@ const Ceng::UINT32 RegisterOperand::RegisterFiles() const
 const Ceng::CRESULT RegisterOperand::EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 													 const Ceng::UINT32 operandIndex) const
 {
-	if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::OPCODE)
+	if (encodeData->operandPlace[operandIndex] == OperandPlace::opcode)
 	{
 		encodeData->opcode += index & 7;
 		
@@ -46,13 +46,13 @@ const Ceng::CRESULT RegisterOperand::EncodeAsOperand(BuildParams *params,EncodeD
 		return Ceng::CE_OK;
 	}
 
-	if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::VEX_VVVV)
+	if (encodeData->operandPlace[operandIndex] == OperandPlace::vex_vvvv)
 	{
 		encodeData->vex.Set_VVVV(index);
 		return Ceng::CE_OK;
 	}
 
-	if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::IMM)
+	if (encodeData->operandPlace[operandIndex] == OperandPlace::imm)
 	{
 		encodeData->hasImmediate = true;
 		encodeData->immEncoding = OPERAND_SIZE::BYTE;
@@ -62,13 +62,13 @@ const Ceng::CRESULT RegisterOperand::EncodeAsOperand(BuildParams *params,EncodeD
 		return Ceng::CE_OK;
 	}
 
-	if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::REG_FIELD)
+	if (encodeData->operandPlace[operandIndex] == OperandPlace::reg_field)
 	{
 		encodeData->modRM.SetRegField(index);		
 		encodeData->rex.SetRegField(index);
 		encodeData->vex.SetRegField(index);
 	}
-	else if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::RM_FIELD)
+	else if (encodeData->operandPlace[operandIndex] == OperandPlace::rm_field)
 	{
 		encodeData->modRM.SetBaseField(index);
 		encodeData->modRM.SetBasetype(ModRM_Byte::REGISTER);

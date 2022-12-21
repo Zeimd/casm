@@ -229,8 +229,8 @@ const Ceng::CRESULT SSE_Instruction::SSE_M_R(BuildParams *params,EncodeData *enc
 	encodeData->escapeCode = OPCODE_ESCAPE::BYTE_0F;
 	encodeData->opcode = opcode_rm_r;
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
 
 	return Ceng::CE_OK;
 }
@@ -244,8 +244,8 @@ void SSE_Instruction::StandardOpcode(BuildParams *params,EncodeData *encodeData,
 	encodeData->escapeCode = escapeCode;
 	encodeData->opcode = opcode_r_rm;
 	
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	return;
 }
@@ -362,9 +362,9 @@ void SSE_Instruction::AVX_StandardOpcode3(BuildParams *params,EncodeData *encode
 	encodeData->vex.SetVectorSize(opSize);
 	encodeData->vex.SetPrefixCode(prefixByte);
 	
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::VEX_VVVV;
-	encodeData->operandPlace[2] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::vex_vvvv;
+	encodeData->operandPlace[2] = OperandPlace::rm_field;
 }
 
 const Ceng::CRESULT SSE_Instruction::AVX_R_R(BuildParams *params,EncodeData *encodeData,
@@ -480,8 +480,8 @@ const Ceng::CRESULT SSE_Instruction::AVX_M_R(BuildParams *params,EncodeData *enc
 	encodeData->vex.SetEscapeCode(escapeCode);
 	encodeData->vex.SetPrefixCode(prefixByte);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
 
 	return Ceng::CE_OK;
 }
@@ -507,6 +507,6 @@ void SSE_Instruction::AVX_StandardOpcode2(BuildParams *params,EncodeData *encode
 	encodeData->vex.SetVectorSize(opSize);
 	encodeData->vex.SetPrefixCode(prefixByte);
 	
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 }

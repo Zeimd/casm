@@ -54,7 +54,7 @@ const Ceng::CRESULT SaveExtState::Select_M(BuildParams *params,EncodeData *encod
 
 	encodeData->modRM.SetRegField(option);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }

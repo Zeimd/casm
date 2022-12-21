@@ -53,7 +53,7 @@ const Ceng::CRESULT ALU_ByteSwap::Select_R(BuildParams *params,EncodeData *encod
 	encodeData->escapeCode = OPCODE_ESCAPE::BYTE_0F;
 	encodeData->opcode = opcode;
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::OPCODE;
+	encodeData->operandPlace[0] = OperandPlace::opcode;
 
 	return Ceng::CE_OK;
 }

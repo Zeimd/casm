@@ -68,7 +68,7 @@ const Ceng::CRESULT ALU_Ascii::Select_I(BuildParams *params,EncodeData *encodeDa
 
 	encodeData->immEncoding = OPERAND_SIZE::BYTE;
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::imm;
 
 	return Ceng::CE_OK;
 }

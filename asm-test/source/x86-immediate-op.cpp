@@ -114,7 +114,7 @@ const std::shared_ptr<Symbol> ImmediateOperand::GetSymbol() const
 const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 													  const Ceng::UINT32 operandIndex) const
 {
-	if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::NOT_USED)
+	if (encodeData->operandPlace[operandIndex] == OperandPlace::unused)
 	{
 		return Ceng::CE_OK;
 	}

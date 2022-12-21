@@ -88,8 +88,8 @@ const Ceng::CRESULT ConditionalMove::Config(BuildParams *params,EncodeData *enco
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }

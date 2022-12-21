@@ -194,7 +194,7 @@ MemoryOperand::MemoryOperand(const OPERAND_SIZE::value operandSize,
 const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 												   const Ceng::UINT32 operandIndex) const
 {
-	if (encodeData->operandPlace[operandIndex] == OPERAND_PLACE::NOT_USED)
+	if (encodeData->operandPlace[operandIndex] == OperandPlace::unused)
 	{
 		return Ceng::CE_OK;
 	}

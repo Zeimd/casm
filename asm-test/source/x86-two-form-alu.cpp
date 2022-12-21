@@ -136,8 +136,8 @@ const Ceng::CRESULT TwoForm_ALU::Standard_R_R(BuildParams *params,EncodeData *en
 		return cresult;
 	}
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
 
 	OPERAND_SIZE::value opSize = dest->Size();
 
@@ -159,8 +159,8 @@ const Ceng::CRESULT TwoForm_ALU::Standard_M_R(BuildParams *params,EncodeData *en
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
 
 	OPERAND_SIZE::value opSize = source->Size();
 
@@ -182,8 +182,8 @@ const Ceng::CRESULT TwoForm_ALU::Standard_R_M(BuildParams *params,EncodeData *en
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	OPERAND_SIZE::value opSize = dest->Size();
 

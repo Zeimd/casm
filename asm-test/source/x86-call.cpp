@@ -54,7 +54,7 @@ const Ceng::CRESULT CallInstruction::Encode_AbsoluteNear_R(BuildParams *params,E
 
 	encodeData->modRM.SetRegField(2);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }
@@ -66,7 +66,7 @@ const Ceng::CRESULT CallInstruction::Encode_AbsoluteNear_M(BuildParams *params,E
 
 	encodeData->modRM.SetRegField(2);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }
@@ -78,7 +78,7 @@ const Ceng::CRESULT CallInstruction::Encode_Relative(BuildParams *params,EncodeD
 
 	encodeData->immEncoding = params->mode->defaultOpSize;
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::imm;
 
 	//params->imm_symbolRefType = REFERENCE_TYPE::IP_RELATIVE;
 

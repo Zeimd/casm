@@ -96,8 +96,8 @@ const Ceng::CRESULT AddTypeInstruction::Select_R_I(BuildParams *params,
 
 	// Store extra opcode in regField (selects from ADD,SUB,AND,OR, etc...)
 	
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::imm;
 
 	OPERAND_SIZE::value opSize = dest->Size();
 
@@ -109,7 +109,7 @@ const Ceng::CRESULT AddTypeInstruction::Select_R_I(BuildParams *params,
 	{
 		if (dest->index == X86::EAX.index)
 		{
-			encodeData->operandPlace[0] = OPERAND_PLACE::NOT_USED;
+			encodeData->operandPlace[0] = OperandPlace::unused;
 			encodeData->opcode = opcode_AL_imm8;
 		}
 		else
@@ -132,7 +132,7 @@ const Ceng::CRESULT AddTypeInstruction::Select_R_I(BuildParams *params,
 		{
 			if (dest->index == X86::EAX.index)
 			{
-				encodeData->operandPlace[0] = OPERAND_PLACE::NOT_USED;
+				encodeData->operandPlace[0] = OperandPlace::unused;
 				encodeData->opcode = opcode_EAX_imm32;
 			}			
 			else
@@ -167,8 +167,8 @@ const Ceng::CRESULT AddTypeInstruction::Select_M_I(BuildParams *params,
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::imm;
 
 	EncodeOperandSize(params,encodeData,opSize);
 

@@ -112,8 +112,8 @@ const Ceng::CRESULT ALU_Shift::Select_R_R(BuildParams *params,EncodeData *encode
 
 	encodeData->modRM.SetRegField(option);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::NOT_USED;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::unused;
 
 	return Ceng::CE_OK;
 }
@@ -155,8 +155,8 @@ const Ceng::CRESULT ALU_Shift::Select_M_R(BuildParams *params,EncodeData *encode
 
 	encodeData->modRM.SetRegField(option);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::NOT_USED;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::unused;
 
 	return Ceng::CE_OK;
 }
@@ -181,8 +181,8 @@ const Ceng::CRESULT ALU_Shift::Select_R_I(BuildParams *params,EncodeData *encode
 
 	encodeData->immEncoding = OPERAND_SIZE::BYTE;
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::imm;
 
 	if (dest->Size() == OPERAND_SIZE::BYTE)
 	{
@@ -191,7 +191,7 @@ const Ceng::CRESULT ALU_Shift::Select_R_I(BuildParams *params,EncodeData *encode
 		if (source->Value8() == 1)
 		{
 			encodeData->opcode = opcode_r8_one;
-			encodeData->operandPlace[1] = OPERAND_PLACE::NOT_USED;
+			encodeData->operandPlace[1] = OperandPlace::unused;
 		}		
 	}
 	else
@@ -201,7 +201,7 @@ const Ceng::CRESULT ALU_Shift::Select_R_I(BuildParams *params,EncodeData *encode
 		if (source->Value8() == 1)
 		{
 			encodeData->opcode = opcode_r32_one;
-			encodeData->operandPlace[1] = OPERAND_PLACE::NOT_USED;
+			encodeData->operandPlace[1] = OperandPlace::unused;
 		}
 	}
 
@@ -221,8 +221,8 @@ const Ceng::CRESULT ALU_Shift::Select_M_I(BuildParams *params,EncodeData *encode
 
 	encodeData->modRM.SetRegField(option);
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::imm;
 
 	if (dest->Size() == OPERAND_SIZE::BYTE)
 	{
@@ -231,7 +231,7 @@ const Ceng::CRESULT ALU_Shift::Select_M_I(BuildParams *params,EncodeData *encode
 		if (source->Value8() == 1)
 		{
 			encodeData->opcode = opcode_r8_one;
-			encodeData->operandPlace[1] = OPERAND_PLACE::NOT_USED;
+			encodeData->operandPlace[1] = OperandPlace::unused;
 		}		
 	}
 	else
@@ -241,7 +241,7 @@ const Ceng::CRESULT ALU_Shift::Select_M_I(BuildParams *params,EncodeData *encode
 		if (source->Value8() == 1)
 		{
 			encodeData->opcode = opcode_r32_one;
-			encodeData->operandPlace[1] = OPERAND_PLACE::NOT_USED;
+			encodeData->operandPlace[1] = OperandPlace::unused;
 		}
 	}
 

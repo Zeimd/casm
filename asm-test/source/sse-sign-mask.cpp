@@ -55,8 +55,8 @@ const Ceng::CRESULT SSE_SignMask::Select_R_R(BuildParams *params,EncodeData *enc
 	encodeData->escapeCode = OPCODE_ESCAPE::BYTE_0F;
 	encodeData->opcode = opcode;
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	return Ceng::CE_OK;
 }

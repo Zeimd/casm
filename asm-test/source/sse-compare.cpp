@@ -49,8 +49,8 @@ const Ceng::CRESULT SSE_Compare::Select_R_R(BuildParams *params,EncodeData *enco
 	encodeData->escapeCode = OPCODE_ESCAPE::BYTE_0F;
 	encodeData->opcode = opcode;
 	
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	// Comparison type to immediate operand
 
@@ -74,8 +74,8 @@ const Ceng::CRESULT SSE_Compare::Select_R_M(BuildParams *params,EncodeData *enco
 	encodeData->escapeCode = OPCODE_ESCAPE::BYTE_0F;
 	encodeData->opcode = opcode;
 	
-	encodeData->operandPlace[0] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::RM_FIELD;
+	encodeData->operandPlace[0] = OperandPlace::reg_field;
+	encodeData->operandPlace[1] = OperandPlace::rm_field;
 
 	// Comparison type to immediate operand
 

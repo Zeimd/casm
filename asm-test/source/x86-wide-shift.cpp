@@ -117,9 +117,9 @@ const Ceng::CRESULT ALU_WideShift::Select_R_R_R(BuildParams *params,EncodeData *
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[2] = OPERAND_PLACE::NOT_USED;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
+	encodeData->operandPlace[2] = OperandPlace::unused;
 
 	return Ceng::CE_OK;
 }
@@ -149,9 +149,9 @@ const Ceng::CRESULT ALU_WideShift::Select_M_R_R(BuildParams *params,EncodeData *
 
 	EncodeOperandSize(params,encodeData,source1->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[2] = OPERAND_PLACE::NOT_USED;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
+	encodeData->operandPlace[2] = OperandPlace::unused;
 
 	return Ceng::CE_OK;
 }
@@ -176,9 +176,9 @@ const Ceng::CRESULT ALU_WideShift::Select_R_R_I(BuildParams *params,EncodeData *
 
 	EncodeOperandSize(params,encodeData,dest->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[2] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
+	encodeData->operandPlace[2] = OperandPlace::imm;
 
 	encodeData->immEncoding = OPERAND_SIZE::BYTE;
 
@@ -200,9 +200,9 @@ const Ceng::CRESULT ALU_WideShift::Select_M_R_I(BuildParams *params,EncodeData *
 
 	EncodeOperandSize(params,encodeData,source1->Size());
 
-	encodeData->operandPlace[0] = OPERAND_PLACE::RM_FIELD;
-	encodeData->operandPlace[1] = OPERAND_PLACE::REG_FIELD;
-	encodeData->operandPlace[2] = OPERAND_PLACE::IMM;
+	encodeData->operandPlace[0] = OperandPlace::rm_field;
+	encodeData->operandPlace[1] = OperandPlace::reg_field;
+	encodeData->operandPlace[2] = OperandPlace::imm;
 
 	encodeData->immEncoding = OPERAND_SIZE::BYTE;
 
