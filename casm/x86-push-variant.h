@@ -56,7 +56,8 @@ namespace X86
 
 		~PushTypeInstruction() override;
 
-
+		const Ceng::CRESULT SelectOpcode(BuildParams* params,
+			EncodeData* encodeData, const Operand* operand) const override;
 	};
 }
 

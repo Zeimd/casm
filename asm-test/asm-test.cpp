@@ -143,13 +143,19 @@ int main()
 
 
 	// mov eax,[test]
-	testFunc->AddInstruction(X86::MOV, &X86::EAX, "test");
+	//testFunc->AddInstruction(X86::MOV, &X86::EAX, "test");
 
 	// mov eax,1
 	//cresult = testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
 
 	// mov ecx, [esp+4]
 	testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
+
+	// push 1
+	testFunc->AddInstruction(X86::PUSH, new X86::ImmediateOperand(1));
+
+	// pop eax
+	testFunc->AddInstruction(X86::POP, &X86::EAX);
 
 	// mov [ecx], eax
 	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);

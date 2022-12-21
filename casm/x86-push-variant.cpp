@@ -1,6 +1,12 @@
 
 #include "x86-push-variant.h"
 
+#include "x86-operand.h"
+
+#include "encode-data.h"
+
+#include "build-params.h"
+
 using namespace X86;
 
 PushTypeInstruction::PushTypeInstruction(const uint8_t opcode_rm32, const uint8_t opcode_r32,
@@ -19,4 +25,65 @@ PushTypeInstruction::PushTypeInstruction(const uint8_t opcode_rm32, const uint8_
 PushTypeInstruction::~PushTypeInstruction()
 {
 
+}
+
+const Ceng::CRESULT PushTypeInstruction::SelectOpcode(BuildParams* params,
+	EncodeData* encodeData, const Operand* operand) const
+{
+	if (operand->IsRegisterOperand())
+	{
+		// TODO: check for segment register
+
+		//encodeData->operandPlace[0] = X86::OperandPlace::unused;
+
+		// For general purpose registers
+
+		encodeData->opcode = opcode_r32;
+
+		encodeData->operandPlace[0] = X86::OperandPlace::opcode;
+	}
+	else if (operand->IsMemoryOperand())
+	{
+		encodeData->opcode = opcode_rm32;
+
+		encodeData->modRM.SetRegField(6);
+
+		encodeData->operandPlace[0] = X86::OperandPlace::rm_field;
+	}
+	else if (operand->IsImmediateOperand())
+	{
+		if (allowImm == false)
+		{
+			return Ceng::CE_ERR_INVALID_PARAM;
+		}
+
+		switch (operand->Size())
+		{
+		case X86::OPERAND_SIZE::BYTE:
+			encodeData->opcode = opcode_imm8;
+			break;
+		case X86::OPERAND_SIZE::WORD:
+		case X86::OPERAND_SIZE::DWORD:
+			encodeData->opcode = opcode_imm32;
+
+			if (params->mode->defaultOpSize != operand->Size())
+			{
+				encodeData->optionPrefix |= X86::PREFIX_BYTE::OPERAND_SIZE;
+			}
+			break;
+		default:
+			return Ceng::CE_ERR_INVALID_PARAM;
+			break;
+		}
+
+		encodeData->operandPlace[0] = X86::OperandPlace::imm;
+
+		encodeData->immEncoding = operand->Size();
+	}
+	else
+	{
+		return Ceng::CE_ERR_FAIL;
+	}
+
+	return Ceng::CE_OK;
 }
