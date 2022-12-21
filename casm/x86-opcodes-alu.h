@@ -486,6 +486,14 @@ namespace X86
 	extern const CBW_Variant PUSHAD;
 }
 
+#include "x86-push-variant.h"
+
+namespace X86
+{
+	extern const PushTypeInstruction PUSH;
+	extern const PushTypeInstruction POP;
+}
+
 #include "x86-simple-instruction.h"
 
 namespace X86

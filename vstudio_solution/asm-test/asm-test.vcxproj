@@ -94,6 +94,7 @@
     <ClCompile Include="..\..\casm\x86-opcodes-sse3.cpp" />
     <ClCompile Include="..\..\casm\x86-opcodes-sse41.cpp" />
     <ClCompile Include="..\..\casm\x86-operand.cpp" />
+    <ClCompile Include="..\..\casm\x86-push-variant.cpp" />
     <ClCompile Include="..\..\casm\x86-register-map.cpp" />
     <ClCompile Include="..\..\casm\x86-register-op.cpp" />
     <ClCompile Include="..\..\casm\x86-regs-alu.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="..\..\casm\x86-opcodes-sse3.h" />
     <ClInclude Include="..\..\casm\x86-opcodes-sse41.h" />
     <ClInclude Include="..\..\casm\x86-operand.h" />
+    <ClInclude Include="..\..\casm\x86-push-variant.h" />
     <ClInclude Include="..\..\casm\x86-register-map.h" />
     <ClInclude Include="..\..\casm\x86-register-op.h" />
     <ClInclude Include="..\..\casm\x86-regs-alu-adr.h" />

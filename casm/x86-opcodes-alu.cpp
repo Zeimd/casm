@@ -270,6 +270,12 @@ namespace X86
 
 	const CBW_Variant PUSHAD = CBW_Variant(0x60,OPERAND_SIZE::DWORD);
 
+	const PushTypeInstruction PUSH = PushTypeInstruction(0xFF, 0x50, true, 0x0E,
+		0x16, 0x1E, 0x06, 0xA0, 0xA8, true, 0x6A, 0x68);
+
+	const PushTypeInstruction POP = PushTypeInstruction(0x8F, 0x58, false, 0x00,
+		0x17, 0x1F, 0x07, 0xA1, 0xA9, false, 0x00, 0x00);
+
 	//*************************************************************************************
 	// Long division and multiply
 

@@ -285,6 +285,9 @@
     <ClCompile Include="..\..\casm\assembler.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\casm\x86-push-variant.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\casm\enums\address-size.h">
@@ -657,6 +660,9 @@
       <Filter>Header Files\casm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\x86-xsave.h">
+      <Filter>Header Files\casm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\casm\x86-push-variant.h">
       <Filter>Header Files\casm</Filter>
     </ClInclude>
   </ItemGroup>
