@@ -36,6 +36,18 @@ namespace X86
 			// Do not encode this operand.
 			unused = 6 ,
 
+			// Encode operand to imm8 bits [6:4].
+			// Used with SSE/AVX instructions in 32-bit mode.
+			imm8_bits_6_4 = 7,
+
+			// Encode operand to imm8 bits [7:4] 
+			// Used with SSE/AVX instructions in 64-bit mode.
+			imm8_bits_7_4 = 8,
+
+			// Encode operand to imm8 bits [3:0]
+			// Used with SSE/AVX instructions.
+			imm8_bits_3_0 = 9,
+
 			// Unused. Forces enumeration storage format to int32
 			force_32b = 1 << 30 ,
 		};
