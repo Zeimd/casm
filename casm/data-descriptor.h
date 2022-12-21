@@ -12,7 +12,11 @@ namespace X86
 		Ceng::UINT32 options;
 		OPERAND_SIZE::value size;
 
+		DataDescriptor();
+
 		DataDescriptor(const Ceng::UINT32 options, const OPERAND_SIZE::value size);
+
+		DataDescriptor(const Ceng::UINT32 options);
 	};
 }
 
