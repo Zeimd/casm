@@ -18,26 +18,26 @@
 
 #endif
 
-#include "include/assembler.h"
+#include "assembler.h"
 
-#include "include/program-builder.h"
-#include "include/function-builder.h"
+#include "program-builder.h"
+#include "function-builder.h"
 
-#include "include/program.h"
+#include "program.h"
 
-#include "include/executable.h"
+#include "executable.h"
 
-#include "include/initializer.h"
+#include "initializer.h"
 
-#include "include/linker.h"
+#include "linker.h"
 
-#include "include/x86-opcodes-alu.h"
-#include "include/x86-regs-alu.h"
+#include "x86-opcodes-alu.h"
+#include "x86-regs-alu.h"
 
-#include "include/x86-immediate-op.h"
-#include "include/x86-memory-op.h"
+#include "x86-immediate-op.h"
+#include "x86-memory-op.h"
 
-#include "include/data-descriptor.h"
+#include "data-descriptor.h"
 
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/boolean.h>
