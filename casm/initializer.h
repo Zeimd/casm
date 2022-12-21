@@ -9,6 +9,8 @@
 #ifndef X86_INITIALIZER_H
 #define X86_INITIALIZER_H
 
+#include <initializer_list>
+
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/return-val.h>
 
@@ -70,14 +72,81 @@ namespace X86
 		}
 	};
 
+	class StringLiteralInitializer : public InitializerType
+	{
+	protected:
+		std::vector<char> data;
+
+		StringLiteralInitializer()
+			: data(1, '\0')
+		{
+
+		}
+
+	public:
+
+		StringLiteralInitializer(const char* source)
+			: data(strlen(source)+1)
+		{
+			memcpy(&data[0], source, strlen(source));
+			data[strlen(source)] = '\0';
+		}
+
+		virtual ~StringLiteralInitializer()
+		{
+		}
+
+		virtual Ceng::UINT32 Size() const override
+		{
+			return data.size();
+		}
+
+		virtual Ceng::CRESULT WriteValues(Ceng::UINT8* destBuffer) const override
+		{
+			for (size_t i = 0; i < data.size(); i++)
+			{
+				destBuffer[i] = data[i];
+			}
+
+			return Ceng::CE_OK;
+		}
+
+	};
+
 	template<class T>
 	class InitializerList : public InitializerType
 	{
 	protected:
 		std::vector<T> data;
-	public:
+
 		InitializerList()
 		{
+		}
+
+	public:
+
+		InitializerList(const std::vector<T>& source)
+			: data(source)
+		{
+
+		}
+
+		InitializerList(std::vector<T>&& source)
+			: data(source)
+		{
+
+		}
+
+		InitializerList(std::initializer_list<T> source)
+			: data(source)
+		{
+				
+		}
+
+		InitializerList(const T* source, const uint32_t length)
+			: data(source, source + length)
+		{
+
 		}
 
 		virtual ~InitializerList()
