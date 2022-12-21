@@ -110,6 +110,17 @@ Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng
 	return Ceng::CE_OK;
 }
 
+Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
+	const char* initializer)
+{
+	dataSection->push_back(std::make_shared<DataItem>(
+		name, dataDesc.options, X86::OPERAND_SIZE::BYTE, SectionType::data,
+		new StringLiteralInitializer(initializer)));
+
+	return Ceng::CE_OK;
+}
+
+
 Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng::String& name)
 {
 	bssSection->push_back(std::make_shared<DataItem>(

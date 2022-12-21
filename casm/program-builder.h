@@ -91,6 +91,11 @@ namespace X86
 		Ceng::CRESULT AddData(const DataDescriptor &dataDesc,const Ceng::String &name,
 								const InitializerType *initializer);
 
+		// Add string literal to .data
+		Ceng::CRESULT AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
+			const char* initializer);
+
+
 		// Add uninitialized data (section .bss)
 		Ceng::CRESULT AddData(const DataDescriptor& dataDesc, const Ceng::String& name);
 

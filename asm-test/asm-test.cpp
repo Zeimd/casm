@@ -130,33 +130,35 @@ int main()
 	programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",
 		new X86::Initializer<Ceng::INT32>(1));
 
+	programBuild->AddData(X86::DataDescriptor(), "hello_str", "Hello World!\n");
+
 	//*****************************************
 	// TestFunction
 	
 	X86::FunctionBuilder *testFunc;
 	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
-	/*
-	testFunc->AddInstruction(X86::MOV,&X86::EAX,new X86::ImmediateOperand(1));
-	testFunc->AddInstruction(X86::MOV,&X86::ECX,new X86::MemoryOperand(X86::ESP,4));
-	
-	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX) , &X86::EAX);
-	*/
-
-	cresult = testFunc->AddInstruction(X86::MOV, &X86::EAX, "test");
-
-	if (cresult != Ceng::CE_OK)
-	{
-		std::wcout << "Error on instruction: mov eax, [test]" << std::endl;
-		return 0;
-	}
-
-	//testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
-
-	//->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
+	// mov eax, 0
+	//testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(0));
 
 
-	//testFunc->AddInstruction(X86::RET_NEAR);
+	// mov eax,[test]
+	testFunc->AddInstruction(X86::MOV, &X86::EAX, "test");
+
+	// mov eax,1
+	//cresult = testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
+
+	// mov ecx, [esp+4]
+	testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
+
+	// mov [ecx], eax
+	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
+
+	// mov [ecx], ecx ; test = &test
+	//testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::ECX);
+
+	// ret
+	testFunc->AddInstruction(X86::RET_NEAR);
 	
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
@@ -194,8 +196,6 @@ int main()
 	testLink->Print(std::wcout);
 
 	std::wcout << "program end" << std::endl;
-
-	//return 0;
 
 	delete testObject;
 
