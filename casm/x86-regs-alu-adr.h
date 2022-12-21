@@ -28,6 +28,19 @@ namespace X86
 	extern const RegisterOperand ESP;
 
 	extern const RegisterOperand EBP;
+
+	extern const RegisterOperand CS;
+
+	extern const RegisterOperand DS;
+
+	extern const RegisterOperand SS;
+
+	extern const RegisterOperand ES;
+
+	extern const RegisterOperand FS;
+
+	extern const RegisterOperand GS;
+
 }
 
 #endif

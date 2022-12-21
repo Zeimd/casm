@@ -40,6 +40,9 @@ namespace X86
 			REG_XMM = 1 << 6 ,
 			REG_YMM = 1 << 7 ,
 
+			// Segment registers CS,DS,SS,ES,FS,GS
+			REG_SEGMENT = 1 << 8,
+
 			/**
 			 * Instruction pointer for special cases.
 			 */

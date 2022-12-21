@@ -261,4 +261,26 @@ namespace X86
 
 	const RegisterOperand R15L = RegisterOperand(CPU_MODE::X64,true,REGISTER_FILE::REG_8_X64,
 															OPERAND_SIZE::BYTE,15);
+
+	//*******************************************************************************
+	// Segment registers
+
+	const RegisterOperand CS = RegisterOperand(MODE_X86_X64,false, REGISTER_FILE::REG_SEGMENT,
+		OPERAND_SIZE::SEGMENT, 0);
+
+	const RegisterOperand DS = RegisterOperand(MODE_X86_X64, false, REGISTER_FILE::REG_SEGMENT,
+		OPERAND_SIZE::SEGMENT, 1);
+
+	const RegisterOperand SS = RegisterOperand(MODE_X86_X64, false, REGISTER_FILE::REG_SEGMENT,
+		OPERAND_SIZE::SEGMENT, 2);
+
+	const RegisterOperand ES = RegisterOperand(MODE_X86_X64, false, REGISTER_FILE::REG_SEGMENT,
+		OPERAND_SIZE::SEGMENT, 3);
+
+	const RegisterOperand FS = RegisterOperand(MODE_X86_X64, false, REGISTER_FILE::REG_SEGMENT,
+		OPERAND_SIZE::SEGMENT, 4);
+
+	const RegisterOperand GS = RegisterOperand(MODE_X86_X64, false, REGISTER_FILE::REG_SEGMENT,
+		OPERAND_SIZE::SEGMENT, 5);
+
 }

@@ -7,6 +7,12 @@
 
 #include "build-params.h"
 
+#include "x86-register-op.h"
+
+#include "enums/x86-register-types.h"
+
+#include "x86-regs-alu-adr.h"
+
 using namespace X86;
 
 PushTypeInstruction::PushTypeInstruction(const uint8_t opcode_rm32, const uint8_t opcode_r32,
@@ -32,15 +38,54 @@ const Ceng::CRESULT PushTypeInstruction::SelectOpcode(BuildParams* params,
 {
 	if (operand->IsRegisterOperand())
 	{
-		// TODO: check for segment register
+		const RegisterOperand* reg = static_cast<const RegisterOperand*>(operand);
 
-		//encodeData->operandPlace[0] = X86::OperandPlace::unused;
+		if (reg->RegisterFiles() == X86::REGISTER_FILE::REG_SEGMENT)
+		{
+			if (reg == &X86::CS)
+			{
+				if (allowCS == false)
+				{
+					return Ceng::CE_ERR_INVALID_PARAM;
+				}
 
-		// For general purpose registers
+				encodeData->opcode = opcode_cs;
+			}
+			else if (reg == &X86::DS)
+			{
+				encodeData->opcode = opcode_ds;
+			}
+			else if (reg == &X86::SS)
+			{
+				encodeData->opcode = opcode_ss;
+			}
+			else if (reg == &X86::ES)
+			{
+				encodeData->opcode = opcode_fs;
+			}
+			else if (reg == &X86::FS)
+			{
+				encodeData->escapeCode = X86::OPCODE_ESCAPE::BYTE_0F;
+				encodeData->opcode = opcode_gs;
+			}
+			else if (reg == &X86::GS)
+			{
+				encodeData->escapeCode = X86::OPCODE_ESCAPE::BYTE_0F;
+				encodeData->opcode = opcode_ss;
+			}
+			else
+			{
+				return Ceng::CE_ERR_INVALID_PARAM;
+			}
 
-		encodeData->opcode = opcode_r32;
+			encodeData->operandPlace[0] = X86::OperandPlace::unused;
+		}
+		else
+		{
+			encodeData->opcode = opcode_r32;
 
-		encodeData->operandPlace[0] = X86::OperandPlace::opcode;
+			encodeData->operandPlace[0] = X86::OperandPlace::opcode;
+		}	
 	}
 	else if (operand->IsMemoryOperand())
 	{

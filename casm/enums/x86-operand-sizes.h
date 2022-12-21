@@ -38,6 +38,9 @@ namespace X86
 			// 64 bytes, 512 bits
 			ZMMWORD = 64 ,
 
+			// Processor mode specific
+			SEGMENT = 1 << 29,
+
 			// Unused. Forces enumeration storage format to int32
 			OPERAND_SIZE_FORCE_32B = 1 << 30 ,
 		};
