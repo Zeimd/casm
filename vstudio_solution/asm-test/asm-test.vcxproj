@@ -133,6 +133,7 @@
     <ClInclude Include="..\..\asm-test\include\enums\x86-prefix-bytes.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-priviledge-levels.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-register-types.h" />
+    <ClInclude Include="..\..\asm-test\include\enums\x86-relocation-type.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-section-type.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-simd-encoding.h" />
     <ClInclude Include="..\..\asm-test\include\enums\x86-symbol-type.h" />
