@@ -72,7 +72,7 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 #endif
 
-	_setmode(_fileno(stdout),_O_U8TEXT);
+	//_setmode(_fileno(stdout),_O_U8TEXT);
 
 	Ceng::INT32 k=0;
 
@@ -127,8 +127,8 @@ int main()
 
 	assembler.CreateProgram(Casm::BuilderOptions(false),&programBuild);
 
-	programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",
-		new X86::Initializer<Ceng::INT32>(1));
+	//programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",
+		//new X86::Initializer<Ceng::INT32>(1));
 
 	programBuild->AddData(X86::DataDescriptor(), "hello_str", "Hello World!\n");
 
@@ -138,30 +138,30 @@ int main()
 	X86::FunctionBuilder *testFunc;
 	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
-	// mov eax, 0
-	//testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(0));
-
-
-	// mov eax,[test]
-	//testFunc->AddInstruction(X86::MOV, &X86::EAX, "test");
-
-	// mov eax,1
-	//cresult = testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
+	// mov eax, hello_str
+	testFunc->MoveAddress(&X86::EAX, "hello_str");
 
 	// mov ecx, [esp+4]
 	testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
 
-	// push 1
-	testFunc->AddInstruction(X86::PUSH, new X86::ImmediateOperand(1));
+	// push ecx
+	testFunc->AddInstruction(X86::PUSH, &X86::ECX);
 
-	// pop eax
-	testFunc->AddInstruction(X86::POP, &X86::EAX);
+	// push printf params to stack
+
+	// push eax
+	testFunc->AddInstruction(X86::PUSH, &X86::EAX);
+
+	testFunc->Call("printf");
+
+	// clear printf param from stack
+	testFunc->AddInstruction(X86::POP, &X86::ECX);
+
+	// pop ecx
+	testFunc->AddInstruction(X86::POP, &X86::ECX);
 
 	// mov [ecx], eax
 	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
-
-	// mov [ecx], ecx ; test = &test
-	//testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::ECX);
 
 	// ret
 	testFunc->AddInstruction(X86::RET_NEAR);
@@ -221,6 +221,8 @@ int main()
 		return 0;
 	}
 
+	std::wcout << "&printf = " << std::hex << (Ceng::POINTER)&printf << std::dec << std::endl;
+
 	std::wcout << "&test = " << std::hex << (Ceng::POINTER)&work << std::dec << std::endl;
 
 	std::wcout << "executable dump:" << std::endl;
@@ -228,6 +230,8 @@ int main()
 	testProgram->Print(std::wcout);
 
 	std::wcout << "executable end" << std::endl;
+
+	//return 0;
 
 	delete testLink;
 	
