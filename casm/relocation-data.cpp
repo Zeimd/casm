@@ -13,7 +13,8 @@
 using namespace X86;
 
 Ceng::CRESULT RelocationData::Relocate(const Ceng::UINT64 dataSectionBase,
-									   const Ceng::UINT64 codeSectionBase) const
+									   const Ceng::UINT64 codeSectionBase,
+	Casm::ExternSymbol* externs, uint32_t externCount) const
 {
 	if (type == Casm::REFERENCE_TYPE::ADDRESS)
 	{
@@ -30,6 +31,26 @@ Ceng::CRESULT RelocationData::Relocate(const Ceng::UINT64 dataSectionBase,
 		if (relocationSection == CODE_SECTION)
 		{
 			value = codeSectionBase;
+		}
+		else if (relocationSection == EXTERNAL)
+		{
+			Casm::ExternSymbol* found = nullptr;
+
+			for (uint32_t k = 0; k < externCount; k++)
+			{
+				if (externName == externs[k].name)
+				{
+					found = &externs[k];
+					break;
+				}
+			}
+
+			if (found == nullptr)
+			{
+				return Ceng::CE_ERR_FAIL;
+			}
+
+			value = (Ceng::UINT64)found->address;
 		}
 
 		std::wcout << "write address = 0x" << std::hex << writeAddress << std::dec << std::endl;

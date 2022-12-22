@@ -120,15 +120,25 @@ Ceng::CRESULT ObjectFunction::AppendRelocationData(std::vector<RelocationData> &
 
 			Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
 
+			Ceng::String externName;
+
 			if ( (*references)[k]->symbol->Type() == SymbolType::object_function)
 			{
-				symbolSection = RelocationData::CODE_SECTION;
+				if (SizeBytes() > 0)
+				{
+					symbolSection = RelocationData::CODE_SECTION;					
+				}
+				else
+				{
+					symbolSection = RelocationData::EXTERNAL;
+					externName = (*references)[k]->symbol->name;
+				}				
 			}
 
 			relocationData.push_back(RelocationData(RelocationData::CODE_SECTION,
 					(*references)[k]->encodeOffset + offset,symbolSection,
 					(*references)[k]->encodeSize,
-					refType,0));
+					refType,externName,0));
 		}
 	}
 	
