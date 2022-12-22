@@ -140,6 +140,7 @@
     <ClInclude Include="..\..\casm\enums\x86-symbol-type.h" />
     <ClInclude Include="..\..\casm\enums\x86-vex-w.h" />
     <ClInclude Include="..\..\casm\executable.h" />
+    <ClInclude Include="..\..\casm\extern-symbol.h" />
     <ClInclude Include="..\..\casm\function-builder.h" />
     <ClInclude Include="..\..\casm\hex-dump.h" />
     <ClInclude Include="..\..\casm\initializer.h" />

@@ -189,7 +189,7 @@ int main()
 
 	X86::Program *testLink;
 
-	cresult = linker.LinkProgram("main",objects,&testLink);
+	cresult = linker.LinkProgram("main",objects,nullptr, 0, &testLink);
 
 	if (cresult != Ceng::CE_OK)
 	{

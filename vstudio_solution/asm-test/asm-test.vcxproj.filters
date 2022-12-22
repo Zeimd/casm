@@ -665,5 +665,8 @@
     <ClInclude Include="..\..\casm\x86-push-variant.h">
       <Filter>Header Files\casm</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\casm\extern-symbol.h">
+      <Filter>Header Files\casm</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
