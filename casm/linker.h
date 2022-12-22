@@ -13,7 +13,6 @@
 #include <ceng/datatypes/return-val.h>
 #include <ceng/datatypes/ce-string.h>
 
-#include "extern-symbol.h"
 
 namespace X86
 {
@@ -36,9 +35,7 @@ namespace Casm
 		virtual ~Linker();
 
 		Ceng::CRESULT LinkProgram(const Ceng::String &entryFunction,
-			std::vector<X86::ObjectCode*> &objects,
-			ExternSymbol* externs, uint32_t externCount,
-			X86::Program **output);
+			std::vector<X86::ObjectCode*> &objects,X86::Program **output);
 			
 	};
 }

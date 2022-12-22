@@ -29,8 +29,7 @@ Linker::~Linker()
 }
 
 Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
-	std::vector<X86::ObjectCode*> &objects,
-	ExternSymbol* externs, uint32_t externCount, X86::Program **output)
+	std::vector<X86::ObjectCode*> &objects, X86::Program **output)
 {
 	// Find entry point function
 

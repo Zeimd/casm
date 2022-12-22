@@ -19,6 +19,8 @@
 
 #include "executable.h"
 
+#include "extern-symbol.h"
+
 namespace X86
 {
 	class Program
@@ -36,7 +38,8 @@ namespace X86
 		Program();
 		~Program();
 
-		Ceng::CRESULT GetExecutable(Executable **output);
+		Ceng::CRESULT GetExecutable(Casm::ExternSymbol* externs, uint32_t externCount,
+			Executable **output);
 
 		void Print(std::wostream& out) const;
 

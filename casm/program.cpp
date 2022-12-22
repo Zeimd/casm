@@ -26,7 +26,8 @@ Program::~Program()
 	//dataSection.Release();
 }
 
-Ceng::CRESULT Program::GetExecutable(Executable **output)
+Ceng::CRESULT Program::GetExecutable(Casm::ExternSymbol* externs, uint32_t externCount,
+	Executable **output)
 {
 	Ceng::UINT32 k;
 
@@ -78,7 +79,8 @@ Ceng::CRESULT Program::GetExecutable(Executable **output)
 	for(k=0;k<relocationData.size();k++)
 	{
 		std::wcout << "item " << k << ":" << std::endl;
-		relocationData[k].Relocate((Ceng::UINT64)&dataCopy[0],(Ceng::UINT64)&execPage[0]);
+		relocationData[k].Relocate((Ceng::UINT64)&dataCopy[0],(Ceng::UINT64)&execPage[0],
+			externs, externCount);
 	}
 
 	Executable *temp = Executable::Create(execPage,programSize,std::move(dataCopy));

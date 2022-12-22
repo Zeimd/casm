@@ -189,7 +189,7 @@ int main()
 
 	X86::Program *testLink;
 
-	cresult = linker.LinkProgram("main",objects,nullptr, 0, &testLink);
+	cresult = linker.LinkProgram("main",objects, &testLink);
 
 	if (cresult != Ceng::CE_OK)
 	{
@@ -205,9 +205,15 @@ int main()
 
 	delete testObject;
 
+	Casm::ExternSymbol externs[] =
+	{
+		{"printf", &printf}
+	};
+
 	X86::Executable *testProgram;
 
-	cresult = testLink->GetExecutable(&testProgram);
+	cresult = testLink->GetExecutable(externs,
+		sizeof(externs) / sizeof(Casm::ExternSymbol), &testProgram);
 
 	if (cresult != Ceng::CE_OK)
 	{
