@@ -159,9 +159,11 @@ Ceng::CRESULT FunctionBuilder::Call(const Ceng::String &functionName)
 	}
 
 	StartBlock();
-
+	
 	currentBlock->AddLine(new UnaryOp(X86::CALL,
-		new ImmediateOperand(target,params->mode->addressSize)));
+		new MemoryOperand(target)));
+
+
 	return Ceng::CE_OK;
 }
 
