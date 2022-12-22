@@ -8,6 +8,14 @@
 
 #include "x86-immediate-op.h"
 
+#include "enums//reference-type.h"
+
+#include "symbol-ref.h"
+
+#include "build-params.h"
+
+#include "function-builder.h"
+
 #include "encode-data.h"
 
 using namespace X86;
@@ -120,7 +128,30 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 	}
 
 	encodeData->hasImmediate = true;
-	encodeData->immediate = value;
+
+	if (symbol != nullptr)
+	{
+		Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
+
+		/*
+		if (params->mode->cpuMode == CPU_MODE::X64)
+		{
+			refType = Casm::REFERENCE_TYPE::IP_RELATIVE;
+		}
+		*/
+
+		SymbolRef* temp = new SymbolRef(symbol, params->out_immOffset,
+			params->out_immSize, refType);
+
+		params->function->AddSymbolRef(temp);
+		params->immRef = temp;
+
+		encodeData->immediate = 0;
+	}
+	else
+	{
+		encodeData->immediate = value;
+	}
 
 	return Ceng::CE_OK;
 }
