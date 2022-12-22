@@ -23,6 +23,8 @@
 
 #include "x86-opcode-map.h"
 
+#include "build-params.h"
+
 using namespace X86;
 
 FunctionBuilder::FunctionBuilder()
@@ -142,7 +144,8 @@ Ceng::CRESULT FunctionBuilder::MoveAddress(const Operand *dest,const Ceng::Strin
 
 	StartBlock();
 
-	currentBlock->AddLine(new BinaryOp(X86::MOV,dest,new ImmediateOperand(source)));
+	currentBlock->AddLine(new BinaryOp(X86::MOV,dest,new ImmediateOperand(source,
+		params->mode->addressSize)));
 	return Ceng::CE_OK;	
 }
 
@@ -157,7 +160,8 @@ Ceng::CRESULT FunctionBuilder::Call(const Ceng::String &functionName)
 
 	StartBlock();
 
-	currentBlock->AddLine(new UnaryOp(X86::CALL,new ImmediateOperand(target)));
+	currentBlock->AddLine(new UnaryOp(X86::CALL,
+		new ImmediateOperand(target,params->mode->addressSize)));
 	return Ceng::CE_OK;
 }
 

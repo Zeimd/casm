@@ -25,10 +25,10 @@ namespace X86
 	public:
 		const CPU_MODE::value cpuMode;
 
-		const Casm::ADDRESS_SIZE::value addressSize;
+		const OPERAND_SIZE::value addressSize;
 		const OPERAND_SIZE::value defaultOpSize;
 
-		CPU_Mode(const CPU_MODE::value cpuMode,const Casm::ADDRESS_SIZE::value addressSize,
+		CPU_Mode(const CPU_MODE::value cpuMode,const OPERAND_SIZE::value addressSize,
 					const OPERAND_SIZE::value defaultOpSize);
 	};
 

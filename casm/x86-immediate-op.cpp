@@ -20,11 +20,12 @@
 
 using namespace X86;
 
-ImmediateOperand::ImmediateOperand(std::shared_ptr<Symbol> &symbol) :
-	Operand(OPERAND_TYPE::IMM,false,OPERAND_SIZE::IMPLICIT)
+ImmediateOperand::ImmediateOperand(std::shared_ptr<Symbol> &symbol,
+	const X86::OPERAND_SIZE::value addressSize) :
+	Operand(OPERAND_TYPE::IMM,false,addressSize)
 {
 	this->symbol = symbol;
-	bytes = 0;
+	bytes = addressSize;
 	value = 0;
 }
 

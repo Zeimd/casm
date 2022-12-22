@@ -30,7 +30,7 @@ namespace X86
 
 		~ImmediateOperand() override;
 
-		ImmediateOperand(std::shared_ptr<Symbol> &symbol);
+		ImmediateOperand(std::shared_ptr<Symbol> &symbol, const X86::OPERAND_SIZE::value addressSize);
 
 		ImmediateOperand(const Ceng::INT64 value);
 
