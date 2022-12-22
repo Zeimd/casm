@@ -95,6 +95,19 @@ void ObjectCode::Print(std::wostream& out) const
 	{
 		x->Print(out);
 	}
+
+	out << std::endl;
+
+	out << "undefined symbols" << std::endl << std::endl;
+
+	for (auto& x : *functions)
+	{
+		if (x->SizeBytes() == 0)
+		{
+			out << "    function " << x->name << std::endl;
+		}
+	}
+
 }
 
 

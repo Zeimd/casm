@@ -104,7 +104,10 @@ Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
 
 		X86::ObjectFunction *objFunc = (*linkFunctions)[k]->AsObjectFunction();
 
-		codeSegSize += objFunc->SizeBytes();
+		if (objFunc->SizeBytes() > 0)
+		{
+			codeSegSize += objFunc->SizeBytes();
+		}
 	}
 
 	Ceng::AlignedBuffer<Ceng::UINT8> dataSegment; 
@@ -136,6 +139,8 @@ Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
 	{
 		X86::ObjectFunction *objFunc = (*linkFunctions)[k]->AsObjectFunction();
 
+		if (objFunc->SizeBytes() == 0) continue;
+		
 		objFunc->WriteAllOffsets();
 
 		uint32_t offset = uint32_t(objFunc->Offset());
