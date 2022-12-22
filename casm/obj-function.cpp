@@ -95,7 +95,22 @@ Ceng::CRESULT ObjectFunction::WriteAllOffsets()
 
 	for(k=0;k<references->size();k++)
 	{
-		(*references)[k]->WriteOffset((Ceng::UINT64)&(*codeBuffer)[0]);
+		bool write = true;
+
+		if ((*references)[k]->symbol->Type() == SymbolType::object_function)
+		{
+			X86::ObjectFunction* objFunc = (*references)[k]->symbol->AsObjectFunction();
+
+			if (objFunc->SizeBytes() == 0)
+			{
+				write = false;
+			}
+		}
+
+		if (write)
+		{
+			(*references)[k]->WriteOffset((Ceng::UINT64) & (*codeBuffer)[0]);
+		}
 	}
 
 	return Ceng::CE_OK;
@@ -124,7 +139,9 @@ Ceng::CRESULT ObjectFunction::AppendRelocationData(std::vector<RelocationData> &
 
 			if ( (*references)[k]->symbol->Type() == SymbolType::object_function)
 			{
-				if (SizeBytes() > 0)
+				X86::ObjectFunction* objFunc = (*references)[k]->symbol->AsObjectFunction();
+
+				if (objFunc->SizeBytes() > 0)
 				{
 					symbolSection = RelocationData::CODE_SECTION;					
 				}
