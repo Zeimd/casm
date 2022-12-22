@@ -89,7 +89,7 @@ Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
 		
 		X86::DataItem *item = (*linkData)[k]->AsData();
 
-		dataSegmentSize += item->elementSize;
+		dataSegmentSize += item->Size();
 	}
 
 	// Build code section

@@ -56,6 +56,15 @@ namespace X86
 				initializer = nullptr;
 			}
 		}
+
+		uint32_t Size() const
+		{
+			if (initializer != nullptr)
+			{
+				return initializer->Size();
+			}
+			return 0;
+		}
 	};
 }
 
