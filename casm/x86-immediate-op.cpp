@@ -142,7 +142,7 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 		*/
 
 		SymbolRef* temp = new SymbolRef(symbol, params->out_immOffset,
-			params->out_immSize, refType);
+			params->out_immSize, refType, X86::SectionType::text);
 
 		params->function->AddSymbolRef(temp);
 		params->immRef = temp;

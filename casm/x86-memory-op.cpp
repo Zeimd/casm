@@ -413,7 +413,7 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 		*/
 
 		SymbolRef* temp = new SymbolRef(symbol, params->out_dispOffset,
-			params->out_dispSize, refType);
+			params->out_dispSize, refType, X86::SectionType::text);
 
 		params->function->AddSymbolRef(temp);
 		params->memRef = temp;

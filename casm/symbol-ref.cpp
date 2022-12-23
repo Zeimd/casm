@@ -14,9 +14,10 @@ using namespace X86;
 
 SymbolRef::SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
 					 const OPERAND_SIZE::value encodeSize,
-					 const Casm::REFERENCE_TYPE::value refType)
+					 const Casm::REFERENCE_TYPE::value refType,
+					 const X86::SectionType::value section)
 	: symbol(symbol),encodeOffset(offset),encodeSize(encodeSize),refType(refType),
-	ipDelta(0)
+	section(section),ipDelta(0)
 {
 }
 

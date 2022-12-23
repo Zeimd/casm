@@ -37,9 +37,13 @@ namespace X86
 		OPERAND_SIZE::value encodeSize;
 		Casm::REFERENCE_TYPE::value refType;
 
+		// Section the reference is at
+		X86::SectionType::value section;
+
 		SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
 							const OPERAND_SIZE::value encodeSize,
-							const Casm::REFERENCE_TYPE::value refType);
+							const Casm::REFERENCE_TYPE::value refType,
+							const X86::SectionType::value section);
 
 		Ceng::CRESULT WriteOffset(const Ceng::UINT64 baseAddress);
 
