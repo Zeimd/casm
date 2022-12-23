@@ -132,7 +132,7 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 
 	if (symbol != nullptr)
 	{
-		Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
+		Casm::REFERENCE_TYPE::value refType = params->imm_symbolRefType;
 
 		/*
 		if (params->mode->cpuMode == CPU_MODE::X64)

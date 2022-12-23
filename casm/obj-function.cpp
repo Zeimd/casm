@@ -95,22 +95,7 @@ Ceng::CRESULT ObjectFunction::WriteAllOffsets()
 
 	for(k=0;k<references->size();k++)
 	{
-		bool write = true;
-
-		if ((*references)[k]->symbol->Type() == SymbolType::object_function)
-		{
-			X86::ObjectFunction* objFunc = (*references)[k]->symbol->AsObjectFunction();
-
-			if (objFunc->SizeBytes() == 0)
-			{
-				write = false;
-			}
-		}
-
-		if (write)
-		{
-			(*references)[k]->WriteOffset((Ceng::UINT64) & (*codeBuffer)[0]);
-		}
+		(*references)[k]->WriteOffset((Ceng::UINT64) & (*codeBuffer)[0]);	
 	}
 
 	return Ceng::CE_OK;
@@ -129,34 +114,42 @@ Ceng::CRESULT ObjectFunction::AppendRelocationData(std::vector<RelocationData> &
 
 	for(k=0;k<references->size();k++)
 	{
-		if ( (*references)[k]->refType != Casm::REFERENCE_TYPE::IP_RELATIVE)
+		RelocationData::SECTION symbolSection;
+		Ceng::String externName;
+
+		if ((*references)[k]->symbol->Type() == SymbolType::object_function)
 		{
-			RelocationData::SECTION symbolSection = RelocationData::DATA_SECTION;
+			X86::ObjectFunction* objFunc = (*references)[k]->symbol->AsObjectFunction();
 
-			Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
-
-			Ceng::String externName;
-
-			if ( (*references)[k]->symbol->Type() == SymbolType::object_function)
+			if (objFunc->SizeBytes() > 0)
 			{
-				X86::ObjectFunction* objFunc = (*references)[k]->symbol->AsObjectFunction();
-
-				if (objFunc->SizeBytes() > 0)
-				{
-					symbolSection = RelocationData::CODE_SECTION;					
-				}
-				else
-				{
-					symbolSection = RelocationData::EXTERNAL;
-					externName = (*references)[k]->symbol->name;
-				}				
+				symbolSection = RelocationData::CODE_SECTION;
 			}
-
-			relocationData.push_back(RelocationData(RelocationData::CODE_SECTION,
-					(*references)[k]->encodeOffset + offset,symbolSection,
-					(*references)[k]->encodeSize,
-					refType,externName,0));
+			else
+			{
+				symbolSection = RelocationData::EXTERNAL;
+				externName = (*references)[k]->symbol->name;
+			}
 		}
+		else
+		{
+			symbolSection = RelocationData::SECTION::DATA_SECTION;
+		}
+
+		Ceng::INT64 encodeOffset = (*references)[k]->encodeOffset + offset;
+
+		/*
+		if ((*references)[k]->refType == Casm::REFERENCE_TYPE::IP_RELATIVE)
+		{
+
+		}
+		*/
+
+		relocationData.push_back(RelocationData(RelocationData::CODE_SECTION,
+				encodeOffset,symbolSection,
+				(*references)[k]->encodeSize,
+				(*references)[k]->refType,externName,0));
+		
 	}
 	
 	return Ceng::CE_OK;

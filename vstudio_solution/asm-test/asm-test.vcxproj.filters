@@ -296,9 +296,6 @@
     <ClInclude Include="..\..\casm\enums\condition-codes.h">
       <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\casm\enums\reference-type.h">
-      <Filter>Header Files\casm\enums</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\casm\enums\x86-cpu-modes.h">
       <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
@@ -667,6 +664,9 @@
     </ClInclude>
     <ClInclude Include="..\..\casm\extern-symbol.h">
       <Filter>Header Files\casm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\casm\enums\reference-type.h">
+      <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

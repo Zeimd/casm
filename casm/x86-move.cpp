@@ -102,6 +102,8 @@ const Ceng::CRESULT MoveInstruction::Select_R_I(BuildParams *params,
 
 	encodeData->immEncoding = opSize;
 
+	params->imm_symbolRefType = Casm::REFERENCE_TYPE::ADDRESS;
+
 	return Ceng::CE_OK;
 }
 

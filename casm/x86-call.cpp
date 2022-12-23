@@ -80,7 +80,7 @@ const Ceng::CRESULT CallInstruction::Encode_Relative(BuildParams *params,EncodeD
 
 	encodeData->operandPlace[0] = OperandPlace::imm;
 
-	//params->imm_symbolRefType = REFERENCE_TYPE::IP_RELATIVE;
+	params->imm_symbolRefType = Casm::REFERENCE_TYPE::IP_RELATIVE;
 
 	return Ceng::CE_OK;
 }
