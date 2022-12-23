@@ -76,14 +76,7 @@ int main()
 
 	Ceng::INT32 k=0;
 
-	int a=2,b=1;
-
 	X86::Assembler assembler = X86::Assembler(64);
-
-	Ceng::UINT64 x = 4;
-	Ceng::FLOAT32 y = -5.5;
-
-	std::wcout << x+y << std::endl;
 
 	//*********************************************************************
 	// Assembler test
