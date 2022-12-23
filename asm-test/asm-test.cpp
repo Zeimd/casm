@@ -134,7 +134,7 @@ int main()
 	//******************************************'
 	// printf test
 
-	/*
+	
 	// mov eax, hello_str
 	testFunc->MoveAddress(&X86::EAX, "hello_str");
 
@@ -149,7 +149,8 @@ int main()
 	// push eax
 	testFunc->AddInstruction(X86::PUSH, &X86::EAX);
 
-	testFunc->Call("printf");
+	testFunc->MoveAddress(&X86::ECX, "printf");
+	testFunc->AddInstruction(X86::CALL, &X86::ECX);
 
 	// clear printf param from stack
 	testFunc->AddInstruction(X86::POP, &X86::ECX);
@@ -162,11 +163,11 @@ int main()
 
 	// ret
 	testFunc->AddInstruction(X86::RET_NEAR);
-	*/
+	
 
 	//*****************************************
 	// test for calling generated function
-
+	/*
 	// mov eax, 1
 	testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
 
@@ -198,12 +199,18 @@ int main()
 	// ret
 	incrFunc->AddInstruction(X86::RET_NEAR);
 
+	*/
+
+	//************************************************'
+	// build program
+
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
 	{
 		std::wcout << "Error : Build failed" << std::endl;
 		return 0;
 	}
+	
 
 	delete programBuild;
 
