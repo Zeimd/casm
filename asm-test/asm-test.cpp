@@ -149,8 +149,9 @@ int main()
 	// push eax
 	testFunc->AddInstruction(X86::PUSH, &X86::EAX);
 
-	testFunc->MoveAddress(&X86::ECX, "printf");
-	testFunc->AddInstruction(X86::CALL, &X86::ECX);
+	//testFunc->MoveAddress(&X86::ECX, "printf");
+	//testFunc->AddInstruction(X86::CALL, &X86::ECX);
+	testFunc->Call("printf");
 
 	// clear printf param from stack
 	testFunc->AddInstruction(X86::POP, &X86::ECX);
@@ -164,9 +165,11 @@ int main()
 	// ret
 	testFunc->AddInstruction(X86::RET_NEAR);
 	
+	
 
 	//*****************************************
 	// test for calling generated function
+	
 	/*
 	// mov eax, 1
 	testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
@@ -178,8 +181,9 @@ int main()
 	testFunc->AddInstruction(X86::PUSH, &X86::ECX);
 
 	// indirect call via register
-	testFunc->MoveAddress(&X86::ECX, "incr");
-	testFunc->AddInstruction(X86::CALL, &X86::ECX);
+	//testFunc->MoveAddress(&X86::ECX, "incr");
+	//testFunc->AddInstruction(X86::CALL, &X86::ECX);
+	testFunc->Call("incr");
 
 	// pop ecx
 	testFunc->AddInstruction(X86::POP, &X86::ECX);
@@ -198,8 +202,9 @@ int main()
 
 	// ret
 	incrFunc->AddInstruction(X86::RET_NEAR);
-
 	*/
+
+	
 
 	//************************************************'
 	// build program
