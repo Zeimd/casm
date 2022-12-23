@@ -151,6 +151,12 @@ Ceng::CRESULT FunctionBuilder::MoveAddress(const Operand *dest,const Ceng::Strin
 
 Ceng::CRESULT FunctionBuilder::Call(const Ceng::String &functionName)
 {
+	// TODO: this function doesn't work as intended since there isn't
+	// call imm32 instruction. The current "call mem32" assumes that
+	// loaded address is a pointer to the function to be called, which
+	// isn't the case here
+
+	/*
 	std::shared_ptr<Symbol> target = program->FindFunction(functionName);
 
 	if (target == nullptr)
@@ -162,9 +168,9 @@ Ceng::CRESULT FunctionBuilder::Call(const Ceng::String &functionName)
 	
 	currentBlock->AddLine(new UnaryOp(X86::CALL,
 		new MemoryOperand(target)));
+	*/
 
-
-	return Ceng::CE_OK;
+	return Ceng::CE_ERR_NOT_SUPPORTED;
 }
 
 Ceng::CRESULT FunctionBuilder::AddInstruction(const Instruction &instruction)
