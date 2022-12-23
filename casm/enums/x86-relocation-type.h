@@ -23,6 +23,13 @@ namespace X86
 			// Used with "mov reg64, imm64" instruction.
 			full64 = 3,
 
+			// IP-relative from start of next instruction.
+			rel32 = 4,
+
+			// IP-relative from start of next instruction.
+			// Real mode only.
+			rel16 = 5,
+
 			// Unused. Forces enum storage to int32.
 			force_32b = 1 << 30 ,
 		};
