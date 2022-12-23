@@ -138,6 +138,10 @@ int main()
 	X86::FunctionBuilder *testFunc;
 	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
+	//******************************************'
+	// printf test
+
+	/*
 	// mov eax, hello_str
 	testFunc->MoveAddress(&X86::EAX, "hello_str");
 
@@ -165,7 +169,42 @@ int main()
 
 	// ret
 	testFunc->AddInstruction(X86::RET_NEAR);
-	
+	*/
+
+	//*****************************************
+	// test for calling generated function
+
+	// mov eax, 1
+	testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
+
+	// mov ecx, [esp+4]
+	testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
+
+	// push ecx
+	testFunc->AddInstruction(X86::PUSH, &X86::ECX);
+
+	// indirect call via register
+	testFunc->MoveAddress(&X86::ECX, "incr");
+	testFunc->AddInstruction(X86::CALL, &X86::ECX);
+
+	// pop ecx
+	testFunc->AddInstruction(X86::POP, &X86::ECX);
+
+	// mov [ecx], eax
+	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
+
+	// ret
+	testFunc->AddInstruction(X86::RET_NEAR);
+
+	X86::FunctionBuilder* incrFunc;
+	programBuild->AddFunction(0, X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::USER, "incr", &incrFunc);
+
+	// inc eax
+	incrFunc->AddInstruction(X86::INC, &X86::EAX);
+
+	// ret
+	incrFunc->AddInstruction(X86::RET_NEAR);
+
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
 	{
