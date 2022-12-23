@@ -73,7 +73,7 @@ Ceng::CRESULT SymbolRef::WriteOffset(const Ceng::UINT64 baseAddress)
 
 				if (isExtern)
 				{
-					*ptr = Ceng::INT32(ipDelta);
+					*ptr = -Ceng::INT32(ipDelta);
 				}
 				else if (section == symbol->Section())
 				{
