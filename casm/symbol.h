@@ -67,6 +67,8 @@ namespace X86
 	
 		const SymbolType::value Type() const;
 
+		const SectionType::value Section() const;
+
 		DataItem* AsData() const;
 		FunctionBuilder* AsFunction() const;
 		ObjectFunction* AsObjectFunction() const;
@@ -111,6 +113,11 @@ namespace X86
 	inline const SymbolType::value Symbol::Type() const
 	{
 		return type;
+	}
+
+	inline const SectionType::value Symbol::Section() const
+	{
+		return section;
 	}
 
 	inline const Ceng::INT64 Symbol::Offset() const
