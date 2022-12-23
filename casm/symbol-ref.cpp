@@ -17,7 +17,7 @@ SymbolRef::SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
 					 const Casm::REFERENCE_TYPE::value refType,
 					 const X86::SectionType::value section)
 	: symbol(symbol),encodeOffset(offset),encodeSize(encodeSize),refType(refType),
-	section(section),ipDelta(0)
+	section(section),ipDelta(0),deleted(false)
 {
 }
 
@@ -75,8 +75,13 @@ Ceng::CRESULT SymbolRef::WriteOffset(const Ceng::UINT64 baseAddress)
 				{
 					*ptr = Ceng::INT32(ipDelta);
 				}
-				else
+				else if (section == symbol->Section())
 				{
+					*ptr = Ceng::INT32(symbol->Offset() - (encodeOffset + ipDelta));
+					deleted = true;
+				}
+				else
+				{					
 					*ptr = Ceng::INT32(symbol->Offset() - ipDelta);
 				}
 			}

@@ -29,6 +29,8 @@ namespace X86
 		Ceng::INT64 encodeOffset;
 		Ceng::BOOL isUnsigned;
 
+		Ceng::BOOL deleted;
+
 		/**
 		 * Offset of IP pointer
 		 */
