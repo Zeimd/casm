@@ -412,8 +412,9 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 		}
 		*/
 
-		Casm::SymbolRef* temp = new Casm::SymbolRef(symbol, params->out_dispOffset,
-			params->out_dispSize, refType, X86::SectionType::text);
+		std::shared_ptr<Casm::SymbolRef> temp =
+			std::make_shared<Casm::SymbolRef>(symbol, params->out_dispOffset,
+				params->out_dispSize, refType, X86::SectionType::text);
 
 		params->section->AddSymbolRef(temp);
 		params->memRef = temp;

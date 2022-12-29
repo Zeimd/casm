@@ -16,6 +16,8 @@
 
 #include "enums/x86-priviledge-levels.h"
 
+#include <memory>
+
 namespace Casm
 {
 	class Section;

@@ -12,7 +12,7 @@
 
 #include <Windows.h>
 
-using namespace X86;
+using namespace Casm;
 
 Executable::Executable()
 	: callback(nullptr), pageSize(0)

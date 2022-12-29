@@ -13,7 +13,7 @@
 #include "x86-immediate-op.h"
 
 
-using namespace X86;
+using namespace Casm;
 
 ConditionJump::ConditionJump(const Ceng::UINT32 position, const Casm::CONDITION::value condition,
 							 const Label *label) 
@@ -24,7 +24,7 @@ ConditionJump::ConditionJump(const Ceng::UINT32 position, const Casm::CONDITION:
 	jumpCommand = nullptr;
 }	
 
-Ceng::CRESULT ConditionJump::AdjustOffset(BuildParams *params,const Ceng::INT32 offset)
+Ceng::CRESULT ConditionJump::AdjustOffset(X86::BuildParams *params,const Ceng::INT32 offset)
 {
 	if (jumpSize == X86::OPERAND_SIZE::BYTE)
 	{
@@ -96,7 +96,7 @@ Ceng::UINT32 ConditionJump::SizeBytes() const
 	return codeBuffer.size();
 }
 
-Ceng::CRESULT ConditionJump::Build(BuildParams *params,
+Ceng::CRESULT ConditionJump::Build(X86::BuildParams *params,
 								   const std::vector<std::shared_ptr<Label>> &labels,
 								   const std::vector<std::shared_ptr<CodeElement>> &codeList)
 {
