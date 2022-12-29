@@ -5,6 +5,8 @@ namespace Casm
 
 	void HexDump(std::wostream& out, uint32_t groupSize, uint32_t length, uint8_t* buffer)
 	{
+		if (length == 0) return;
+
 		uint32_t groups = length / groupSize;
 
 		uint32_t remainder = length % groupSize;
