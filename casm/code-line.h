@@ -46,7 +46,7 @@ namespace Casm
 
 		virtual void Print(std::wostream& out) const
 		{
-
+			out << "CodeLine";
 		}
 	};
 

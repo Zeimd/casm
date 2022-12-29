@@ -14,6 +14,8 @@
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/return-val.h>
 
+#include <ostream>
+
 namespace Casm
 {
 	class InitializerType
@@ -35,6 +37,11 @@ namespace Casm
 		virtual Ceng::CRESULT WriteValues(Ceng::UINT8 *destBuffer) const
 		{
 			return Ceng::CE_OK;
+		}
+
+		virtual void Print(std::wostream& out) const
+		{
+
 		}
 	};
 
@@ -69,6 +76,11 @@ namespace Casm
 			*ptr = data;
 
 			return Ceng::CE_OK;
+		}
+
+		void Print(std::wostream& out) const override
+		{
+			out << data;
 		}
 	};
 
@@ -109,6 +121,14 @@ namespace Casm
 			}
 
 			return Ceng::CE_OK;
+		}
+
+		void Print(std::wostream& out) const override
+		{
+			for (auto& x : data)
+			{
+				out << char(x);
+			}
 		}
 
 	};
@@ -168,6 +188,19 @@ namespace Casm
 			}
 
 			return Ceng::CE_OK;
+		}
+
+		void Print(std::wostream& out) const override
+		{
+			for (size_t k=0; k < data.size(); k++)
+			{
+				out << data[k];
+
+				if (k < data.size() - 1)
+				{
+					out << ", ";
+				}
+			}
 		}
 	};
 }

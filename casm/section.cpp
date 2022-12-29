@@ -464,7 +464,7 @@ Ceng::CRESULT Section::MoveReferencesToObjectCode()
 
 void Section::Print(std::wostream& out) const
 {
-	out << "section " << name << std::endl;
+	out << "section " << name << " (elements = " << codeList.size() << ")" << std::endl;
 
 	for (auto& item : codeList)
 	{

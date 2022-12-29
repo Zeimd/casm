@@ -80,6 +80,8 @@ Ceng::CRESULT BasicBlock::Append(std::vector<Ceng::UINT8> &destBuffer) const
 
 void BasicBlock::Print(std::wostream& out) const 
 {
+	out << "BasicBlock : size = " << lines.size() << std::endl;
+
 	for (auto& x : lines)
 	{
 		x->Print(out);
