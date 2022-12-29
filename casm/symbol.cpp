@@ -9,8 +9,6 @@
 #include "symbol.h"
 
 #include "data-item.h"
-#include "function-builder.h"
-#include "obj-function.h"
 
 #include "section.h"
 

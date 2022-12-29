@@ -14,13 +14,15 @@
 
 #include "build-params.h"
 
-#include "function-builder.h"
-
 #include "encode-data.h"
+
+#include "symbol.h"
+
+#include "section.h"
 
 using namespace X86;
 
-ImmediateOperand::ImmediateOperand(std::shared_ptr<Symbol> &symbol,
+ImmediateOperand::ImmediateOperand(std::shared_ptr<Casm::Symbol> &symbol,
 	const X86::OPERAND_SIZE::value addressSize) :
 	Operand(OPERAND_TYPE::IMM,false,addressSize)
 {
@@ -115,7 +117,7 @@ const Ceng::INT64 ImmediateOperand::Value64() const
 	return Ceng::INT64(value);
 }
 
-const std::shared_ptr<Symbol> ImmediateOperand::GetSymbol() const
+const std::shared_ptr<Casm::Symbol> ImmediateOperand::GetSymbol() const
 {
 	return symbol;
 }
@@ -141,10 +143,11 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 		}
 		*/
 
-		SymbolRef* temp = new SymbolRef(symbol, params->out_immOffset,
-			params->out_immSize, refType, X86::SectionType::text);
+		std::shared_ptr<Casm::SymbolRef> temp
+			= std::make_shared<Casm::SymbolRef>(symbol, params->out_immOffset,
+				params->out_immSize, refType, X86::SectionType::text);
 
-		params->function->AddSymbolRef(temp);
+		params->section->AddSymbolRef(temp);
 		params->immRef = temp;
 
 		encodeData->immediate = 0;

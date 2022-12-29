@@ -8,7 +8,7 @@
 
 #include "code-label.h"
 
-using namespace X86;
+using namespace Casm;
 
 Label::Label(const Ceng::String name,const Ceng::BOOL undefined) 
 	: name(name),undefined(undefined),target(nullptr)

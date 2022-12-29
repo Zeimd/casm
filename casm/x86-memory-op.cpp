@@ -16,7 +16,7 @@
 
 #include "symbol-ref.h"
 
-#include "function-builder.h"
+#include "section.h"
 
 using namespace X86;
 
@@ -43,7 +43,7 @@ void MemoryOperand::SetCPUmode()
 	}
 }
 
-MemoryOperand::MemoryOperand(std::shared_ptr<Symbol> symbol)
+MemoryOperand::MemoryOperand(std::shared_ptr<Casm::Symbol> symbol)
 	: Operand(OPERAND_TYPE::MEM,false,symbol->AsData()->elementSize)
 {
 	this->symbol = symbol;
@@ -412,10 +412,10 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 		}
 		*/
 
-		SymbolRef* temp = new SymbolRef(symbol, params->out_dispOffset,
+		Casm::SymbolRef* temp = new Casm::SymbolRef(symbol, params->out_dispOffset,
 			params->out_dispSize, refType, X86::SectionType::text);
 
-		params->function->AddSymbolRef(temp);
+		params->section->AddSymbolRef(temp);
 		params->memRef = temp;
 	}
 

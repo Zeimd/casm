@@ -279,6 +279,12 @@ const Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 	return Ceng::CE_OK;
 }
 
+Ceng::CRESULT Section::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
+{
+	references.push_back(ref);
+	return Ceng::CE_OK;
+}
+
 
 Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 {

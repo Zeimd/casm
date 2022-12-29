@@ -71,8 +71,8 @@ namespace X86
 
 		Ceng::INT64 ipDelta;
 
-		Casm::SymbolRef *memRef;
-		Casm::SymbolRef *immRef;
+		std::shared_ptr<Casm::SymbolRef> memRef;
+		std::shared_ptr<Casm::SymbolRef> immRef;
 
 		void Clean()
 		{

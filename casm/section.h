@@ -88,6 +88,8 @@ namespace Casm
 
 		Ceng::CRESULT AddLabel(const Ceng::String& label);
 
+		Ceng::CRESULT AddSymbolRef(std::shared_ptr<SymbolRef>& ref);
+
 		Ceng::CRESULT ConditionalJump(const Casm::CONDITION::value condition,
 			const Ceng::String& label);
 

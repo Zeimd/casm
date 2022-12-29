@@ -14,7 +14,7 @@
 
 #include <iostream>
 
-using namespace X86;
+using namespace Casm;
 
 Program::Program()
 {
