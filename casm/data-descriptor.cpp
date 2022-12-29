@@ -1,7 +1,7 @@
 
 #include "data-descriptor.h"
 
-using namespace X86;
+using namespace Casm;
 
 DataDescriptor::DataDescriptor()
 	: options(0), size(X86::OPERAND_SIZE::IMPLICIT)
@@ -15,7 +15,7 @@ DataDescriptor::DataDescriptor(const Ceng::UINT32 options)
 
 }
 
-DataDescriptor::DataDescriptor(const Ceng::UINT32 options, const OPERAND_SIZE::value size)
+DataDescriptor::DataDescriptor(const Ceng::UINT32 options, const X86::OPERAND_SIZE::value size)
 	: options(options), size(size)
 {
 }

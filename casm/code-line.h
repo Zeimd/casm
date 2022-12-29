@@ -19,6 +19,8 @@
 
 #include <vector>
 
+#include "code-element.h"
+
 namespace Casm
 {
 	class CodeLine

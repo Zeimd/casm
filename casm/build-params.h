@@ -19,13 +19,12 @@
 namespace Casm
 {
 	class Section;
+	class CodeElement;
+	class SymbolRef;
 }
 
 namespace X86
 {
-	class CodeElement;
-	class FunctionBuilder;
-	class SymbolRef;
 
 	class BuildParams
 	{
@@ -39,7 +38,7 @@ namespace X86
 		/**
 		 * Code element this instruction is intended for.
 		 */
-		CodeElement *codeElement;
+		Casm::CodeElement *codeElement;
 
 		/**
 		 * Which level instructions are allowed.
@@ -62,7 +61,7 @@ namespace X86
 		 */
 		Ceng::INT64 out_immOffset;
 
-		OPERAND_SIZE::value out_immSize;
+		X86::OPERAND_SIZE::value out_immSize;
 
 		/**
 		 * What type of reference is created when a symbol is given
@@ -72,8 +71,8 @@ namespace X86
 
 		Ceng::INT64 ipDelta;
 
-		SymbolRef *memRef;
-		SymbolRef *immRef;
+		Casm::SymbolRef *memRef;
+		Casm::SymbolRef *immRef;
 
 		void Clean()
 		{

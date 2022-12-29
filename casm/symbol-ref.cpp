@@ -8,12 +8,10 @@
 
 #include "symbol-ref.h"
 
-#include "obj-function.h"
-
-using namespace X86;
+using namespace Casm;
 
 SymbolRef::SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
-					 const OPERAND_SIZE::value encodeSize,
+					 const X86::OPERAND_SIZE::value encodeSize,
 					 const Casm::REFERENCE_TYPE::value refType,
 					 const X86::SectionType::value section)
 	: symbol(symbol),encodeOffset(offset),encodeSize(encodeSize),refType(refType),
@@ -32,6 +30,8 @@ Ceng::CRESULT SymbolRef::WriteOffset(const Ceng::UINT64 baseAddress)
 {
 
 	bool isExtern = false;
+
+	/*
 
 	if (symbol->Type() == SymbolType::object_function)
 	{
@@ -88,6 +88,7 @@ Ceng::CRESULT SymbolRef::WriteOffset(const Ceng::UINT64 baseAddress)
 			break;
 		}
 	}
+	*/
 
 	return Ceng::CE_OK;
 }

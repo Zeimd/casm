@@ -13,15 +13,11 @@
 #include <ceng/datatypes/return-val.h>
 #include <ceng/datatypes/ce-string.h>
 
-
-namespace X86
+namespace Casm
 {
 	class Program;
 	class ObjectCode;
-}
 
-namespace Casm
-{
 	class Linker
 	{
 	protected:
@@ -35,7 +31,7 @@ namespace Casm
 		virtual ~Linker();
 
 		Ceng::CRESULT LinkProgram(const Ceng::String &entryFunction,
-			std::vector<X86::ObjectCode*> &objects,X86::Program **output);
+			std::vector<Casm::ObjectCode*> &objects,Casm::Program **output);
 			
 	};
 }

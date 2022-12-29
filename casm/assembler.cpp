@@ -24,7 +24,7 @@
 
 #include <ceng/lib/liblog.h>
 
-using namespace X86;
+using namespace Casm;
 
 Assembler::Assembler()
 {
@@ -75,7 +75,7 @@ Ceng::UINT32 Assembler::CacheLine() const
 
 Ceng::CRESULT Assembler::CreateProgram(const Casm::BuilderOptions &options,ProgramBuilder **output)
 {
-	*output = new ProgramBuilder(options,this);
+	*output = new Casm::ProgramBuilder(options,this);
 
 	return Ceng::CE_OK;
 }

@@ -72,6 +72,7 @@ namespace Casm
 		~Section() override;
 
 		Section(const Ceng::String& name, const uint32_t options, 
+			const X86::CPU_Mode* startMode,
 			X86::PRIVILEDGE_LEVEL::value prLevel, ProgramBuilder* program);
 
 		Ceng::CRESULT SetStartMode(const X86::CPU_Mode* startMode,

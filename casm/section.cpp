@@ -19,10 +19,15 @@
 
 #include "object-section.h"
 
+#include "data-item.h"
+
+#include "data-descriptor.h"
+
 using namespace Casm;
 
 Section::Section() :
-	currentMode(nullptr),currentPR(X86::PRIVILEDGE_LEVEL::ANY),program(nullptr)
+	currentMode(nullptr),currentPR(X86::PRIVILEDGE_LEVEL::ANY),program(nullptr),
+	options(0)
 {
 
 }
@@ -33,9 +38,10 @@ Section::~Section()
 }
 
 Section::Section(const Ceng::String& name, const uint32_t options,
+	const X86::CPU_Mode* startMode,
 	X86::PRIVILEDGE_LEVEL::value prLevel, ProgramBuilder* program)
 	: Symbol(name, nullptr, X86::SymbolType::section,true,false),
-	currentMode(nullptr), options(options), currentPR(prLevel), program(program)
+	currentMode(startMode), options(options), currentPR(prLevel), program(program)
 {
 	InitializeParams();
 }
@@ -66,11 +72,12 @@ Ceng::CRESULT Section::SetStartMode(const X86::CPU_Mode* startMode,
 Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
 	const InitializerType* initializer)
 {
-	/*
-	dataSection->push_back(std::make_shared<DataItem>(
-		name, dataDesc.options, dataDesc.size, SectionType::data,
-		initializer));
-		*/
+	AddLabel(name);
+
+	std::shared_ptr<CodeLine> item =
+		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this, initializer);
+
+	currentBlock->AddLine(item);
 
 	return Ceng::CE_OK;
 }
@@ -78,11 +85,13 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
 	const char* initializer)
 {
-	/*
-	dataSection->push_back(std::make_shared<DataItem>(
-		name, dataDesc.options, X86::OPERAND_SIZE::BYTE, SectionType::data,
-		new StringLiteralInitializer(initializer)));
-		*/
+	AddLabel(name);
+
+	std::shared_ptr<CodeLine> item =
+		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this,
+			new StringLiteralInitializer(initializer));
+
+	currentBlock->AddLine(item);
 
 	return Ceng::CE_OK;
 }
@@ -90,11 +99,12 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 
 Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::String& name)
 {
-	/*
-	bssSection->push_back(std::make_shared<DataItem>(
-		name, dataDesc.options, dataDesc.size, SectionType::bss,
-		nullptr));
-		*/
+	AddLabel(name);
+
+	std::shared_ptr<CodeLine> item =
+		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this, nullptr);
+
+	currentBlock->AddLine(item);
 
 	return Ceng::CE_OK;
 }
@@ -125,7 +135,8 @@ Ceng::CRESULT Section::StartBlock()
 {
 	if (currentBlock == nullptr)
 	{
-		currentBlock = std::shared_ptr<BasicBlock>(new BasicBlock(codeList.size()));
+		//currentBlock = std::shared_ptr<BasicBlock>(new BasicBlock(codeList.size()));
+		currentBlock = std::make_shared<BasicBlock>(codeList.size());
 	}
 
 	return Ceng::CE_OK;
@@ -142,8 +153,11 @@ Ceng::CRESULT Section::MoveAddress(const X86::Operand* dest, const Ceng::String&
 
 	StartBlock();
 
-	currentBlock->AddLine(new BinaryOp(X86::MOV, dest, new X86::ImmediateOperand(source,
-		params->mode->addressSize)));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<BinaryOp>(X86::MOV, dest, new X86::ImmediateOperand(source,
+			params->mode->addressSize));
+
+	currentBlock->AddLine(line);
 	return Ceng::CE_OK;
 }
 
@@ -158,8 +172,11 @@ Ceng::CRESULT Section::Call(const Ceng::String& functionName)
 
 	StartBlock();
 
-	currentBlock->AddLine(new UnaryOp(X86::CALL,
-		new X86::ImmediateOperand(target, params->mode->defaultOpSize)));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<UnaryOp>(X86::CALL,
+			new X86::ImmediateOperand(target, params->mode->defaultOpSize));
+
+	currentBlock->AddLine(line);
 
 	return Ceng::CE_ERR_NOT_SUPPORTED;
 }
@@ -168,7 +185,9 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction)
 {
 	StartBlock();
 
-	currentBlock->AddLine(new BareOp(instruction));
+	std::shared_ptr<CodeLine> line = std::make_shared<BareOp>(instruction);
+
+	currentBlock->AddLine(line);
 
 	return Ceng::CE_OK;
 }
@@ -185,7 +204,10 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction, const
 
 	StartBlock();
 
-	currentBlock->AddLine(new BinaryOp(instruction, new X86::MemoryOperand(dest), source));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<BinaryOp>(instruction, new X86::MemoryOperand(dest), source);
+
+	currentBlock->AddLine(line);
 	return Ceng::CE_OK;
 }
 
@@ -201,8 +223,11 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 
 	StartBlock();
 
-	currentBlock->AddLine(new BinaryOp(instruction, dest, 
-		new X86::MemoryOperand(source)));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<BinaryOp>(instruction, dest,
+			new X86::MemoryOperand(source));
+
+	currentBlock->AddLine(line);
 
 	return Ceng::CE_OK;
 }
@@ -212,7 +237,10 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 {
 	StartBlock();
 
-	currentBlock->AddLine(new UnaryOp(instruction, operand));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<UnaryOp>(instruction, operand);
+
+	currentBlock->AddLine(line);
 
 	return Ceng::CE_OK;
 }
@@ -224,7 +252,10 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 
 	Ceng::CRESULT cresult;
 
-	cresult = currentBlock->AddLine(new BinaryOp(instruction, dest, source));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<BinaryOp>(instruction, dest, source);
+
+	cresult = currentBlock->AddLine(line);
 
 	if (cresult != Ceng::CE_OK)
 	{
@@ -240,7 +271,10 @@ const Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 {
 	StartBlock();
 
-	currentBlock->AddLine(new ThreeOp(instruction, dest, source1, source2));
+	std::shared_ptr<CodeLine> line =
+		std::make_shared<ThreeOp>(instruction, dest, source1, source2);
+
+	currentBlock->AddLine(line);
 
 	return Ceng::CE_OK;
 }

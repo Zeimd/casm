@@ -15,13 +15,12 @@
 
 namespace Casm
 {
-	/**
-	 * A block of code that is constant in size, and doesn't
-	 * have any jumps from or to it.
-	 */
+	// A block of code that is constant in size, and doesn't
+	// have any jumps from or to it.
 	class BasicBlock : public CodeElement
 	{
 	protected:
+
 		std::vector<std::shared_ptr<Casm::CodeLine>> lines;
 		std::vector<Ceng::UINT8> codeBuffer;
 
@@ -40,7 +39,7 @@ namespace Casm
 			return true;
 		}
 
-		Ceng::CRESULT AddLine(CodeLine *newLine);
+		Ceng::CRESULT AddLine(std::shared_ptr<CodeLine>& newLine);
 
 		virtual Ceng::CRESULT Build(X86::BuildParams *params,
 									 const std::vector<std::shared_ptr<Label>> &labels,

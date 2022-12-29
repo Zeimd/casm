@@ -11,7 +11,7 @@
 #include "data-item.h"
 #include "program.h"
 
-#include "obj-function.h"
+#include "object-section.h"
 
 using namespace Casm;
 
@@ -28,10 +28,12 @@ Linker::~Linker()
 
 }
 
-Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
-	std::vector<X86::ObjectCode*> &objects, X86::Program **output)
+Ceng::CRESULT Linker::LinkProgram(const Ceng::String& entryFunction, 
+	std::vector<Casm::ObjectCode*> &objects, Casm::Program **output)
 {
 	// Find entry point function
+
+	/*
 
 	std::shared_ptr<X86::ObjectFunction> entryPoint = nullptr;
 
@@ -156,6 +158,7 @@ Ceng::CRESULT Linker::LinkProgram(const Ceng::String &entryFunction,
 	delete linkFunctions;
 
 	*output = program;
+	*/
 
 	return Ceng::CE_OK;
 }

@@ -50,9 +50,9 @@
 
 #include "data-descriptor.h"
 
-using namespace X86;
+using namespace Casm;
 
-namespace X86
+namespace Casm
 {
 	const wchar_t unicodeWhiteList[] =
 	{
@@ -176,7 +176,7 @@ std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String& name)
 }
 
 Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
-	const CPU_Mode& startMode, const PRIVILEDGE_LEVEL::value prLevel,
+	const X86::CPU_Mode& startMode, const X86::PRIVILEDGE_LEVEL::value prLevel,
 	const Ceng::String& name, Casm::Section** out_section)
 {
 	Ceng::UINT32 k;
@@ -189,14 +189,17 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 		}
 	}
 
-	sections.emplace_back(name, this, &startMode, prLevel);
+	std::shared_ptr<Section> temp = 
+		std::shared_ptr<Section>(new Section(name, options, &startMode, prLevel, this));
+
+	sections.push_back(temp);
 
 	return Ceng::CE_OK;
 }
 
 Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 {
-	Ceng::CRESULT cresult;
+	//Ceng::CRESULT cresult;
 
 	/*
 

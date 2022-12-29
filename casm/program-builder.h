@@ -11,8 +11,6 @@
 
 #include "builder-options.h"
 
-#include "function-builder.h"
-
 #include "enums/x86-operand-sizes.h"
 #include "enums/x86-priviledge-levels.h"
 
@@ -29,6 +27,11 @@
 #include <list>
 #include <iterator>
 
+namespace X86
+{
+	class CPU_Mode;
+}
+
 namespace Casm
 {
 	class ParserLiteral;
@@ -38,8 +41,6 @@ namespace Casm
 	class InitializerType;
 	
 	class CodeLine;
-
-	class CPU_Mode;
 
 	class DataDescriptor;
 
@@ -55,14 +56,6 @@ namespace Casm
 		const Casm::BuilderOptions options;
 
 		std::stringstream errorLog;
-
-		//std::vector<std::shared_ptr<FunctionBuilder>> functions;
-
-		//std::vector<std::shared_ptr<Symbol>> *dataSection;
-
-		//std::vector<std::shared_ptr<Symbol>>* bssSection;
-
-		//std::list<std::shared_ptr<Symbol>> undefinedList; 
 
 		std::vector<std::shared_ptr<Casm::Section>> sections;
 
@@ -92,7 +85,7 @@ namespace Casm
 		std::shared_ptr<Symbol> FindSymbol(const Ceng::String &name);
 
 		Ceng::CRESULT AddSection(const Ceng::UINT32 options,
-			const CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,
+			const X86::CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,
 			const Ceng::String &name,Casm::Section **out_section);
 
 		//const Ceng::CRESULT AddFromString(const Ceng::String &code);

@@ -22,10 +22,7 @@
 namespace Casm
 {
 	class BuilderOptions;
-}
 
-namespace X86
-{
 	namespace ASSEMBLER_MODE
 	{
 		enum value

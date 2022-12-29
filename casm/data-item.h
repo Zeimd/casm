@@ -16,19 +16,19 @@
 
 #include "enums/x86-data-options.h"
 
-#include "symbol.h"
+#include "code-line.h"
 #include "initializer.h"
 
 namespace Casm
 {
-	class DataItem : public Symbol
+	class DataItem : public CodeLine
 	{
 	public:
 		Ceng::UINT32 options;
 
 		X86::OPERAND_SIZE::value elementSize;
 
-		const X86::InitializerType *initializer;
+		const Casm::InitializerType *initializer;
 
 	protected:
 
@@ -41,10 +41,9 @@ namespace Casm
 
 	public:
 
-		DataItem(const Ceng::String& name, Ceng::UINT32 options, X86::OPERAND_SIZE::value size, 
-			Casm::Section* section, const X86::InitializerType* initializer)
-			: Symbol(name, section, X86::SymbolType::data,true,false), initializer(initializer),
-			options(options), elementSize(size)
+		DataItem(Ceng::UINT32 options, X86::OPERAND_SIZE::value size, 
+			Casm::Section* section, const Casm::InitializerType* initializer)
+			: initializer(initializer), options(options), elementSize(size)
 		{
 
 		}

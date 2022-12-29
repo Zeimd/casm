@@ -8,7 +8,7 @@
 
 #include "basic-block.h"
 
-using namespace X86;
+using namespace Casm;
 
 BasicBlock::BasicBlock(const Ceng::UINT32 position) : CodeElement(position)
 {
@@ -19,14 +19,14 @@ BasicBlock::~BasicBlock()
 {
 }
 
-Ceng::CRESULT BasicBlock::AddLine(CodeLine *newLine)
+Ceng::CRESULT BasicBlock::AddLine(std::shared_ptr<CodeLine>& newLine)
 {
-	lines.push_back(std::shared_ptr<CodeLine>(newLine));
+	lines.push_back(newLine);
 
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT BasicBlock::Build(BuildParams *params,
+Ceng::CRESULT BasicBlock::Build(X86::BuildParams *params,
 								const std::vector<std::shared_ptr<Label>> &labels,
 								const std::vector<std::shared_ptr<CodeElement>> &codeList)
 {
