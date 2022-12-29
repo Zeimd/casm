@@ -88,7 +88,7 @@ namespace Casm
 
 		Ceng::CRESULT AddSection(const Ceng::UINT32 options,
 			const X86::CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,
-			const Ceng::String &name,Casm::Section **out_section);
+			const Ceng::String &name, std::shared_ptr<Section>& out_section);
 
 		//const Ceng::CRESULT AddFromString(const Ceng::String &code);
 		

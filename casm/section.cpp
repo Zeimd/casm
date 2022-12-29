@@ -74,6 +74,8 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 {
 	AddLabel(name);
 
+	StartBlock();
+
 	std::shared_ptr<CodeLine> item =
 		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this, initializer);
 
@@ -86,6 +88,8 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 	const char* initializer)
 {
 	AddLabel(name);
+
+	StartBlock();
 
 	std::shared_ptr<CodeLine> item =
 		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this,
@@ -100,6 +104,8 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::String& name)
 {
 	AddLabel(name);
+
+	StartBlock();
 
 	std::shared_ptr<CodeLine> item =
 		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this, nullptr);

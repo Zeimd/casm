@@ -124,20 +124,20 @@ int main()
 		//new X86::Initializer<Ceng::INT32>(1));
 
 
-	Casm::Section* dataSection;
+	std::shared_ptr<Casm::Section> dataSection;
 
 	programBuild->AddSection(Casm::SectionOptions::writable | Casm::SectionOptions::alloc_mem,
-		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".data", &dataSection);
+		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".data", dataSection);
 
 	dataSection->AddData(Casm::DataDescriptor(), "hello_str", "Hello World!\n");
 
 	//*****************************************
 	// TestFunction
 
-	Casm::Section* codeSection;
+	std::shared_ptr<Casm::Section>  codeSection;
 
 	programBuild->AddSection(Casm::SectionOptions::executable | Casm::SectionOptions::alloc_mem,
-		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".code", &codeSection);
+		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".code", codeSection);
 
 	//X86::FunctionBuilder *testFunc;
 	//programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);

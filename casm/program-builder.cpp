@@ -177,7 +177,7 @@ std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String& name)
 
 Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 	const X86::CPU_Mode& startMode, const X86::PRIVILEDGE_LEVEL::value prLevel,
-	const Ceng::String& name, Casm::Section** out_section)
+	const Ceng::String& name, std::shared_ptr<Section>& out_section)
 {
 	Ceng::UINT32 k;
 
@@ -193,6 +193,8 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 		std::shared_ptr<Section>(new Section(name, options, &startMode, prLevel, this));
 
 	sections.push_back(temp);
+
+	out_section = temp;
 
 	return Ceng::CE_OK;
 }
