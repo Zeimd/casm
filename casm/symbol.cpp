@@ -12,17 +12,19 @@
 #include "function-builder.h"
 #include "obj-function.h"
 
-using namespace X86;
+#include "section.h"
+
+using namespace Casm;
 
 Symbol::Symbol() 
-	: type(SymbolType::unknown), section(SectionType::unknown),
+	: type(X86::SymbolType::unknown), section(nullptr),
 	offset(0), refCount(0), defined(false), external(false)
 {
 
 }
 
-Symbol::Symbol(const Ceng::String& name, const SectionType::value section, 
-	const SymbolType::value type,
+Symbol::Symbol(const Ceng::String& name, Casm::Section* section, 
+	const X86::SymbolType::value type,
 	const Ceng::BOOL defined,const Ceng::BOOL external)
 	: name(name), section(section), type(type), offset(0), 
 	refCount(0), defined(defined),external(external)

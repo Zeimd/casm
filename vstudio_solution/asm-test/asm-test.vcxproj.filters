@@ -240,9 +240,6 @@
     <ClCompile Include="..\..\casm\opcode-prefix.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\casm\obj-function.cpp">
-      <Filter>Source Files\casm</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\casm\object-code.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
@@ -253,9 +250,6 @@
       <Filter>Source Files\casm</Filter>
     </ClCompile>
     <ClCompile Include="..\..\casm\hex-dump.cpp">
-      <Filter>Source Files\casm</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\casm\function-builder.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
     <ClCompile Include="..\..\casm\executable.cpp">
@@ -286,6 +280,12 @@
       <Filter>Source Files\casm</Filter>
     </ClCompile>
     <ClCompile Include="..\..\casm\x86-push-variant.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\casm\section.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\casm\object-section.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
   </ItemGroup>
@@ -380,9 +380,6 @@
     <ClInclude Include="..\..\casm\executable.h">
       <Filter>Header Files\casm</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\casm\function-builder.h">
-      <Filter>Header Files\casm</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\casm\hex-dump.h">
       <Filter>Header Files\casm</Filter>
     </ClInclude>
@@ -405,9 +402,6 @@
       <Filter>Header Files\casm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\object-code.h">
-      <Filter>Header Files\casm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\casm\obj-function.h">
       <Filter>Header Files\casm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\opcode-prefix.h">
@@ -667,6 +661,15 @@
     </ClInclude>
     <ClInclude Include="..\..\casm\enums\reference-type.h">
       <Filter>Header Files\casm\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\casm\enums\section-options.h">
+      <Filter>Header Files\casm\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\casm\section.h">
+      <Filter>Header Files\casm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\casm\object-section.h">
+      <Filter>Header Files\casm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

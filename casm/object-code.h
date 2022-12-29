@@ -9,30 +9,23 @@
 #ifndef X86_OBJECT_CODE_H
 #define X86_OBJECT_CODE_H
 
-#include "obj-function.h"
-#include "symbol.h"
-
 #include <ceng/datatypes/basic-types.h>
 #include <memory>
+#include <vector>
 
 #include <ostream>
 
-
-namespace X86
+namespace Casm
 {
+	class ObjectSection;
+
 	class ObjectCode
 	{
 	public:
 
-		std::vector<std::shared_ptr<Symbol>> *dataSection;
+		std::vector<std::shared_ptr<ObjectSection>> sections;
 
-		std::vector<std::shared_ptr<Symbol>>* bssSection;
-
-		std::vector<std::shared_ptr<ObjectFunction>> *functions;
-
-		ObjectCode(std::vector<std::shared_ptr<Symbol>>* dataSection,
-			std::vector<std::shared_ptr<Symbol>>* bssSection,
-			std::vector<std::shared_ptr<ObjectFunction>>* functions);
+		ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections);
 
 		~ObjectCode();
 

@@ -16,11 +16,13 @@
 #include "enums/x86-section-type.h"
 #include "enums/x86-symbol-type.h"
 
-namespace X86
+namespace Casm
 {
 	class DataItem;
 	class FunctionBuilder;
 	class ObjectFunction;
+
+	class Section;
 
 	class Symbol
 	{
@@ -29,13 +31,13 @@ namespace X86
 		Ceng::BOOL defined;
 		Ceng::BOOL external;
 
-		/**
-		 * Offset of the symbol in its section.
-		 */
+		// Offset of the symbol in its section.
 		Ceng::INT64 offset;
 
-		SymbolType::value type;
-		SectionType::value section;
+		X86::SymbolType::value type;
+		
+		Section* section;
+
 	protected:
 
 		Symbol();
@@ -45,7 +47,8 @@ namespace X86
 		Ceng::String name;
 
 
-		Symbol(const Ceng::String& name, const SectionType::value section, const SymbolType::value type,
+		Symbol(const Ceng::String& name, Section* section, 
+			const X86::SymbolType::value type,
 			const Ceng::BOOL defined, const Ceng::BOOL external);
 			
 		virtual ~Symbol();
@@ -65,9 +68,7 @@ namespace X86
 
 		const Ceng::UINT32 RefCount() const;
 	
-		const SymbolType::value Type() const;
-
-		const SectionType::value Section() const;
+		const X86::SymbolType::value Type() const;
 
 		DataItem* AsData() const;
 		FunctionBuilder* AsFunction() const;
@@ -110,14 +111,9 @@ namespace X86
 		return refCount;
 	}
 
-	inline const SymbolType::value Symbol::Type() const
+	inline const X86::SymbolType::value Symbol::Type() const
 	{
 		return type;
-	}
-
-	inline const SectionType::value Symbol::Section() const
-	{
-		return section;
 	}
 
 	inline const Ceng::INT64 Symbol::Offset() const

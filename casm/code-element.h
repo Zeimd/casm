@@ -11,11 +11,14 @@
 
 #include <ceng/datatypes/basic-types.h>
 
-#include "build-params.h"
-
 #include "symbol-ref.h"
 
 namespace X86
+{
+	class BuildParams;
+}
+
+namespace Casm
 {
 	class Label;
 	class ProgramBuilder;
@@ -47,7 +50,7 @@ namespace X86
 
 		virtual ~CodeElement();	
 
-		virtual Ceng::CRESULT Build(BuildParams *params,
+		virtual Ceng::CRESULT Build(X86::BuildParams *params,
 									 const std::vector<std::shared_ptr<Label>> &labels,
 									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
 	

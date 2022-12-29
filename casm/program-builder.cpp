@@ -18,6 +18,8 @@
 #include "x86-immediate-op.h"
 #include "x86-memory-op.h"
 
+#include "section.h"
+
 
 #include "parser-float.h"
 #include "parser-uint64.h"
@@ -79,6 +81,7 @@ namespace X86
 
 ProgramBuilder::~ProgramBuilder()
 {
+	/*
 	if (dataSection != nullptr)
 	{
 		delete dataSection;
@@ -88,6 +91,7 @@ ProgramBuilder::~ProgramBuilder()
 	{
 		delete bssSection;
 	}
+	*/
 }
 
 const Assembler* ProgramBuilder::Assembler() const
@@ -100,39 +104,13 @@ const Casm::BuilderOptions* ProgramBuilder::BuildOptions() const
 	return &options;
 }
 
-Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
-	const InitializerType* initializer)
-{
-	dataSection->push_back(std::make_shared<DataItem>(
-		name, dataDesc.options, dataDesc.size, SectionType::data,
-		initializer));
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
-	const char* initializer)
-{
-	dataSection->push_back(std::make_shared<DataItem>(
-		name, dataDesc.options, X86::OPERAND_SIZE::BYTE, SectionType::data,
-		new StringLiteralInitializer(initializer)));
-
-	return Ceng::CE_OK;
-}
-
-
-Ceng::CRESULT ProgramBuilder::AddData(const DataDescriptor& dataDesc, const Ceng::String& name)
-{
-	bssSection->push_back(std::make_shared<DataItem>(
-		name, dataDesc.options, dataDesc.size, SectionType::bss,
-		nullptr));
-
-	return Ceng::CE_OK;
-}
 
 
 std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String& name)
 {
+	return nullptr;
+
+	/*
 	std::shared_ptr<Symbol> temp;
 
 	temp = FindData(name);
@@ -145,10 +123,12 @@ std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String& name)
 	temp = FindFunction(name);
 
 	return temp;
+	*/
 }
 
 std::shared_ptr<Symbol> ProgramBuilder::FindData(const Ceng::String& name)
 {
+	/*
 	for (size_t k = 0; k < dataSection->size(); k++)
 	{
 		if ((*dataSection)[k]->name == name)
@@ -164,12 +144,14 @@ std::shared_ptr<Symbol> ProgramBuilder::FindData(const Ceng::String& name)
 			return (*bssSection)[k];
 		}
 	}
+	*/
 
 	return nullptr;
 }
 
 std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String& name)
 {
+	/*
 	Ceng::UINT32 k;
 
 	for (k = 0; k < functions.size(); k++)
@@ -189,40 +171,25 @@ std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String& name)
 	functions.push_back(temp);
 
 	return temp;
+	*/
+	return nullptr;
 }
 
-Ceng::CRESULT ProgramBuilder::AddFunction(const Ceng::UINT32 options, const CPU_Mode& startMode,
-	const PRIVILEDGE_LEVEL::value prLevel,
-	const Ceng::String& name, FunctionBuilder** function)
+Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
+	const CPU_Mode& startMode, const PRIVILEDGE_LEVEL::value prLevel,
+	const Ceng::String& name, Casm::Section** out_section)
 {
 	Ceng::UINT32 k;
 
-	FunctionBuilder* temp = nullptr;
-
-	for (k = 0; k < functions.size(); k++)
+	for (k = 0; k < sections.size(); k++)
 	{
-		if (functions[k]->name == name)
+		if (sections[k]->name == name)
 		{
-			if (functions[k]->IsDefined() == true)
-			{
-				return Ceng::CE_ERR_INVALID_PARAM;
-			}
-			else
-			{
-				functions[k]->MarkDefined();
-				functions[k]->SetStartMode(&startMode, prLevel);
-				*function = functions[k].get();
-
-				return Ceng::CE_OK;
-			}
+			return Ceng::CE_ERR_INVALID_PARAM;
 		}
 	}
 
-	if (temp == nullptr)
-	{
-		*function = new FunctionBuilder(name, this, &startMode, prLevel);
-		functions.push_back(std::shared_ptr<FunctionBuilder>(*function));
-	}
+	sections.emplace_back(name, this, &startMode, prLevel);
 
 	return Ceng::CE_OK;
 }
@@ -230,6 +197,8 @@ Ceng::CRESULT ProgramBuilder::AddFunction(const Ceng::UINT32 options, const CPU_
 Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 {
 	Ceng::CRESULT cresult;
+
+	/*
 
 	std::vector<std::shared_ptr<ObjectFunction>>* objFunctions;
 
@@ -261,6 +230,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 
 	dataSection = nullptr;
 	bssSection = nullptr;
+	*/
 
 	return Ceng::CE_OK;
 }

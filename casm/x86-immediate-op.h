@@ -21,7 +21,7 @@ namespace X86
 	{
 	protected:
 
-		std::shared_ptr<Symbol> symbol;
+		std::shared_ptr<Casm::Symbol> symbol;
 
 		Ceng::UINT32 bytes;
 		Ceng::INT64 value;
@@ -30,7 +30,8 @@ namespace X86
 
 		~ImmediateOperand() override;
 
-		ImmediateOperand(std::shared_ptr<Symbol> &symbol, const X86::OPERAND_SIZE::value addressSize);
+		ImmediateOperand(std::shared_ptr<Casm::Symbol> &symbol, 
+			const X86::OPERAND_SIZE::value addressSize);
 
 		ImmediateOperand(const Ceng::INT64 value);
 
@@ -46,7 +47,7 @@ namespace X86
 
 		const Ceng::INT64 Value64() const;
 
-		const std::shared_ptr<Symbol> GetSymbol() const;
+		const std::shared_ptr<Casm::Symbol> GetSymbol() const;
 
 		const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 			const Ceng::UINT32 operandIndex) const override;

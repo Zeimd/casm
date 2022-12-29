@@ -10,7 +10,9 @@
 
 #include "code-label.h"
 
-using namespace X86;
+#include "build-params.h"
+
+using namespace Casm;
 
 CodeElement::CodeElement(const Ceng::UINT32 position) : position(position)
 {
@@ -20,7 +22,7 @@ CodeElement::~CodeElement()
 {
 }
 
-Ceng::CRESULT CodeElement::Build(BuildParams *params,
+Ceng::CRESULT CodeElement::Build(X86::BuildParams *params,
 								 const std::vector<std::shared_ptr<Label>> &labels,
 								 const std::vector<std::shared_ptr<CodeElement>> &codeList)
 {

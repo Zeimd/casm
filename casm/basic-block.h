@@ -13,7 +13,7 @@
 
 #include "code-line.h"
 
-namespace X86
+namespace Casm
 {
 	/**
 	 * A block of code that is constant in size, and doesn't
@@ -22,7 +22,7 @@ namespace X86
 	class BasicBlock : public CodeElement
 	{
 	protected:
-		std::vector<std::shared_ptr<CodeLine>> lines;
+		std::vector<std::shared_ptr<Casm::CodeLine>> lines;
 		std::vector<Ceng::UINT8> codeBuffer;
 
 		BasicBlock()
@@ -42,7 +42,7 @@ namespace X86
 
 		Ceng::CRESULT AddLine(CodeLine *newLine);
 
-		virtual Ceng::CRESULT Build(BuildParams *params,
+		virtual Ceng::CRESULT Build(X86::BuildParams *params,
 									 const std::vector<std::shared_ptr<Label>> &labels,
 									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
 

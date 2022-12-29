@@ -18,9 +18,9 @@
 
 #include "enums/condition-codes.h"
 
-namespace X86
+namespace Casm
 {
-	class ConditionJump : public CodeElement
+	class ConditionJump : public Casm::CodeElement
 	{
 	public:
 		Casm::CONDITION::value condition;
@@ -49,13 +49,13 @@ namespace X86
 		ConditionJump(const Ceng::UINT32 position, const Casm::CONDITION::value condition,
 						const Label *label);
 
-		virtual Ceng::CRESULT Build(BuildParams *params,
+		virtual Ceng::CRESULT Build(X86::BuildParams *params,
 									 const std::vector<std::shared_ptr<Label>> &labels,
 									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
 
 		virtual Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;
 
-		Ceng::CRESULT AdjustOffset(BuildParams *params,const Ceng::INT32 offset);
+		Ceng::CRESULT AdjustOffset(X86::BuildParams *params,const Ceng::INT32 offset);
 
 		virtual Ceng::UINT32 SizeBytes() const;
 	};

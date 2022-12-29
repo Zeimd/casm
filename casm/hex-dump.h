@@ -6,7 +6,7 @@
 
 namespace Casm
 {
-	void HexDump(std::wostream& out, uint32_t groupSize, uint32_t length, uint8_t* buffer);
+	void HexDump(std::wostream& out, uint32_t groupSize, uint32_t length, const uint8_t* buffer);
 
 }
 

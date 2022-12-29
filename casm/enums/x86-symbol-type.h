@@ -12,6 +12,7 @@ namespace X86
 			data = 1,
 			function = 2,
 			object_function = 4,
+			section = 5,
 
 			force_32b = 1 << 30,
 		};

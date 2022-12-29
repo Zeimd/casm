@@ -29,12 +29,11 @@
     <ClCompile Include="..\..\casm\data-descriptor.cpp" />
     <ClCompile Include="..\..\casm\encode-data.cpp" />
     <ClCompile Include="..\..\casm\executable.cpp" />
-    <ClCompile Include="..\..\casm\function-builder.cpp" />
     <ClCompile Include="..\..\casm\hex-dump.cpp" />
     <ClCompile Include="..\..\casm\keyword-group.cpp" />
     <ClCompile Include="..\..\casm\linker.cpp" />
-    <ClCompile Include="..\..\casm\obj-function.cpp" />
     <ClCompile Include="..\..\casm\object-code.cpp" />
+    <ClCompile Include="..\..\casm\object-section.cpp" />
     <ClCompile Include="..\..\casm\opcode-prefix.cpp" />
     <ClCompile Include="..\..\casm\parser-c-function.cpp" />
     <ClCompile Include="..\..\casm\parser-context.cpp" />
@@ -59,6 +58,7 @@
     <ClCompile Include="..\..\casm\program-builder.cpp" />
     <ClCompile Include="..\..\casm\program.cpp" />
     <ClCompile Include="..\..\casm\relocation-data.cpp" />
+    <ClCompile Include="..\..\casm\section.cpp" />
     <ClCompile Include="..\..\casm\sse-compare.cpp" />
     <ClCompile Include="..\..\casm\sse-instruction.cpp" />
     <ClCompile Include="..\..\casm\sse-sign-mask.cpp" />
@@ -123,6 +123,7 @@
     <ClInclude Include="..\..\casm\enums\address-size.h" />
     <ClInclude Include="..\..\casm\enums\condition-codes.h" />
     <ClInclude Include="..\..\casm\enums\reference-type.h" />
+    <ClInclude Include="..\..\casm\enums\section-options.h" />
     <ClInclude Include="..\..\casm\enums\x86-cpu-modes.h" />
     <ClInclude Include="..\..\casm\enums\x86-data-options.h" />
     <ClInclude Include="..\..\casm\enums\x86-instruction-sets.h" />
@@ -141,7 +142,6 @@
     <ClInclude Include="..\..\casm\enums\x86-vex-w.h" />
     <ClInclude Include="..\..\casm\executable.h" />
     <ClInclude Include="..\..\casm\extern-symbol.h" />
-    <ClInclude Include="..\..\casm\function-builder.h" />
     <ClInclude Include="..\..\casm\hex-dump.h" />
     <ClInclude Include="..\..\casm\initializer.h" />
     <ClInclude Include="..\..\casm\keyword-array.h" />
@@ -149,8 +149,8 @@
     <ClInclude Include="..\..\casm\keyword-hash.h" />
     <ClInclude Include="..\..\casm\keyword-map.h" />
     <ClInclude Include="..\..\casm\linker.h" />
-    <ClInclude Include="..\..\casm\obj-function.h" />
     <ClInclude Include="..\..\casm\object-code.h" />
+    <ClInclude Include="..\..\casm\object-section.h" />
     <ClInclude Include="..\..\casm\opcode-prefix.h" />
     <ClInclude Include="..\..\casm\parser-c-function.h" />
     <ClInclude Include="..\..\casm\parser-c-global.h" />
@@ -183,6 +183,7 @@
     <ClInclude Include="..\..\casm\program-builder.h" />
     <ClInclude Include="..\..\casm\program.h" />
     <ClInclude Include="..\..\casm\relocation-data.h" />
+    <ClInclude Include="..\..\casm\section.h" />
     <ClInclude Include="..\..\casm\sse-compare.h" />
     <ClInclude Include="..\..\casm\sse-instruction.h" />
     <ClInclude Include="..\..\casm\sse-sign-mask.h" />

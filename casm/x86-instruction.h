@@ -72,8 +72,10 @@ namespace X86
 
 	protected:
 
+		/*
 		const Ceng::CRESULT EncodeInstruction(BuildParams *params,std::vector<Ceng::UINT8> &destBuffer,
 											 InstructionPrefix *prefix,EncodeData *encodeData) const;
+											 */
 	};
 
 	

@@ -19,21 +19,22 @@
 #include "symbol.h"
 #include "initializer.h"
 
-namespace X86
+namespace Casm
 {
 	class DataItem : public Symbol
 	{
 	public:
 		Ceng::UINT32 options;
 
-		OPERAND_SIZE::value elementSize;
+		X86::OPERAND_SIZE::value elementSize;
 
-		const InitializerType *initializer;
+		const X86::InitializerType *initializer;
 
 	protected:
 
 		DataItem() : 
-			options(0), elementSize(OPERAND_SIZE::OPERAND_SIZE_FORCE_32B), initializer(nullptr)
+			options(0), elementSize(X86::OPERAND_SIZE::OPERAND_SIZE_FORCE_32B), 
+			initializer(nullptr)
 		{
 
 		}
@@ -41,8 +42,8 @@ namespace X86
 	public:
 
 		DataItem(const Ceng::String& name, Ceng::UINT32 options, X86::OPERAND_SIZE::value size, 
-			SectionType::value section, const InitializerType* initializer)
-			: Symbol(name, section, SymbolType::data,true,false), initializer(initializer),
+			Casm::Section* section, const X86::InitializerType* initializer)
+			: Symbol(name, section, X86::SymbolType::data,true,false), initializer(initializer),
 			options(options), elementSize(size)
 		{
 

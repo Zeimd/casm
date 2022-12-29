@@ -16,6 +16,11 @@
 
 #include "enums/x86-priviledge-levels.h"
 
+namespace Casm
+{
+	class Section;
+}
+
 namespace X86
 {
 	class CodeElement;
@@ -29,7 +34,7 @@ namespace X86
 		/**
 		 * The function the instruction is intended for.
 		 */
-		FunctionBuilder *function;
+		Casm::Section *section;
 
 		/**
 		 * Code element this instruction is intended for.

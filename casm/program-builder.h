@@ -32,10 +32,8 @@
 namespace Casm
 {
 	class ParserLiteral;
-}
+	class Section;
 
-namespace X86
-{
 	class Assembler;
 	class InitializerType;
 	
@@ -58,18 +56,19 @@ namespace X86
 
 		std::stringstream errorLog;
 
-		std::vector<std::shared_ptr<FunctionBuilder>> functions;
+		//std::vector<std::shared_ptr<FunctionBuilder>> functions;
 
-		std::vector<std::shared_ptr<Symbol>> *dataSection;
+		//std::vector<std::shared_ptr<Symbol>> *dataSection;
 
-		std::vector<std::shared_ptr<Symbol>>* bssSection;
+		//std::vector<std::shared_ptr<Symbol>>* bssSection;
 
-		std::list<std::shared_ptr<Symbol>> undefinedList; 
+		//std::list<std::shared_ptr<Symbol>> undefinedList; 
+
+		std::vector<std::shared_ptr<Casm::Section>> sections;
 
 		const Assembler *assembler;
 
-		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions()),dataSection(nullptr),
-			bssSection(nullptr)
+		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions())
 		{
 		}
 	public:
@@ -77,8 +76,7 @@ namespace X86
 		ProgramBuilder(const Casm::BuilderOptions &options,const Assembler *assembler) :
 			options(options),assembler(assembler)
 		{
-			dataSection = new std::vector<std::shared_ptr<Symbol>>();
-			bssSection = new std::vector<std::shared_ptr<Symbol>>();
+			
 		}
 
 		const Casm::BuilderOptions* BuildOptions() const; 
@@ -87,27 +85,15 @@ namespace X86
 
 		const Assembler* Assembler() const;
 
-		// Add initialized data (section .data)
-		Ceng::CRESULT AddData(const DataDescriptor &dataDesc,const Ceng::String &name,
-								const InitializerType *initializer);
-
-		// Add string literal to .data
-		Ceng::CRESULT AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
-			const char* initializer);
-
-
-		// Add uninitialized data (section .bss)
-		Ceng::CRESULT AddData(const DataDescriptor& dataDesc, const Ceng::String& name);
-
 		std::shared_ptr<Symbol> FindData(const Ceng::String &name);
 
 		std::shared_ptr<Symbol> FindFunction(const Ceng::String &name);
 
 		std::shared_ptr<Symbol> FindSymbol(const Ceng::String &name);
 
-		Ceng::CRESULT AddFunction(const Ceng::UINT32 options,
-									const CPU_Mode &startMode,const PRIVILEDGE_LEVEL::value prLevel,
-									const Ceng::String &name,FunctionBuilder **function);
+		Ceng::CRESULT AddSection(const Ceng::UINT32 options,
+			const CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,
+			const Ceng::String &name,Casm::Section **out_section);
 
 		//const Ceng::CRESULT AddFromString(const Ceng::String &code);
 		

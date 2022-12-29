@@ -14,7 +14,7 @@
 #include <ceng/datatypes/ce-string.h>
 #include <ceng/datatypes/return-val.h>
 
-namespace X86
+namespace Casm
 {
 	class CodeElement;
 

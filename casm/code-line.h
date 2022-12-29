@@ -6,8 +6,8 @@
 *
 *****************************************************************************/
 
-#ifndef X86_CODE_LINE_H
-#define X86_CODE_LINE_H
+#ifndef CASM_CODE_LINE_H
+#define CASM_CODE_LINE_H
 
 #include <ceng/datatypes/basic-types.h>
 
@@ -19,7 +19,7 @@
 
 #include <vector>
 
-namespace X86
+namespace Casm
 {
 	class CodeLine
 	{
@@ -34,7 +34,7 @@ namespace X86
 		{
 		}
 
-		virtual Ceng::CRESULT Encode(BuildParams *params,
+		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
 										std::vector<Ceng::UINT8> &destBuffer)
 		{
 			return Ceng::CE_OK;
@@ -44,13 +44,13 @@ namespace X86
 	class BareOp : public CodeLine
 	{
 	protected:
-		const Instruction *instruction;
+		const X86::Instruction *instruction;
 	public:
 		BareOp()
 		{
 		}
 
-		BareOp(const Instruction &instruction) :
+		BareOp(const X86::Instruction &instruction) :
 			instruction(&instruction)
 		{
 		}
@@ -59,7 +59,7 @@ namespace X86
 		{
 		}
 
-		virtual Ceng::CRESULT Encode(BuildParams *params,
+		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
 										std::vector<Ceng::UINT8> &destBuffer)
 		{
 			return instruction->EncodeBare(params,destBuffer);
@@ -69,13 +69,13 @@ namespace X86
 	class UnaryOp : public BareOp
 	{
 	protected:
-		const Operand *operand;
+		const X86::Operand *operand;
 	public:
 		UnaryOp()
 		{
 		}
 
-		UnaryOp(const Instruction &instruction,const Operand *operand) :
+		UnaryOp(const X86::Instruction &instruction,const X86::Operand *operand) :
 			BareOp(instruction),operand(operand)
 		{
 		}
@@ -88,7 +88,7 @@ namespace X86
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(BuildParams *params,
+		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
 										std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeOneForm(params,destBuffer,operand);
@@ -98,14 +98,14 @@ namespace X86
 	class BinaryOp : public UnaryOp
 	{
 	protected:
-		const Operand *source;
+		const X86::Operand *source;
 	public:
 		BinaryOp()
 		{
 		}
 
-		BinaryOp(const Instruction &instruction,const Operand *dest,
-					const Operand *source) :
+		BinaryOp(const X86::Instruction &instruction,const X86::Operand *dest,
+					const X86::Operand *source) :
 			UnaryOp(instruction,dest),source(source)
 		{
 		}
@@ -118,7 +118,7 @@ namespace X86
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(BuildParams *params,
+		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
 										std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeTwoForm(params,destBuffer,operand,source);
@@ -128,7 +128,7 @@ namespace X86
 	class ThreeOp : public BinaryOp
 	{
 	protected:
-		const Operand *source2;
+		const X86::Operand *source2;
 
 	public:
 
@@ -136,8 +136,8 @@ namespace X86
 		{
 		}
 
-		ThreeOp(const Instruction &instruction,const Operand *dest,
-					const Operand *source,const Operand *source2) :
+		ThreeOp(const X86::Instruction &instruction,const X86::Operand *dest,
+					const X86::Operand *source,const X86::Operand *source2) :
 			BinaryOp(instruction,dest,source),source2(source2)
 		{
 		}
@@ -150,7 +150,7 @@ namespace X86
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(BuildParams *params,
+		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
 										std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeThreeForm(params,destBuffer,operand,source,source2);
@@ -161,7 +161,7 @@ namespace X86
 	class FourOp : public ThreeOp
 	{
 	protected:
-		const Operand* source3;
+		const X86::Operand* source3;
 
 	public:
 
@@ -169,8 +169,9 @@ namespace X86
 		{
 		}
 
-		FourOp(const Instruction& instruction, const Operand* dest,
-			const Operand* source, const Operand* source2, const Operand* source3) :
+		FourOp(const X86::Instruction& instruction, const X86::Operand* dest,
+			const X86::Operand* source, const X86::Operand* source2, 
+			const X86::Operand* source3) :
 			ThreeOp(instruction, dest, source,source2), source3(source3)
 		{
 		}
@@ -183,10 +184,11 @@ namespace X86
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(BuildParams* params,
+		virtual Ceng::CRESULT Encode(X86::BuildParams* params,
 			std::vector<Ceng::UINT8>& destBuffer) override
 		{
-			return instruction->EncodeFourForm(params, destBuffer, operand, source, source2,source3);
+			return instruction->EncodeFourForm(params, destBuffer, operand, 
+				source, source2,source3);
 		};
 	};
 

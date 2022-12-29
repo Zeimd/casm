@@ -18,14 +18,12 @@
 
 #include "symbol.h"
 
-
-
-namespace X86
+namespace Casm
 {
 	class SymbolRef
 	{
 	public:
-		std::shared_ptr<Symbol> symbol;
+		std::shared_ptr<Casm::Symbol> symbol;
 		Ceng::INT64 encodeOffset;
 		Ceng::BOOL isUnsigned;
 
@@ -36,14 +34,14 @@ namespace X86
 		 */
 		Ceng::INT64 ipDelta;
 		
-		OPERAND_SIZE::value encodeSize;
+		X86::OPERAND_SIZE::value encodeSize;
 		Casm::REFERENCE_TYPE::value refType;
 
 		// Section the reference is at
 		X86::SectionType::value section;
 
 		SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
-							const OPERAND_SIZE::value encodeSize,
+							const X86::OPERAND_SIZE::value encodeSize,
 							const Casm::REFERENCE_TYPE::value refType,
 							const X86::SectionType::value section);
 
