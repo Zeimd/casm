@@ -288,6 +288,9 @@
     <ClCompile Include="..\..\casm\object-section.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\casm\data-item.cpp">
+      <Filter>Source Files\casm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\casm\enums\address-size.h">

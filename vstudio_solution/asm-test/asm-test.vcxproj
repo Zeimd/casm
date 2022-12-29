@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\casm\code-label.cpp" />
     <ClCompile Include="..\..\casm\condition-jump.cpp" />
     <ClCompile Include="..\..\casm\data-descriptor.cpp" />
+    <ClCompile Include="..\..\casm\data-item.cpp" />
     <ClCompile Include="..\..\casm\encode-data.cpp" />
     <ClCompile Include="..\..\casm\executable.cpp" />
     <ClCompile Include="..\..\casm\hex-dump.cpp" />
