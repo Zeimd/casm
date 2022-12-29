@@ -27,6 +27,8 @@
 #include <list>
 #include <iterator>
 
+#include <ostream>
+
 namespace X86
 {
 	class CPU_Mode;
@@ -93,6 +95,8 @@ namespace Casm
 		Ceng::CRESULT Build(ObjectCode **output);
 
 		//X86::CodeLine* ParseInstruction(const Ceng::String &input);
+
+		void Print(std::wostream& out);
 
 	protected:
 

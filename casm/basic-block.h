@@ -48,6 +48,8 @@ namespace Casm
 		virtual Ceng::UINT32 SizeBytes() const override;
 	
 		virtual Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const override;
+
+		void Print(std::wostream& out) const override;
 	};
 }
 

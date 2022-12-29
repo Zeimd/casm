@@ -13,6 +13,8 @@
 
 #include "symbol-ref.h"
 
+#include <ostream>
+
 namespace X86
 {
 	class BuildParams;
@@ -61,6 +63,11 @@ namespace Casm
 		TYPE Type() const;
 
 		virtual Ceng::UINT32 SizeBytes() const;
+
+		virtual void Print(std::wostream& out) const
+		{
+
+		}
 	};
 
 	inline Ceng::UINT32 CodeElement::Position() const

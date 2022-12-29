@@ -238,6 +238,13 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 	return Ceng::CE_OK;
 }
 
+void ProgramBuilder::Print(std::wostream& out)
+{
+	for (auto& sect : sections)
+	{
+		sect->Print(out);
+	}
+}
 
 /*
 const Ceng::CRESULT ProgramBuilder::AddFromString(const Ceng::String &code)

@@ -65,6 +65,8 @@ namespace Casm
 			}
 			return 0;
 		}
+
+		void Print(std::wostream& out) const override;
 	};
 }
 

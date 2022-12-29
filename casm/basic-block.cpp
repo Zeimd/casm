@@ -77,3 +77,11 @@ Ceng::CRESULT BasicBlock::Append(std::vector<Ceng::UINT8> &destBuffer) const
 
 	return Ceng::CE_OK;
 }
+
+void BasicBlock::Print(std::wostream& out) const 
+{
+	for (auto& x : lines)
+	{
+		x->Print(out);
+	}
+}

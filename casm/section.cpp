@@ -449,3 +449,14 @@ Ceng::CRESULT Section::MoveReferencesToObjectCode()
 
 	return Ceng::CE_OK;
 }
+
+void Section::Print(std::wostream& out) const
+{
+	out << "section " << name << std::endl;
+
+	for (auto& item : codeList)
+	{
+		item->Print(out);
+	}
+
+}

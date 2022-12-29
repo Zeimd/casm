@@ -219,7 +219,7 @@ int main()
 	//************************************************'
 	// build program
 
-	//programBuild->Print(std::wcout);
+	programBuild->Print(std::wcout);
 
 	return 0;
 

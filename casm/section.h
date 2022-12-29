@@ -16,6 +16,8 @@
 
 #include <memory>
 
+#include <ostream>
+
 namespace X86
 {
 	class CPU_Mode;
@@ -121,6 +123,8 @@ namespace Casm
 
 		// Add uninitialized data
 		Ceng::CRESULT AddData(const DataDescriptor& dataDesc, const Ceng::String& name);
+
+		void Print(std::wostream& out) const;
 
 	protected:
 

@@ -21,6 +21,8 @@
 
 #include "code-element.h"
 
+#include <ostream>
+
 namespace Casm
 {
 	class CodeLine
@@ -41,6 +43,11 @@ namespace Casm
 		{
 			return Ceng::CE_OK;
 		};
+
+		virtual void Print(std::wostream& out) const
+		{
+
+		}
 	};
 
 	class BareOp : public CodeLine
