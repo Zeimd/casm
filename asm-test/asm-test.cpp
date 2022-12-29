@@ -21,7 +21,7 @@
 #include "assembler.h"
 
 #include "program-builder.h"
-#include "function-builder.h"
+#include "section.h"
 
 #include "program.h"
 
@@ -76,7 +76,7 @@ int main()
 
 	Ceng::INT32 k=0;
 
-	X86::Assembler assembler = X86::Assembler(64);
+	Casm::Assembler assembler = Casm::Assembler(64);
 
 	//*********************************************************************
 	// Assembler test
@@ -114,56 +114,67 @@ int main()
 	//************************************************************
 	// New code generator test
 	
-	X86::ObjectCode *testObject;
+	Casm::ObjectCode *testObject;
 	
-	X86::ProgramBuilder *programBuild;
+	Casm::ProgramBuilder *programBuild;
 
 	assembler.CreateProgram(Casm::BuilderOptions(false),&programBuild);
 
 	//programBuild->AddData(X86::DataDescriptor(0,X86::OPERAND_SIZE::DWORD),"test",
 		//new X86::Initializer<Ceng::INT32>(1));
 
-	programBuild->AddData(X86::DataDescriptor(), "hello_str", "Hello World!\n");
+
+	Casm::Section* dataSection;
+
+	programBuild->AddSection(Casm::SectionOptions::writable | Casm::SectionOptions::alloc_mem,
+		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".data", &dataSection);
+
+	dataSection->AddData(Casm::DataDescriptor(), "hello_str", "Hello World!\n");
 
 	//*****************************************
 	// TestFunction
-	
-	X86::FunctionBuilder *testFunc;
-	programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
+
+	Casm::Section* codeSection;
+
+	programBuild->AddSection(Casm::SectionOptions::executable | Casm::SectionOptions::alloc_mem,
+		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".code", &codeSection);
+
+	//X86::FunctionBuilder *testFunc;
+	//programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
 	//******************************************'
 	// printf test
-
+	codeSection->AddLabel("main");
 	
 	// mov eax, hello_str
-	testFunc->MoveAddress(&X86::EAX, "hello_str");
+	codeSection->MoveAddress(&X86::EAX, "hello_str");
 
 	// mov ecx, [esp+4]
-	testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
+	codeSection->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
 
 	// push ecx
-	testFunc->AddInstruction(X86::PUSH, &X86::ECX);
+	codeSection->AddInstruction(X86::PUSH, &X86::ECX);
 
 	// push printf params to stack
 
 	// push eax
-	testFunc->AddInstruction(X86::PUSH, &X86::EAX);
+	codeSection->AddInstruction(X86::PUSH, &X86::EAX);
 
-	//testFunc->MoveAddress(&X86::ECX, "printf");
-	//testFunc->AddInstruction(X86::CALL, &X86::ECX);
-	testFunc->Call("printf");
+	//codeSection->MoveAddress(&X86::ECX, "printf");
+	//codeSection->AddInstruction(X86::CALL, &X86::ECX);
+	codeSection->Call("printf");
 
 	// clear printf param from stack
-	testFunc->AddInstruction(X86::POP, &X86::ECX);
+	codeSection->AddInstruction(X86::POP, &X86::ECX);
 
 	// pop ecx
-	testFunc->AddInstruction(X86::POP, &X86::ECX);
+	codeSection->AddInstruction(X86::POP, &X86::ECX);
 
 	// mov [ecx], eax
-	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
+	codeSection->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
 
 	// ret
-	testFunc->AddInstruction(X86::RET_NEAR);
+	codeSection->AddInstruction(X86::RET_NEAR);
 	
 	
 
@@ -171,43 +182,46 @@ int main()
 	// test for calling generated function
 	
 	/*
+	codeSection->AddLabel("main");
+
 	// mov eax, 1
-	testFunc->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
+	codeSection->AddInstruction(X86::MOV, &X86::EAX, new X86::ImmediateOperand(1));
 
 	// mov ecx, [esp+4]
-	testFunc->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
+	codeSection->AddInstruction(X86::MOV, &X86::ECX, new X86::MemoryOperand(X86::ESP, 4));
 
 	// push ecx
-	testFunc->AddInstruction(X86::PUSH, &X86::ECX);
+	codeSection->AddInstruction(X86::PUSH, &X86::ECX);
 
 	// indirect call via register
-	//testFunc->MoveAddress(&X86::ECX, "incr");
-	//testFunc->AddInstruction(X86::CALL, &X86::ECX);
-	testFunc->Call("incr");
+	//codeSection->MoveAddress(&X86::ECX, "incr");
+	//codeSection->AddInstruction(X86::CALL, &X86::ECX);
+	codeSection->Call("incr");
 
 	// pop ecx
-	testFunc->AddInstruction(X86::POP, &X86::ECX);
+	codeSection->AddInstruction(X86::POP, &X86::ECX);
 
 	// mov [ecx], eax
-	testFunc->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
+	codeSection->AddInstruction(X86::MOV, new X86::MemoryOperand(X86::ECX), &X86::EAX);
 
 	// ret
-	testFunc->AddInstruction(X86::RET_NEAR);
+	codeSection->AddInstruction(X86::RET_NEAR);
 
-	X86::FunctionBuilder* incrFunc;
-	programBuild->AddFunction(0, X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::USER, "incr", &incrFunc);
+	codeSection->AddLabel("incr");
 
 	// inc eax
-	incrFunc->AddInstruction(X86::INC, &X86::EAX);
+	codeSection->AddInstruction(X86::INC, &X86::EAX);
 
 	// ret
-	incrFunc->AddInstruction(X86::RET_NEAR);
+	codeSection->AddInstruction(X86::RET_NEAR);
 	*/
-
-	
 
 	//************************************************'
 	// build program
+
+	//programBuild->Print(std::wcout);
+
+	return 0;
 
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
@@ -227,11 +241,11 @@ int main()
 
 	Casm::Linker linker = Casm::Linker(64);
 
-	std::vector<X86::ObjectCode*> objects;
+	std::vector<Casm::ObjectCode*> objects;
 
 	objects.push_back(testObject);
 
-	X86::Program *testLink;
+	Casm::Program *testLink;
 
 	cresult = linker.LinkProgram("main",objects, &testLink);
 
@@ -254,7 +268,7 @@ int main()
 		{"printf", &printf}
 	};
 
-	X86::Executable *testProgram;
+	Casm::Executable *testProgram;
 
 	cresult = testLink->GetExecutable(externs,
 		sizeof(externs) / sizeof(Casm::ExternSymbol), &testProgram);

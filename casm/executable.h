@@ -14,7 +14,7 @@
 
 #include <ostream>
 
-namespace X86
+namespace Casm
 {
 	class Executable
 	{

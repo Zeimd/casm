@@ -21,7 +21,7 @@
 
 #include "extern-symbol.h"
 
-namespace X86
+namespace Casm
 {
 	class Program
 	{
@@ -29,7 +29,7 @@ namespace X86
 
 		Ceng::UINT64 entryPoint;
 
-		std::vector<RelocationData> relocationData;
+		std::vector<X86::RelocationData> relocationData;
 
 		Ceng::AlignedBuffer<Ceng::UINT8> codeBuffer;
 
