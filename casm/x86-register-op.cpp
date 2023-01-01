@@ -22,9 +22,9 @@ RegisterOperand::~RegisterOperand()
 {
 }
 
-RegisterOperand::RegisterOperand(const Ceng::UINT32 cpuModes,const Ceng::BOOL usesREX, const Ceng::UINT32 registerFiles,
+RegisterOperand::RegisterOperand(const char*name, const Ceng::UINT32 cpuModes,const Ceng::BOOL usesREX, const Ceng::UINT32 registerFiles,
 								 const OPERAND_SIZE::value size,const Ceng::INT32 index) 
-	: Operand(OPERAND_TYPE::REG,usesREX,size),cpuModes(cpuModes),registerFiles(registerFiles),index(index)	
+	: name(name), Operand(OPERAND_TYPE::REG,usesREX,size),cpuModes(cpuModes),registerFiles(registerFiles),index(index)	
 {
 }
 
@@ -35,7 +35,7 @@ const Ceng::UINT32 RegisterOperand::RegisterFiles() const
 
 Ceng::String RegisterOperand::ToString() const
 {
-	return "register";
+	return name;
 }
 
 const Ceng::CRESULT RegisterOperand::EncodeAsOperand(BuildParams *params,EncodeData *encodeData,

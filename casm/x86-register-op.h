@@ -21,13 +21,15 @@ namespace X86
 		Ceng::UINT32 registerFiles;
 		Ceng::INT32 index;
 
+		const char* name;
+
 	public:
 
 		RegisterOperand();
 
 		virtual ~RegisterOperand();
 
-		RegisterOperand(const Ceng::UINT32 cpuModes,const Ceng::BOOL usesREX, const Ceng::UINT32 registerFiles,
+		RegisterOperand(const char* name, const Ceng::UINT32 cpuModes,const Ceng::BOOL usesREX, const Ceng::UINT32 registerFiles,
 							 const OPERAND_SIZE::value size,const Ceng::INT32 index);
 
 		virtual const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
