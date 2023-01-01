@@ -26,14 +26,21 @@ namespace X86
 		const Ceng::UINT8 option;
 		const Ceng::BOOL x64; 
 
+		const char* name;
+
 	public:
 
-		SaveExtState(const Ceng::UINT8 option,const Ceng::BOOL x64);
+		SaveExtState(const char* name, const Ceng::UINT8 option,const Ceng::BOOL x64);
 
 		virtual ~SaveExtState();
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const override;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

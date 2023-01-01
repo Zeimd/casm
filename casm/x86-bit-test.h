@@ -21,15 +21,22 @@ namespace X86
 		const Ceng::UINT8 immediateSwitch;
 
 		const Ceng::UINT8 opcode_reg;
+
+		const char* name;
 	public:
 
-		ALU_BitTest(const Ceng::UINT8 opcode_reg,const Ceng::UINT8 immediateSwitch);
+		ALU_BitTest(const char* name, const Ceng::UINT8 opcode_reg,const Ceng::UINT8 immediateSwitch);
 
 		virtual ~ALU_BitTest();
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *dest,
 											const Operand *source) const override;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

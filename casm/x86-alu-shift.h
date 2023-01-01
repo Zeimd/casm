@@ -27,15 +27,22 @@ namespace X86
 		
 		const Ceng::UINT8 option;
 
+		const char* name;
+
 	public:
 
-		ALU_Shift(const Ceng::UINT8 option);
+		ALU_Shift(const char* name, const Ceng::UINT8 option);
 
 		virtual ~ALU_Shift();
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *dest,
 											const Operand *source) const override;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

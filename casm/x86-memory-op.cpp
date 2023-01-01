@@ -191,6 +191,12 @@ MemoryOperand::MemoryOperand(const OPERAND_SIZE::value operandSize,
 	SetCPUmode();
 }
 
+Ceng::String MemoryOperand::ToString() const
+{
+	return "memory";
+}
+
+
 const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 												   const Ceng::UINT32 operandIndex) const
 {

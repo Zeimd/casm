@@ -18,6 +18,8 @@ namespace X86
 	protected:
 		const Ceng::UINT8 opcode;
 
+		const char* name;
+
 	public:
 		ConditionalMove(const Ceng::UINT8 opcode);
 
@@ -39,6 +41,11 @@ namespace X86
 
 		const Ceng::CRESULT Config(BuildParams *params,EncodeData *encodeData,
 									const RegisterOperand *dest) const;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 	};
 
 }

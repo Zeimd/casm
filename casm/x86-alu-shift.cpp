@@ -21,7 +21,8 @@
 
 using namespace X86;
 
-ALU_Shift::ALU_Shift(const Ceng::UINT8 option) : option(option)
+ALU_Shift::ALU_Shift(const char* name, const Ceng::UINT8 option) 
+	: option(option)
 {
 }
 

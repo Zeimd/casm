@@ -70,6 +70,11 @@ namespace X86
 
 		virtual const Ceng::CRESULT ValidatePrefixes(const Ceng::UINT32 prefixes) const;
 
+		virtual const char* Name() const
+		{
+			return "undefined";
+		}
+
 	protected:
 
 		/*

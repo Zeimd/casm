@@ -36,6 +36,12 @@ ImmediateOperand::~ImmediateOperand()
 
 }
 
+Ceng::String ImmediateOperand::ToString() const
+{
+	return "immediate";
+}
+
+
 ImmediateOperand::ImmediateOperand(const Ceng::INT64 value) :
 	Operand(OPERAND_TYPE::IMM,false,OPERAND_SIZE::IMPLICIT),
 	value(value),bytes(8)

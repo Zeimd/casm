@@ -31,6 +31,11 @@ namespace X86
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const;
 
+		const char* Name() const override
+		{
+			return "call";
+		}
+
 	protected:
 
 		const Ceng::CRESULT Encode_AbsoluteNear_R(BuildParams *params,EncodeData *encodeData,
@@ -41,6 +46,8 @@ namespace X86
 
 		const Ceng::CRESULT Encode_Relative(BuildParams *params,EncodeData *encodeData,
 											const ImmediateOperand *immediate) const;
+
+		
 	};
 }
 

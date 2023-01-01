@@ -32,10 +32,12 @@ namespace X86
 
 		const Ceng::UINT8 immediateSwitch;
 
+		const char* name;
+
 		/**
 		 * Must be defined in the header.
 		 */
-		AddTypeInstruction(const Ceng::UINT8 opcode_rm32_r32,const Ceng::UINT8 opcode_r32_rm32,
+		AddTypeInstruction(const char* name, const Ceng::UINT8 opcode_rm32_r32,const Ceng::UINT8 opcode_r32_rm32,
 						const Ceng::UINT8 opcode_rm8_r8,const Ceng::UINT8 opcode_r8_rm8,
 						const Ceng::UINT8 opcode_AL_imm8,const Ceng::UINT8 opcode_EAX_imm32,
 						const Ceng::UINT8 immediateSwitch);
@@ -46,6 +48,11 @@ namespace X86
 											EncodeData *encodeData,const Operand *dest,
 											const Operand *source) const override;
 		
+		const char* Name() const override
+		{
+			return name;
+		}
+
 	protected:
 
 		const Ceng::CRESULT Select_R_I(BuildParams *params,

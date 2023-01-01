@@ -34,6 +34,8 @@ namespace X86
 												const Ceng::UINT32 operandIndex) const override;
 
 		const Ceng::UINT32 RegisterFiles() const;
+
+		Ceng::String ToString() const override;
 	};
 }
 

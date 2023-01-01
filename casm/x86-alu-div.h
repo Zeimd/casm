@@ -22,13 +22,20 @@ namespace X86
 
 		const Ceng::UINT8 option;
 
+		const char* name;
+
 	public:
-		ALU_Div(const Ceng::UINT8 option);
+		ALU_Div(const char* name, const Ceng::UINT8 option);
 
 		virtual ~ALU_Div();
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

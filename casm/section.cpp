@@ -23,6 +23,8 @@
 
 #include "data-descriptor.h"
 
+#include <ceng/datatypes/return-val.h>
+
 using namespace Casm;
 
 Section::Section() :
@@ -69,6 +71,198 @@ Ceng::CRESULT Section::SetStartMode(const X86::CPU_Mode* startMode,
 }
 
 
+Ceng::CRESULT Section::FlushCurrentBlock()
+{
+	Ceng::CRESULT cresult = Ceng::CE_OK;;
+
+	if (currentBlock != nullptr)
+	{
+		cresult = currentBlock->Build(params.get(), labels, codeList);
+
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+
+		codeList.push_back(currentBlock);
+		AttachLabels();
+
+		currentBlock = nullptr;
+	}
+
+	return cresult;
+}
+
+Ceng::CRESULT Section::StartBlock()
+{
+	if (currentBlock == nullptr)
+	{
+		//currentBlock = std::shared_ptr<BasicBlock>(new BasicBlock(codeList.size()));
+
+		currentBlock = std::make_shared<BasicBlock>(codeList.size());
+	}
+
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
+{
+	Ceng::UINT32 k;
+
+	for (k = 0; k < labels.size(); k++)
+	{
+		if (labels[k]->CompareName(name))
+		{
+			break;
+		}
+	}
+
+	if (k < labels.size())
+	{
+		if (labels[k]->Undefined())
+		{
+			FlushCurrentBlock();
+			labels[k]->MarkDefined();
+		}
+		else
+		{
+			return Ceng::CE_ERR_INVALID_PARAM;
+		}
+	}
+	else
+	{
+		FlushCurrentBlock();
+		labels.push_back(std::shared_ptr<Label>(new Label(name, false)));
+	}
+
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT Section::AttachLabels()
+{
+	if (labels.size() == 0) return Ceng::CE_OK;
+
+	if (codeList.size() == 0) return Ceng::CE_OK;
+
+	CodeElement* target = codeList[codeList.size() - 1].get();
+
+	for (size_t k = 0; k < labels.size(); k++)
+	{
+		if (labels[k]->Undefined() == false)
+		{
+			if (labels[k]->Target() == nullptr)
+			{
+				labels[k]->SetTarget(target);
+			}
+		}
+	}
+
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT Section::Finalize()
+{
+	Ceng::CRESULT cresult;
+
+
+	cresult = FlushCurrentBlock();
+
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	Ceng::UINT32 k;
+
+	for (k = 0; k < codeList.size(); k++)
+	{
+		if (codeList[k]->Type() == CodeElement::BASIC_BLOCK) continue;
+
+		cresult = codeList[k]->Build(params.get(), labels, codeList);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+
+	}
+
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
+{
+	Ceng::CRESULT cresult;
+
+	cresult = Finalize();
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+
+	std::vector<Ceng::UINT8> codeBuffer;
+
+	for (size_t k = 0; k < codeList.size(); k++)
+	{
+		codeList[k]->offset = codeBuffer.size();
+
+		cresult = codeList[k]->Append(codeBuffer);
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+	}
+
+	output = std::make_shared<ObjectSection>(name, std::move(labels), std::move(references),
+		std::move(codeBuffer));
+
+	objectSection = output;
+
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT Section::MoveReferencesToObjectCode()
+{
+	Ceng::UINT32 k;
+
+	for (k = 0; k < references.size(); k++)
+	{
+		if (references[k]->symbol->Type() == X86::SymbolType::function)
+		{
+			/*
+			FunctionBuilder* function = references[k]->symbol->AsFunction();
+
+			references[k]->symbol =
+				static_cast<std::shared_ptr<Symbol>>(function->objectFunction);
+			*/
+		}
+	}
+
+	return Ceng::CE_OK;
+}
+
+void Section::Print(std::wostream& out) const
+{
+	size_t size = codeList.size();
+
+	if (currentBlock != nullptr)
+	{
+		++size;
+	}
+
+	out << "section " << name << " (elements = " << size << ")" << std::endl;
+
+	for (auto& item : codeList)
+	{
+		item->Print(out);
+	}
+
+	if (currentBlock != nullptr)
+	{
+		currentBlock->Print(out);
+	}
+}
+
+
 Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::String& name,
 	const InitializerType* initializer)
 {
@@ -111,39 +305,6 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 		std::make_shared<DataItem>(dataDesc.options, dataDesc.size, this, nullptr);
 
 	currentBlock->AddLine(item);
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::FlushCurrentBlock()
-{
-	Ceng::CRESULT cresult = Ceng::CE_OK;;
-
-	if (currentBlock != nullptr)
-	{
-		cresult = currentBlock->Build(params.get(), labels, codeList);
-
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-
-		codeList.push_back(currentBlock);
-		AttachLabels();
-
-		currentBlock = nullptr;
-	}
-
-	return cresult;
-}
-
-Ceng::CRESULT Section::StartBlock()
-{
-	if (currentBlock == nullptr)
-	{
-		//currentBlock = std::shared_ptr<BasicBlock>(new BasicBlock(codeList.size()));
-		currentBlock = std::make_shared<BasicBlock>(codeList.size());
-	}
 
 	return Ceng::CE_OK;
 }
@@ -291,62 +452,6 @@ Ceng::CRESULT Section::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
 	return Ceng::CE_OK;
 }
 
-
-Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
-{
-	Ceng::UINT32 k;
-
-	for (k = 0; k < labels.size(); k++)
-	{
-		if (labels[k]->CompareName(name))
-		{
-			break;
-		}
-	}
-
-	if (k < labels.size())
-	{
-		if (labels[k]->Undefined())
-		{
-			FlushCurrentBlock();
-			labels[k]->MarkDefined();
-		}
-		else
-		{
-			return Ceng::CE_ERR_INVALID_PARAM;
-		}
-	}
-	else
-	{
-		FlushCurrentBlock();
-		labels.push_back(std::shared_ptr<Label>(new Label(name, false)));
-	}
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::AttachLabels()
-{
-	if (labels.size() == 0) return Ceng::CE_OK;
-
-	if (codeList.size() == 0) return Ceng::CE_OK;
-
-	CodeElement* target = codeList[codeList.size() - 1].get();
-
-	for (size_t k = 0; k < labels.size(); k++)
-	{
-		if (labels[k]->Undefined() == false)
-		{
-			if (labels[k]->Target() == nullptr)
-			{
-				labels[k]->SetTarget(target);
-			}
-		}
-	}
-
-	return Ceng::CE_OK;
-}
-
 Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,
 	const Ceng::String& label)
 {
@@ -380,95 +485,4 @@ Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,
 	}
 
 	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::Finalize()
-{
-	Ceng::CRESULT cresult;
-
-
-	cresult = FlushCurrentBlock();
-
-	if (cresult != Ceng::CE_OK)
-	{
-		return cresult;
-	}
-
-	Ceng::UINT32 k;
-
-	for (k = 0; k < codeList.size(); k++)
-	{
-		if (codeList[k]->Type() == CodeElement::BASIC_BLOCK) continue;
-
-		cresult = codeList[k]->Build(params.get(), labels, codeList);
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-
-	}
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
-{
-	Ceng::CRESULT cresult;
-
-	cresult = Finalize();
-	if (cresult != Ceng::CE_OK)
-	{
-		return cresult;
-	}
-
-	std::vector<Ceng::UINT8> codeBuffer;
-
-	for (size_t k = 0; k < codeList.size(); k++)
-	{
-		codeList[k]->offset = codeBuffer.size();
-
-		cresult = codeList[k]->Append(codeBuffer);
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-	}
-
-	output = std::make_shared<ObjectSection>(name, std::move(labels), std::move(references), 
-		std::move(codeBuffer));
-
-	objectSection = output;
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::MoveReferencesToObjectCode()
-{
-	Ceng::UINT32 k;
-
-	for (k = 0; k < references.size(); k++)
-	{
-		if (references[k]->symbol->Type() == X86::SymbolType::function)
-		{
-			/*
-			FunctionBuilder* function = references[k]->symbol->AsFunction();
-
-			references[k]->symbol = 
-				static_cast<std::shared_ptr<Symbol>>(function->objectFunction);
-			*/
-		}
-	}
-
-	return Ceng::CE_OK;
-}
-
-void Section::Print(std::wostream& out) const
-{
-	out << "section " << name << " (elements = " << codeList.size() << ")" << std::endl;
-
-	for (auto& item : codeList)
-	{
-		item->Print(out);
-	}
-
 }

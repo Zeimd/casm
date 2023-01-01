@@ -33,6 +33,11 @@ const Ceng::UINT32 RegisterOperand::RegisterFiles() const
 	return registerFiles;
 }
 
+Ceng::String RegisterOperand::ToString() const
+{
+	return "register";
+}
+
 const Ceng::CRESULT RegisterOperand::EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 													 const Ceng::UINT32 operandIndex) const
 {

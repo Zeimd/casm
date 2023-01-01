@@ -16,8 +16,8 @@
 
 using namespace X86;
 
-SaveExtState::SaveExtState(const Ceng::UINT8 option,const Ceng::BOOL x64)
-	: option(option),x64(x64)
+SaveExtState::SaveExtState(const char* name, const Ceng::UINT8 option,const Ceng::BOOL x64)
+	: name(name), option(option),x64(x64)
 {
 }
 

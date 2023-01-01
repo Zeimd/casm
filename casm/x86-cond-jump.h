@@ -20,13 +20,15 @@ namespace X86
 	protected:
 		const Ceng::UINT8 opcode_imm8;
 		const Ceng::UINT8 opcode_imm32;
+
+		const char* name;
 	public:
 
 		/**
 		 * Must be in the header.
 		 */
-		CondJumpInstruction(const Ceng::UINT8 opcode_imm8,const Ceng::UINT8 opcode_imm32)
-			: opcode_imm8(opcode_imm8),opcode_imm32(opcode_imm32)
+		CondJumpInstruction(const char* name, const Ceng::UINT8 opcode_imm8,const Ceng::UINT8 opcode_imm32)
+			: name(name), opcode_imm8(opcode_imm8),opcode_imm32(opcode_imm32)
 		{
 		}
 
@@ -36,6 +38,11 @@ namespace X86
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

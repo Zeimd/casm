@@ -16,9 +16,9 @@
 
 using namespace X86;
 
-FenceOp::FenceOp(const Ceng::UINT8 opcode,const Ceng::UINT8 option,
+FenceOp::FenceOp(const char* name, const Ceng::UINT8 opcode,const Ceng::UINT8 option,
 				 const Ceng::UINT32 paramLists)
-	: opcode(opcode),option(option),paramLists(paramLists)
+	: name(name), opcode(opcode),option(option),paramLists(paramLists)
 {
 }
 

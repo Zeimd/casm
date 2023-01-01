@@ -17,7 +17,8 @@
 
 using namespace X86;
 
-ALU_Div::ALU_Div(const Ceng::UINT8 option) : option(option)
+ALU_Div::ALU_Div(const char* name, const Ceng::UINT8 option) 
+	: name(name), option(option)
 {
 }
 

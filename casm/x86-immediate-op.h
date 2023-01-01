@@ -51,6 +51,8 @@ namespace X86
 
 		const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 			const Ceng::UINT32 operandIndex) const override;
+
+		Ceng::String ToString() const override;
 	};
 }
 

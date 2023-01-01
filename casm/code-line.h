@@ -46,7 +46,7 @@ namespace Casm
 
 		virtual void Print(std::wostream& out) const
 		{
-			out << "CodeLine";
+			out << "CodeLine" << std::endl;;
 		}
 	};
 
@@ -73,6 +73,12 @@ namespace Casm
 		{
 			return instruction->EncodeBare(params,destBuffer);
 		};
+
+		void Print(std::wostream& out) const override
+		{
+			out << '\t' << instruction->Name() << std::endl;
+		}
+
 	};
 
 	class UnaryOp : public BareOp
@@ -102,6 +108,12 @@ namespace Casm
 		{
 			return instruction->EncodeOneForm(params,destBuffer,operand);
 		};
+
+		void Print(std::wostream& out) const override
+		{
+			out << '\t' << instruction->Name() << ' ' << operand->ToString() << std::endl;
+		}
+
 	};
 
 	class BinaryOp : public UnaryOp
@@ -132,6 +144,13 @@ namespace Casm
 		{
 			return instruction->EncodeTwoForm(params,destBuffer,operand,source);
 		};
+
+		void Print(std::wostream& out) const override
+		{
+			out << '\t' << instruction->Name() << ' ' << operand->ToString() 
+				<< ", " << source->ToString() << std::endl;
+		}
+
 	};
 
 	class ThreeOp : public BinaryOp
@@ -164,6 +183,13 @@ namespace Casm
 		{
 			return instruction->EncodeThreeForm(params,destBuffer,operand,source,source2);
 		};
+
+		void Print(std::wostream& out) const override
+		{
+			out << '\t' << instruction->Name() << ' ' << operand->ToString() <<
+				", " << source->ToString() << ", " << source2->ToString() << std::endl;
+		}
+
 	};
 
 
@@ -199,6 +225,13 @@ namespace Casm
 			return instruction->EncodeFourForm(params, destBuffer, operand, 
 				source, source2,source3);
 		};
+
+		void Print(std::wostream& out) const override
+		{
+			out << '\t' << instruction->Name() << ' ' << operand->ToString() <<
+				", " << source->ToString() << ", " << source2->ToString()
+				<< ", " << source3->ToString() << std::endl;
+		}
 	};
 
 }

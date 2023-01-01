@@ -42,6 +42,11 @@ namespace X86
 											EncodeData *encodeData,const Operand *dest,
 											const Operand *source) const override;
 
+		const char* Name() const override
+		{
+			return "mov";
+		}
+
 	protected:
 
 		const Ceng::CRESULT Select_R_I(BuildParams *params,

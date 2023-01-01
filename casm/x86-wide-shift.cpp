@@ -21,8 +21,8 @@
 
 using namespace X86;
 
-ALU_WideShift::ALU_WideShift(const Ceng::UINT8 opcode_imm8,const Ceng::UINT8 opcode_CL)
-	: opcode_imm8(opcode_imm8),opcode_CL(opcode_CL)
+ALU_WideShift::ALU_WideShift(const char* name, const Ceng::UINT8 opcode_imm8,const Ceng::UINT8 opcode_CL)
+	: name(name), opcode_imm8(opcode_imm8),opcode_CL(opcode_CL)
 {
 }
 

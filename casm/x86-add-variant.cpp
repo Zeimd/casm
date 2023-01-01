@@ -19,11 +19,11 @@
 
 using namespace X86;
 
-AddTypeInstruction::AddTypeInstruction(const Ceng::UINT8 opcode_rm32_r32,const Ceng::UINT8 opcode_r32_rm32,
+AddTypeInstruction::AddTypeInstruction(const char* name, const Ceng::UINT8 opcode_rm32_r32,const Ceng::UINT8 opcode_r32_rm32,
 									   const Ceng::UINT8 opcode_rm8_r8,const Ceng::UINT8 opcode_r8_rm8,
 									   const Ceng::UINT8 opcode_AL_imm8,const Ceng::UINT8 opcode_EAX_imm32,
 									   const Ceng::UINT8 immediateSwitch)
-	: opcode_rm32_r32(opcode_rm32_r32),opcode_r32_rm32(opcode_r32_rm32),
+	: name(name), opcode_rm32_r32(opcode_rm32_r32),opcode_r32_rm32(opcode_r32_rm32),
 	opcode_rm8_r8(opcode_rm8_r8),opcode_r8_rm8(opcode_r8_rm8),
 	opcode_AL_imm8(opcode_AL_imm8),opcode_EAX_imm32(opcode_EAX_imm32),
 	immediateSwitch(immediateSwitch)

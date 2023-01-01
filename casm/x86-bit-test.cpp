@@ -19,8 +19,8 @@
 
 using namespace X86;
 
-ALU_BitTest::ALU_BitTest(const Ceng::UINT8 opcode_reg,const Ceng::UINT8 immediateSwitch)
-	: opcode_reg(opcode_reg),immediateSwitch(immediateSwitch)
+ALU_BitTest::ALU_BitTest(const char* name, const Ceng::UINT8 opcode_reg,const Ceng::UINT8 immediateSwitch)
+	: name(name), opcode_reg(opcode_reg),immediateSwitch(immediateSwitch)
 {
 }
 

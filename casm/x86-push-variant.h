@@ -46,9 +46,11 @@ namespace X86
 		// PUSH imm16 / imm32
 		const uint8_t opcode_imm32;
 
+		const char* name;
+
 	public:
 
-		PushTypeInstruction(const uint8_t opcode_rm32, const uint8_t opcode_r32,
+		PushTypeInstruction(const char* name, const uint8_t opcode_rm32, const uint8_t opcode_r32,
 			const bool allowCS, const uint8_t opcode_cs, const uint8_t opcode_ss,
 			const uint8_t opcode_ds, const uint8_t opcode_es, const uint8_t opcode_fs,
 			const uint8_t opcode_gs, const bool allowImm, const uint8_t opcode_imm8,
@@ -58,6 +60,11 @@ namespace X86
 
 		const Ceng::CRESULT SelectOpcode(BuildParams* params,
 			EncodeData* encodeData, const Operand* operand) const override;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 	};
 }
 

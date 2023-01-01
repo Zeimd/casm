@@ -65,6 +65,8 @@ namespace X86
 		virtual const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 												const Ceng::UINT32 operandIndex) const override;
 
+		Ceng::String ToString() const override;
+
 	protected:
 
 		void SetCPUmode();

@@ -24,8 +24,10 @@ namespace X86
 
 		const Ceng::UINT32 paramLists;
 
+		const char* name;
+
 	public:
-		FenceOp(const Ceng::UINT8 opcode,const Ceng::UINT8 option,
+		FenceOp(const char* name, const Ceng::UINT8 opcode,const Ceng::UINT8 option,
 					const Ceng::UINT32 paramLists);
 
 		virtual ~FenceOp();
@@ -35,6 +37,11 @@ namespace X86
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const override;
 	
+		const char* Name() const override
+		{
+			return name;
+		}
+
 	protected:
 
 		const Ceng::CRESULT Select_M(BuildParams *params,EncodeData *encodeData,

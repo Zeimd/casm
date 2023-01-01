@@ -20,9 +20,11 @@ namespace X86
 		const Ceng::UINT8 opcode_imm8;
 		const Ceng::UINT8 opcode_CL;
 
+		const char* name;
+
 	public:
 
-		ALU_WideShift(const Ceng::UINT8 opcode_imm8,const Ceng::UINT8 opcode_CL);
+		ALU_WideShift(const char* name, const Ceng::UINT8 opcode_imm8,const Ceng::UINT8 opcode_CL);
 
 		virtual ~ALU_WideShift();
 
@@ -30,6 +32,11 @@ namespace X86
 											EncodeData *encodeData,const Operand *dest,
 											const Operand *source1,
 											const Operand *source2) const override;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

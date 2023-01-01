@@ -20,6 +20,8 @@ namespace X86
 	protected:
 		const Ceng::UINT8 opcode;
 
+		const char* name;
+
 	public:
 
 		ALU_Ascii(const Ceng::UINT8 opcode);
@@ -30,6 +32,11 @@ namespace X86
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const override;
+
+		const char* Name() const override
+		{
+			return name;
+		}
 
 	protected:
 

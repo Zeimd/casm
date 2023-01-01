@@ -31,6 +31,11 @@ namespace X86
 
 		virtual const Ceng::CRESULT SelectOpcode(BuildParams *params,
 											EncodeData *encodeData,const Operand *operand) const override;
+
+		const char* Name() const override
+		{
+			return "ret";
+		}
 	};
 }
 

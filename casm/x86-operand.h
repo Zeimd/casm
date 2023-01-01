@@ -16,6 +16,8 @@
 #include "enums/x86-operand-types.h"
 #include "enums/x86-operand-sizes.h"
 
+#include <ceng/datatypes/ce-string.h>
+
 namespace X86
 {
 	class BuildParams;
@@ -47,6 +49,11 @@ namespace X86
 
 		virtual const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 														const Ceng::UINT32 operandIndex) const;
+
+		virtual Ceng::String ToString() const
+		{
+			return "unknown operand";
+		}
 	};
 }
 

@@ -21,50 +21,50 @@ namespace X86
 	const ReturnInstruction RET_NEAR = ReturnInstruction(0xc3,0xc2);
 	const ReturnInstruction RET_FAR = ReturnInstruction(0xcb,0xca);
 
-	const CondJumpInstruction JCXZ = CondJumpInstruction(0xe3,0x00);
+	const CondJumpInstruction JCXZ = CondJumpInstruction("jcxz", 0xe3,0x00);
 	const CondJumpInstruction& JECXZ = JCXZ;
 	const CondJumpInstruction& JRCXZ = JCXZ;
 
-	const CondJumpInstruction JA = CondJumpInstruction(0x77,0x87);
+	const CondJumpInstruction JA = CondJumpInstruction("ja", 0x77,0x87);
 	const CondJumpInstruction& JNBE = JA;
 
-	const CondJumpInstruction JAE = CondJumpInstruction(0x73,0x83);
+	const CondJumpInstruction JAE = CondJumpInstruction("jae", 0x73,0x83);
 	const CondJumpInstruction& JNB = JAE;
 	const CondJumpInstruction& JNC = JAE;
 
-	const CondJumpInstruction JB = CondJumpInstruction(0x72,0x82);
+	const CondJumpInstruction JB = CondJumpInstruction("jb", 0x72,0x82);
 	const CondJumpInstruction& JNAE = JB;
 	const CondJumpInstruction& JC = JC;
 
-	const CondJumpInstruction JBE = CondJumpInstruction(0x76,0x86);
+	const CondJumpInstruction JBE = CondJumpInstruction("jbe", 0x76,0x86);
 	const CondJumpInstruction& JNA = JBE;
 
-	const CondJumpInstruction JE = CondJumpInstruction(0x74,0x84);
+	const CondJumpInstruction JE = CondJumpInstruction("je", 0x74,0x84);
 	const CondJumpInstruction& JZ = JE;
 
-	const CondJumpInstruction JNE = CondJumpInstruction(0x75,0x85);
+	const CondJumpInstruction JNE = CondJumpInstruction("jne", 0x75,0x85);
 	const CondJumpInstruction& JNZ = JNE;
 
-	const CondJumpInstruction JG = CondJumpInstruction(0x7f,0x8f);
+	const CondJumpInstruction JG = CondJumpInstruction("jg", 0x7f,0x8f);
 	const CondJumpInstruction& JNLE = JG;
 
-	const CondJumpInstruction JGE = CondJumpInstruction(0x7d,0x8d);
+	const CondJumpInstruction JGE = CondJumpInstruction("jge", 0x7d,0x8d);
 	const CondJumpInstruction& JNL = JGE;
 
-	const CondJumpInstruction JL = CondJumpInstruction(0x7c,0x8c);
+	const CondJumpInstruction JL = CondJumpInstruction("jl", 0x7c,0x8c);
 	const CondJumpInstruction& JNGE = JL;
 
-	const CondJumpInstruction JLE = CondJumpInstruction(0x7e,0x8e);
+	const CondJumpInstruction JLE = CondJumpInstruction("jle", 0x7e,0x8e);
 	const CondJumpInstruction& JNG = JLE;
 
-	const CondJumpInstruction JO = CondJumpInstruction(0x70,0x80);
-	const CondJumpInstruction JNO = CondJumpInstruction(0x71,0x81);
-	const CondJumpInstruction JP = CondJumpInstruction(0x7a,0x8a);
-	const CondJumpInstruction JPE = CondJumpInstruction(0x7a,0x8a);
-	const CondJumpInstruction JNP = CondJumpInstruction(0x7b,0x8b);
-	const CondJumpInstruction JPO = CondJumpInstruction(0x7b,0x8b);
-	const CondJumpInstruction JS = CondJumpInstruction(0x78,0x88);
-	const CondJumpInstruction JNS = CondJumpInstruction(0x79,0x89);	
+	const CondJumpInstruction JO = CondJumpInstruction("jo", 0x70,0x80);
+	const CondJumpInstruction JNO = CondJumpInstruction("jno", 0x71,0x81);
+	const CondJumpInstruction JP = CondJumpInstruction("jp",0x7a,0x8a);
+	const CondJumpInstruction JPE = CondJumpInstruction("jpe", 0x7a,0x8a);
+	const CondJumpInstruction JNP = CondJumpInstruction("jnp", 0x7b,0x8b);
+	const CondJumpInstruction JPO = CondJumpInstruction("jpo", 0x7b,0x8b);
+	const CondJumpInstruction JS = CondJumpInstruction("js",0x78,0x88);
+	const CondJumpInstruction JNS = CondJumpInstruction("jns",0x79,0x89);	
 
 	//*************************************************************************************
 	// SETCC : Set if condition 
@@ -163,37 +163,37 @@ namespace X86
 	//*************************************************************************************
 	// Memory control
 
-	const FenceOp CLFLUSH = FenceOp(0xae,7,PARAM_LIST::MEM);
+	const FenceOp CLFLUSH = FenceOp("clflush", 0xae,7,PARAM_LIST::MEM);
 	
-	const FenceOp LFENCE = FenceOp(0xae,5,0);
-	const FenceOp MFENCE = FenceOp(0xae,6,0);
-	const FenceOp SFENCE = FenceOp(0xae,7,0);
+	const FenceOp LFENCE = FenceOp("lfence",0xae,5,0);
+	const FenceOp MFENCE = FenceOp("mfence",0xae,6,0);
+	const FenceOp SFENCE = FenceOp("sfence",0xae,7,0);
 
-	const FenceOp PREFETCHT0 = FenceOp(0x18,1,PARAM_LIST::MEM);
+	const FenceOp PREFETCHT0 = FenceOp("prefetch0",0x18,1,PARAM_LIST::MEM);
 
-	const FenceOp PREFETCHT1 = FenceOp(0x18,2,PARAM_LIST::MEM);
+	const FenceOp PREFETCHT1 = FenceOp("prefetch1",0x18,2,PARAM_LIST::MEM);
 
-	const FenceOp PREFETCHT2 = FenceOp(0x18,3,PARAM_LIST::MEM);
+	const FenceOp PREFETCHT2 = FenceOp("prefetch2",0x18,3,PARAM_LIST::MEM);
 
-	const FenceOp PREFETCHNTA = FenceOp(0x18,0,PARAM_LIST::MEM);
+	const FenceOp PREFETCHNTA = FenceOp("prefetcha",0x18,0,PARAM_LIST::MEM);
 
-	const FenceOp PREFETCHW = FenceOp(0x0d,1,PARAM_LIST::MEM);
+	const FenceOp PREFETCHW = FenceOp("prefetchw",0x0d,1,PARAM_LIST::MEM);
 
-	const FenceOp SGDT = FenceOp(0x01,0,PARAM_LIST::MEM);
+	const FenceOp SGDT = FenceOp("sgdt",0x01,0,PARAM_LIST::MEM);
 
-	const FenceOp SIDT = FenceOp(0x01,1,PARAM_LIST::MEM);
+	const FenceOp SIDT = FenceOp("sidt",0x01,1,PARAM_LIST::MEM);
 
 	//*************************************************************************************
 	// Processor state save
 
-	const SaveExtState XSAVE = SaveExtState(4,false);
-	const SaveExtState XSAVE64 = SaveExtState(4,true);
+	const SaveExtState XSAVE = SaveExtState("xsave",4,false);
+	const SaveExtState XSAVE64 = SaveExtState("xsave64",4,true);
 
-	const SaveExtState XSAVEOPT = SaveExtState(6,false);
-	const SaveExtState XSAVEOPT64 = SaveExtState(6,true);
+	const SaveExtState XSAVEOPT = SaveExtState("xsaveopt",6,false);
+	const SaveExtState XSAVEOPT64 = SaveExtState("xsaveopt64",6,true);
 
-	const SaveExtState XRSTOR = SaveExtState(5,false);
-	const SaveExtState XRSTOR64 = SaveExtState(5,true);
+	const SaveExtState XRSTOR = SaveExtState("xstor",5,false);
+	const SaveExtState XRSTOR64 = SaveExtState("xstor64",5,true);
 	
 	//*************************************************************************************
 	// ALU instructions
@@ -210,34 +210,34 @@ namespace X86
 
 	const MoveInstruction MOV = MoveInstruction();
 
-	const AddTypeInstruction ADD = AddTypeInstruction(0x01,0x03,0x00,0x02,0x04,0x05,0);
-	const AddTypeInstruction OR = AddTypeInstruction(0x09,0x0b,0x08,0x0a,0x0c,0x0d,1);
-	const AddTypeInstruction ADC = AddTypeInstruction(0x11,0x13,0x10,0x12,0x14,0x15,2);
-	const AddTypeInstruction SBB = AddTypeInstruction(0x19,0x1b,0x18,0x1a,0x1c,0x1d,3);
-	const AddTypeInstruction AND = AddTypeInstruction(0x21,0x23,0x20,0x22,0x24,0x25,4);
-	const AddTypeInstruction SUB = AddTypeInstruction(0x29,0x2b,0x28,0x2a,0x2c,0x2d,5);
-	const AddTypeInstruction XOR = AddTypeInstruction(0x31,0x33,0x30,0x32,0x34,0x35,6);
-	const AddTypeInstruction CMP = AddTypeInstruction(0x39,0x3b,0x38,0x3a,0x3c,0x3d,7);
+	const AddTypeInstruction ADD = AddTypeInstruction("add",0x01,0x03,0x00,0x02,0x04,0x05,0);
+	const AddTypeInstruction OR = AddTypeInstruction("or",0x09,0x0b,0x08,0x0a,0x0c,0x0d,1);
+	const AddTypeInstruction ADC = AddTypeInstruction("adc",0x11,0x13,0x10,0x12,0x14,0x15,2);
+	const AddTypeInstruction SBB = AddTypeInstruction("sbb",0x19,0x1b,0x18,0x1a,0x1c,0x1d,3);
+	const AddTypeInstruction AND = AddTypeInstruction("and",0x21,0x23,0x20,0x22,0x24,0x25,4);
+	const AddTypeInstruction SUB = AddTypeInstruction("sub",0x29,0x2b,0x28,0x2a,0x2c,0x2d,5);
+	const AddTypeInstruction XOR = AddTypeInstruction("xor",0x31,0x33,0x30,0x32,0x34,0x35,6);
+	const AddTypeInstruction CMP = AddTypeInstruction("cmp",0x39,0x3b,0x38,0x3a,0x3c,0x3d,7);
 
-	const ALU_Shift SAL = ALU_Shift(4);
-	const ALU_Shift SAR = ALU_Shift(7);
+	const ALU_Shift SAL = ALU_Shift("sal",4);
+	const ALU_Shift SAR = ALU_Shift("sar",7);
 
-	const ALU_Shift SHL = ALU_Shift(4);
-	const ALU_Shift SHR = ALU_Shift(5);
+	const ALU_Shift SHL = ALU_Shift("shl",4);
+	const ALU_Shift SHR = ALU_Shift("shr",5);
 
-	const ALU_Shift RCL = ALU_Shift(2);
-	const ALU_Shift RCR = ALU_Shift(3);
+	const ALU_Shift RCL = ALU_Shift("rcl",2);
+	const ALU_Shift RCR = ALU_Shift("rcr",3);
 
-	const ALU_Shift ROL = ALU_Shift(0);
-	const ALU_Shift ROR = ALU_Shift(1);
+	const ALU_Shift ROL = ALU_Shift("rol",0);
+	const ALU_Shift ROR = ALU_Shift("rdr",1);
 
-	const ALU_WideShift SHLD = ALU_WideShift(0xa4,0xa5);
-	const ALU_WideShift SHRD = ALU_WideShift(0xac,0xad);
+	const ALU_WideShift SHLD = ALU_WideShift("shld",0xa4,0xa5);
+	const ALU_WideShift SHRD = ALU_WideShift("shrd",0xac,0xad);
 
-	const ALU_BitTest BT = ALU_BitTest(0xa3,4);
-	const ALU_BitTest BTC = ALU_BitTest(0xbb,7);
-	const ALU_BitTest BTR = ALU_BitTest(0xb3,6);
-	const ALU_BitTest BTS = ALU_BitTest(0xab,5);
+	const ALU_BitTest BT = ALU_BitTest("bt",0xa3,4);
+	const ALU_BitTest BTC = ALU_BitTest("btc",0xbb,7);
+	const ALU_BitTest BTR = ALU_BitTest("btr",0xb3,6);
+	const ALU_BitTest BTS = ALU_BitTest("bts",0xab,5);
 
 	const ALU_BitScan BSF = ALU_BitScan(0xbc);
 	const ALU_BitScan BSR = ALU_BitScan(0xbd);
@@ -270,27 +270,27 @@ namespace X86
 
 	const CBW_Variant PUSHAD = CBW_Variant(0x60,OPERAND_SIZE::DWORD);
 
-	const PushTypeInstruction PUSH = PushTypeInstruction(0xFF, 0x50, true, 0x0E,
+	const PushTypeInstruction PUSH = PushTypeInstruction("push",0xFF, 0x50, true, 0x0E,
 		0x16, 0x1E, 0x06, 0xA0, 0xA8, true, 0x6A, 0x68);
 
-	const PushTypeInstruction POP = PushTypeInstruction(0x8F, 0x58, false, 0x00,
+	const PushTypeInstruction POP = PushTypeInstruction("pop",0x8F, 0x58, false, 0x00,
 		0x17, 0x1F, 0x07, 0xA1, 0xA9, false, 0x00, 0x00);
 
 	//*************************************************************************************
 	// Long division and multiply
 
-	extern const ALU_Div IDIV = ALU_Div(7);
+	extern const ALU_Div IDIV = ALU_Div("idiv",7);
 
-	extern const ALU_Div DIV = ALU_Div(6);
+	extern const ALU_Div DIV = ALU_Div("div",6);
 
-	extern const ALU_Div MUL = ALU_Div(4);
+	extern const ALU_Div MUL = ALU_Div("mul",4);
 
 	//************************************************************************************
 	// Two's and one's complements
 
-	extern const ALU_Div NEG = ALU_Div(3);
+	extern const ALU_Div NEG = ALU_Div("neg",3);
 
-	extern const ALU_Div NOT = ALU_Div(2);
+	extern const ALU_Div NOT = ALU_Div("not",2);
 
 	//************************************************************************************
 	// Simple instructions (no explicit operands)
