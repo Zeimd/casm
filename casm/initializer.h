@@ -29,6 +29,11 @@ namespace Casm
 		{
 		}
 
+		virtual Ceng::UINT32 ElementSize() const
+		{
+			return 0;
+		}
+
 		virtual Ceng::UINT32 Size() const
 		{
 			return 0;
@@ -60,16 +65,21 @@ namespace Casm
 			data = value;
 		}
 
-		virtual ~Initializer() override
+		~Initializer() override
 		{
 		}
 
-		virtual Ceng::UINT32 Size() const override
+		Ceng::UINT32 Size() const override
 		{
 			return sizeof(T);
 		}
 
-		virtual Ceng::CRESULT WriteValues(Ceng::UINT8 *destBuffer) const override
+		Ceng::UINT32 ElementSize() const override
+		{
+			return sizeof(T);
+		}
+
+		Ceng::CRESULT WriteValues(Ceng::UINT8 *destBuffer) const override
 		{
 			T *ptr = (T*)destBuffer;
 
@@ -104,16 +114,21 @@ namespace Casm
 			data[strlen(source)] = '\0';
 		}
 
-		virtual ~StringLiteralInitializer()
+		~StringLiteralInitializer()
 		{
 		}
 
-		virtual Ceng::UINT32 Size() const override
+		Ceng::UINT32 Size() const override
 		{
 			return data.size();
 		}
 
-		virtual Ceng::CRESULT WriteValues(Ceng::UINT8* destBuffer) const override
+		Ceng::UINT32 ElementSize() const override
+		{
+			return sizeof(char);
+		}
+
+		Ceng::CRESULT WriteValues(Ceng::UINT8* destBuffer) const override
 		{
 			for (size_t i = 0; i < data.size(); i++)
 			{
@@ -125,10 +140,26 @@ namespace Casm
 
 		void Print(std::wostream& out) const override
 		{
+			out << '\'';
+
 			for (auto& x : data)
 			{
-				out << char(x);
+				if (x == '\n')
+				{
+					out << "\\n";
+				}
+				else if (x == '\t')
+				{
+					out << "\\t";
+				}
+				else
+				{
+					out << char(x);
+				}
 			}
+
+			out << '\'';
+			out << ",0";
 		}
 
 	};
@@ -169,16 +200,21 @@ namespace Casm
 
 		}
 
-		virtual ~InitializerList()
+		~InitializerList() override
 		{
 		}
 
-		virtual Ceng::UINT32 Size() const override
+		Ceng::UINT32 Size() const override
 		{
-			return sizeof(T)*data.size();
+			return ElementSize()*data.size();
 		}
 
-		virtual Ceng::CRESULT WriteValues(Ceng::UINT8 *destBuffer) const override
+		Ceng::UINT32 ElementSize() const override
+		{
+			return sizeof(T);
+		}
+
+		Ceng::CRESULT WriteValues(Ceng::UINT8 *destBuffer) const override
 		{
 			T *ptr = (T*)destBuffer;
 

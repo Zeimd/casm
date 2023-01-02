@@ -13,7 +13,7 @@ void DataItem::Print(std::wostream& out) const
 	}
 	else
 	{
-		switch (elementSize)
+		switch (initializer->ElementSize())
 		{
 		case X86::OPERAND_SIZE::BYTE:
 			out << "db";
