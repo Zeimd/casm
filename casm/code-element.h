@@ -67,7 +67,7 @@ namespace Casm
 
 		virtual void Print(std::wostream& out) const
 		{
-			out << "CodeElement";
+			out << "CodeElement" << std::endl;
 		}
 
 		virtual const Ceng::String Name() const

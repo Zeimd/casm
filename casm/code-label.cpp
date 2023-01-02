@@ -46,3 +46,8 @@ Ceng::CRESULT Label::SetTarget(CodeElement *target)
 	this->target = target;
 	return Ceng::CE_OK;
 }
+
+void Label::Print(std::wostream& out) const
+{
+	out << name << ":" << std::endl;
+}
