@@ -73,6 +73,7 @@ Ceng::CRESULT Section::SetStartMode(const X86::CPU_Mode* startMode,
 
 Ceng::CRESULT Section::FlushCurrentBlock()
 {
+	/*
 	Ceng::CRESULT cresult = Ceng::CE_OK;;
 
 	if (currentBlock != nullptr)
@@ -89,16 +90,21 @@ Ceng::CRESULT Section::FlushCurrentBlock()
 
 		currentBlock = nullptr;
 	}
+	*/
 
-	return cresult;
+	if (currentBlock != nullptr)
+	{
+		codeList.push_back(currentBlock);
+		currentBlock = nullptr;
+	}
+
+	return Ceng::CE_OK;
 }
 
 Ceng::CRESULT Section::StartBlock()
 {
 	if (currentBlock == nullptr)
 	{
-		//currentBlock = std::shared_ptr<BasicBlock>(new BasicBlock(codeList.size()));
-
 		currentBlock = std::make_shared<BasicBlock>(codeList.size());
 	}
 
@@ -107,7 +113,7 @@ Ceng::CRESULT Section::StartBlock()
 
 Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 {
-	Ceng::UINT32 k;
+	size_t k;
 
 	for (k = 0; k < labels.size(); k++)
 	{
@@ -132,7 +138,6 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 	else
 	{
 		FlushCurrentBlock();
-		//labels.push_back(std::shared_ptr<Label>(new Label(this, name, false)));
 		labels.emplace_back(std::make_shared<Label>(this, name, false));
 
 		codeList.push_back(labels.back());
@@ -143,6 +148,7 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 
 Ceng::CRESULT Section::AttachLabels()
 {
+	/*
 	if (labels.size() == 0) return Ceng::CE_OK;
 
 	if (codeList.size() == 0) return Ceng::CE_OK;
@@ -159,14 +165,15 @@ Ceng::CRESULT Section::AttachLabels()
 			}
 		}
 	}
+	*/
 
 	return Ceng::CE_OK;
 }
 
 Ceng::CRESULT Section::Finalize()
 {
+	/*
 	Ceng::CRESULT cresult;
-
 
 	cresult = FlushCurrentBlock();
 
@@ -188,6 +195,7 @@ Ceng::CRESULT Section::Finalize()
 		}
 
 	}
+	*/
 
 	return Ceng::CE_OK;
 }
@@ -196,12 +204,32 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 {
 	Ceng::CRESULT cresult;
 
-	cresult = Finalize();
+	cresult = FlushCurrentBlock();
+
 	if (cresult != Ceng::CE_OK)
 	{
 		return cresult;
 	}
 
+	for (auto& x : codeList)
+	{
+		cresult = x->PreBuild(params.get());
+
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+	}
+
+	/*
+	cresult = Finalize();
+	if (cresult != Ceng::CE_OK)
+	{
+		return cresult;
+	}
+	*/
+
+	/*
 	std::vector<Ceng::UINT8> codeBuffer;
 
 	for (size_t k = 0; k < codeList.size(); k++)
@@ -219,6 +247,8 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		std::move(codeBuffer));
 
 	objectSection = output;
+
+	*/
 
 	return Ceng::CE_OK;
 }

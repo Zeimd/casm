@@ -22,6 +22,22 @@ CodeElement::~CodeElement()
 {
 }
 
+void CodeElement::Print(std::wostream& out) const
+{
+	out << "CodeElement" << std::endl;
+}
+
+const Ceng::String CodeElement::Name() const
+{
+	return "CodeElement";
+}
+
+
+Ceng::CRESULT CodeElement::PreBuild(X86::BuildParams* params)
+{
+	return Ceng::CE_OK;
+}
+
 Ceng::CRESULT CodeElement::Build(X86::BuildParams *params,
 								 const std::vector<std::shared_ptr<Label>> &labels,
 								 const std::vector<std::shared_ptr<CodeElement>> &codeList)

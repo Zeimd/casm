@@ -53,6 +53,9 @@ namespace Casm
 
 		virtual ~CodeElement();	
 
+		// Build everything that's possible without accessing other code elements.
+		virtual Ceng::CRESULT PreBuild(X86::BuildParams* params);
+
 		virtual Ceng::CRESULT Build(X86::BuildParams *params,
 									 const std::vector<std::shared_ptr<Label>> &labels,
 									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
@@ -65,15 +68,9 @@ namespace Casm
 
 		virtual Ceng::UINT32 SizeBytes() const;
 
-		virtual void Print(std::wostream& out) const
-		{
-			out << "CodeElement" << std::endl;
-		}
+		virtual void Print(std::wostream& out) const;
 
-		virtual const Ceng::String Name() const
-		{
-			return "CodeElement";
-		}
+		virtual const Ceng::String Name() const;
 	};
 
 	inline Ceng::UINT32 CodeElement::Position() const

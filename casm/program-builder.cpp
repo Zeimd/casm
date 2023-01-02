@@ -159,6 +159,26 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 
 Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 {
+	Ceng::CRESULT cresult;
+
+	std::vector<std::shared_ptr<ObjectSection>> objSections;
+
+	for (auto& section : sections)
+	{
+		std::shared_ptr<ObjectSection> temp;
+
+		cresult = section->Build(temp);
+
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+
+		objSections.push_back(temp);
+	}
+
+
+
 	//Ceng::CRESULT cresult;
 
 	/*

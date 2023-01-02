@@ -26,9 +26,7 @@ Ceng::CRESULT BasicBlock::AddLine(std::shared_ptr<CodeLine>& newLine)
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT BasicBlock::Build(X86::BuildParams *params,
-								const std::vector<std::shared_ptr<Label>> &labels,
-								const std::vector<std::shared_ptr<CodeElement>> &codeList)
+Ceng::CRESULT BasicBlock::PreBuild(X86::BuildParams *params)
 {
 	Ceng::CRESULT cresult;
 
@@ -57,12 +55,21 @@ Ceng::CRESULT BasicBlock::Build(X86::BuildParams *params,
 		{
 			params->memRef->encodeOffset = params->out_dispOffset;
 			params->memRef->encodeSize = params->out_dispSize;
+
+			params->memRef->ConfigIPdelta(codeBuffer.size());
 		}
 
 		params->Clean();
 
 	}
 
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT BasicBlock::Build(X86::BuildParams* params,
+	const std::vector<std::shared_ptr<Label>>& labels,
+	const std::vector<std::shared_ptr<CodeElement>>& codeList)
+{
 	return Ceng::CE_OK;
 }
 

@@ -41,9 +41,11 @@ namespace Casm
 
 		Ceng::CRESULT AddLine(std::shared_ptr<CodeLine>& newLine);
 
-		virtual Ceng::CRESULT Build(X86::BuildParams *params,
-									 const std::vector<std::shared_ptr<Label>> &labels,
-									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
+		Ceng::CRESULT PreBuild(X86::BuildParams* params) override;
+
+		Ceng::CRESULT Build(X86::BuildParams *params,
+			const std::vector<std::shared_ptr<Label>> &labels,
+			const std::vector<std::shared_ptr<CodeElement>> &codeList) override;
 
 		virtual Ceng::UINT32 SizeBytes() const override;
 	
