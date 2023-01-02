@@ -150,57 +150,19 @@ Ceng::CRESULT Section::AttachLabels()
 {
 	for (size_t k = 0; k < codeList.size(); ++k)
 	{
-		
-	}
-
-	/*
-	if (labels.size() == 0) return Ceng::CE_OK;
-
-	if (codeList.size() == 0) return Ceng::CE_OK;
-
-	CodeElement* target = codeList[codeList.size() - 1].get();
-
-	for (size_t k = 0; k < labels.size(); k++)
-	{
-		if (labels[k]->Undefined() == false)
+		if (codeList[k]->Type() == CodeElement::LABEL)
 		{
-			if (labels[k]->Target() == nullptr)
+			std::shared_ptr<Label> temp = 
+				std::static_pointer_cast<Label>(codeList[k]);
+			
+			int next = k++;
+			if (next < codeList.size())
 			{
-				labels[k]->SetTarget(target);
+				temp->SetTarget(codeList[next]);
 			}
 		}
+		
 	}
-	*/
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::Finalize()
-{
-	/*
-	Ceng::CRESULT cresult;
-
-	cresult = FlushCurrentBlock();
-
-	if (cresult != Ceng::CE_OK)
-	{
-		return cresult;
-	}
-
-	Ceng::UINT32 k;
-
-	for (k = 0; k < codeList.size(); k++)
-	{
-		if (codeList[k]->Type() == CodeElement::BASIC_BLOCK) continue;
-
-		cresult = codeList[k]->Build(params.get(), labels, codeList);
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-
-	}
-	*/
 
 	return Ceng::CE_OK;
 }
@@ -216,6 +178,8 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		return cresult;
 	}
 
+	AttachLabels();
+
 	for (auto& x : codeList)
 	{
 		cresult = x->PreBuild(params.get());
@@ -225,8 +189,6 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 			return cresult;
 		}
 	}
-
-	AttachLabels();
 
 	std::vector<Ceng::UINT8> codeBuffer;
 

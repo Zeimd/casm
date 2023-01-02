@@ -24,7 +24,7 @@ Label::~Label()
 {
 }
 
-CodeElement* Label::Target() const
+std::shared_ptr<CodeElement> Label::Target() const
 {
 	return target;
 }
@@ -44,7 +44,7 @@ void Label::MarkDefined()
 	undefined = false;
 }
 
-Ceng::CRESULT Label::SetTarget(CodeElement *target)
+Ceng::CRESULT Label::SetTarget(std::shared_ptr<CodeElement> &target)
 {
 	this->target = target;
 	return Ceng::CE_OK;

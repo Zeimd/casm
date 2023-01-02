@@ -32,7 +32,7 @@ namespace Casm
 		Section* section;
 
 		// Next code element following the label
-		CodeElement *target;
+		std::shared_ptr<CodeElement> target;
 
 		// Offset in object section
 		Ceng::UINT64 objOffset;
@@ -49,7 +49,7 @@ namespace Casm
 
 		~Label();
 		
-		CodeElement* Target() const;	
+		std::shared_ptr<CodeElement> Target() const;	
 
 		Ceng::BOOL CompareName(const Ceng::String &test) const;
 
@@ -57,7 +57,7 @@ namespace Casm
 
 		void MarkDefined();
 
-		Ceng::CRESULT SetTarget(CodeElement *target);
+		Ceng::CRESULT SetTarget(std::shared_ptr<CodeElement>& target);
 
 		const Ceng::String Name() const override
 		{
