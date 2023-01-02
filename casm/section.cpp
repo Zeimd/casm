@@ -134,6 +134,8 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 		FlushCurrentBlock();
 		//labels.push_back(std::shared_ptr<Label>(new Label(this, name, false)));
 		labels.emplace_back(std::make_shared<Label>(this, name, false));
+
+		codeList.push_back(labels.back());
 	}
 
 	return Ceng::CE_OK;
@@ -250,7 +252,7 @@ void Section::Print(std::wostream& out) const
 		++size;
 	}
 
-	out << "section " << name << " (elements = " << size << ")" << std::endl;
+	out << "section " << name << std::endl;
 
 	for (auto& item : codeList)
 	{
