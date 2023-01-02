@@ -16,28 +16,28 @@ void DataItem::Print(std::wostream& out) const
 		switch (elementSize)
 		{
 		case X86::OPERAND_SIZE::BYTE:
-			out << 'db';
+			out << "db";
 			break;
 		case X86::OPERAND_SIZE::WORD:
-			out << 'dw';
+			out << "dw";
 			break;
 		case X86::OPERAND_SIZE::DWORD:
-			out << 'dd';
+			out << "dd";
 			break;
 		case X86::OPERAND_SIZE::QWORD:
-			out << 'dq';
+			out << "dq";
 			break;
 		case X86::OPERAND_SIZE::XMMWORD:
-			out << 'dxmm';
+			out << "dxmm";
 			break;
 		case X86::OPERAND_SIZE::YMMWORD:
-			out << 'dymm';
+			out << "dymm";
 			break;
 		case X86::OPERAND_SIZE::ZMMWORD:
-			out << 'dzmm';
+			out << "dzmm";
 			break;
 		default:
-			out << 'unk';
+			out << "unk";
 			break;
 		}
 	}	
