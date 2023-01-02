@@ -32,6 +32,7 @@ namespace Casm
 		{
 			BASIC_BLOCK = 1 ,
 			CONDITION_JUMP = 2 ,
+			LABEL = 3,
 
 			FORCE_32B = 1 << 30 ,
 		};

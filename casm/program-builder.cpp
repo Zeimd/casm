@@ -50,6 +50,8 @@
 
 #include "data-descriptor.h"
 
+#include "code-label.h"
+
 using namespace Casm;
 
 namespace Casm
@@ -104,75 +106,31 @@ const Casm::BuilderOptions* ProgramBuilder::BuildOptions() const
 	return &options;
 }
 
-
-
-std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String& name)
+std::shared_ptr<Label> ProgramBuilder::FindLabel(const Ceng::String& name)
 {
-	return nullptr;
-
-	/*
-	std::shared_ptr<Symbol> temp;
-
-	temp = FindData(name);
-
-	if (temp != nullptr)
+	for (auto& section : sections)
 	{
-		return temp;
-	}
+		std::shared_ptr<Label> temp = section->FindLabel(name);
 
-	temp = FindFunction(name);
-
-	return temp;
-	*/
-}
-
-std::shared_ptr<Symbol> ProgramBuilder::FindData(const Ceng::String& name)
-{
-	/*
-	for (size_t k = 0; k < dataSection->size(); k++)
-	{
-		if ((*dataSection)[k]->name == name)
+		if (temp != nullptr)
 		{
-			return (*dataSection)[k];
+			return temp;
 		}
 	}
 
-	for (size_t k = 0; k < bssSection->size(); k++)
+	for (auto& x : missingLabels)
 	{
-		if ((*bssSection)[k]->name == name)
+		if (x->CompareName(name))
 		{
-			return (*bssSection)[k];
-		}
-	}
-	*/
-
-	return nullptr;
-}
-
-std::shared_ptr<Symbol> ProgramBuilder::FindFunction(const Ceng::String& name)
-{
-	/*
-	Ceng::UINT32 k;
-
-	for (k = 0; k < functions.size(); k++)
-	{
-		if (functions[k]->name == name)
-		{
-			return functions[k];
+			return x;
 		}
 	}
 
-	// Add forward declaration
+	// Create missing label
 
-	std::shared_ptr<FunctionBuilder> temp;
+	missingLabels.emplace_back(std::make_shared<Label>(nullptr, name, true));
 
-	temp = std::shared_ptr<FunctionBuilder>(new FunctionBuilder(name, this));
-
-	functions.push_back(temp);
-
-	return temp;
-	*/
-	return nullptr;
+	return missingLabels.back();
 }
 
 Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,

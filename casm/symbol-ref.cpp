@@ -10,7 +10,7 @@
 
 using namespace Casm;
 
-SymbolRef::SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
+SymbolRef::SymbolRef(const std::shared_ptr<Label> &symbol,const Ceng::UINT64 offset,
 					 const X86::OPERAND_SIZE::value encodeSize,
 					 const Casm::REFERENCE_TYPE::value refType,
 					 const X86::SectionType::value section)

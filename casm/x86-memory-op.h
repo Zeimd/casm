@@ -16,13 +16,17 @@
 
 #include "symbol.h"
 
+namespace Casm
+{
+	class Label;
+}
 
 namespace X86
 {
 	class MemoryOperand : public Operand
 	{
 	public:
-		std::shared_ptr<Casm::Symbol> symbol;
+		std::shared_ptr<Casm::Label> symbol;
 
 		Ceng::UINT32 cpuModes;
 
@@ -41,7 +45,7 @@ namespace X86
 	public:
 		MemoryOperand(const Ceng::INT32 displacement);
 
-		MemoryOperand(std::shared_ptr<Casm::Symbol> symbol);
+		MemoryOperand(std::shared_ptr<Casm::Label>& symbol);
 
 		MemoryOperand(const RegisterOperand &base);
 		MemoryOperand(const OPERAND_SIZE::value operandSize,const RegisterOperand &base);

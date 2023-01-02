@@ -8,10 +8,12 @@
 
 #include "code-label.h"
 
+#include "section.h"
+
 using namespace Casm;
 
-Label::Label(const Ceng::String name,const Ceng::BOOL undefined) 
-	: name(name),undefined(undefined),target(nullptr)
+Label::Label(Section* section, const Ceng::String name,const Ceng::BOOL undefined) 
+	: section(section), name(name),undefined(undefined),target(nullptr)
 {
 }
 

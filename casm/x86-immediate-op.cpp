@@ -20,15 +20,16 @@
 
 #include "section.h"
 
+#include "code-label.h"
+
 using namespace X86;
 
-ImmediateOperand::ImmediateOperand(std::shared_ptr<Casm::Symbol> &symbol,
+ImmediateOperand::ImmediateOperand(std::shared_ptr<Casm::Label> &symbol,
 	const X86::OPERAND_SIZE::value addressSize) :
-	Operand(OPERAND_TYPE::IMM,false,addressSize)
+	Operand(OPERAND_TYPE::IMM,false,addressSize),
+	symbol(symbol), bytes(addressSize), value(0)
 {
-	this->symbol = symbol;
-	bytes = addressSize;
-	value = 0;
+
 }
 
 ImmediateOperand::~ImmediateOperand()
@@ -123,7 +124,7 @@ const Ceng::INT64 ImmediateOperand::Value64() const
 	return Ceng::INT64(value);
 }
 
-const std::shared_ptr<Casm::Symbol> ImmediateOperand::GetSymbol() const
+const std::shared_ptr<Casm::Label> ImmediateOperand::GetSymbol() const
 {
 	return symbol;
 }

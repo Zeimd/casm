@@ -20,10 +20,12 @@
 
 namespace Casm
 {
+	class Label;
+
 	class SymbolRef
 	{
 	public:
-		std::shared_ptr<Casm::Symbol> symbol;
+		std::shared_ptr<Casm::Label> symbol;
 		Ceng::INT64 encodeOffset;
 		Ceng::BOOL isUnsigned;
 
@@ -40,7 +42,7 @@ namespace Casm
 		// Section the reference is at
 		X86::SectionType::value section;
 
-		SymbolRef(std::shared_ptr<Symbol> symbol,const Ceng::UINT64 offset,
+		SymbolRef(const std::shared_ptr<Label>& symbol,const Ceng::UINT64 offset,
 							const X86::OPERAND_SIZE::value encodeSize,
 							const Casm::REFERENCE_TYPE::value refType,
 							const X86::SectionType::value section);

@@ -9,6 +9,8 @@
 #ifndef X86_CODE_LABEL_H
 #define X86_CODE_LABEL_H
 
+#include "code-element.h"
+
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/boolean.h>
 #include <ceng/datatypes/ce-string.h>
@@ -17,21 +19,28 @@
 namespace Casm
 {
 	class CodeElement;
+	class Section;
 
-	class Label
+	class Label : public CodeElement
 	{
 	protected:
+
 		Ceng::BOOL undefined;
 		Ceng::String name;
+
+		// Section where the label is
+		Section* section;
+
+		// Next code element following the label
 		CodeElement *target;
 
-		Label()
+		Label() : section(nullptr), target(nullptr), undefined(true)
 		{
 		}
 	public:
 		
 
-		Label(const Ceng::String name,const Ceng::BOOL undefined);
+		Label(Section* section, const Ceng::String name,const Ceng::BOOL undefined);
 
 		~Label();
 		

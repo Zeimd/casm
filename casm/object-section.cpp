@@ -51,6 +51,7 @@ Ceng::CRESULT ObjectSection::Append(std::vector<Ceng::UINT8>& destBuffer) const
 Ceng::CRESULT ObjectSection::ReferenceAll(std::vector<std::shared_ptr<Symbol>>* dataList,
 	std::vector<std::shared_ptr<Symbol>>* functionList)
 {
+	/*
 	Ceng::UINT32 k;
 
 	std::shared_ptr<Symbol> temp;
@@ -73,6 +74,7 @@ Ceng::CRESULT ObjectSection::ReferenceAll(std::vector<std::shared_ptr<Symbol>>* 
 
 		references[k]->symbol->IncRefCount();
 	}
+	*/
 
 	return Ceng::CE_OK;
 }
