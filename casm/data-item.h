@@ -67,6 +67,9 @@ namespace Casm
 		}
 
 		void Print(std::wostream& out) const override;
+
+		Ceng::CRESULT Encode(X86::BuildParams* params,
+			std::vector<Ceng::UINT8>& destBuffer) override;
 	};
 }
 

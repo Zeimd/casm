@@ -51,3 +51,14 @@ void DataItem::Print(std::wostream& out) const
 
 	out << std::endl;
 }
+
+Ceng::CRESULT DataItem::Encode(X86::BuildParams* params,
+	std::vector<Ceng::UINT8>& destBuffer) 
+{
+	if (initializer != nullptr)
+	{
+		initializer->WriteValues(destBuffer);
+	}
+
+	return Ceng::CE_OK;
+}
