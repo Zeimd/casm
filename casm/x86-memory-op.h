@@ -26,9 +26,10 @@ namespace X86
 
 		Ceng::UINT32 cpuModes;
 
-		Ceng::INT32 baseReg;
-		
-		Ceng::INT32 indexReg;
+		const X86::RegisterOperand* baseReg;
+
+		const X86::RegisterOperand* indexReg;
+
 		Ceng::UINT32 indexScale;
 
 		Ceng::INT32 displacement;
@@ -57,7 +58,7 @@ namespace X86
 									 const Ceng::INT32 indexScale);
 
 		MemoryOperand(const OPERAND_SIZE::value operandSize,
-									 const RegisterOperand *base,const RegisterOperand *indexReg,
+									 const RegisterOperand &base,const RegisterOperand &indexReg,
 									 const Ceng::INT32 indexScale,const Ceng::INT32 displacement);
 
 									

@@ -20,23 +20,21 @@
 
 using namespace X86;
 
-MemoryOperand::MemoryOperand()
+MemoryOperand::MemoryOperand() :
+	symbol(nullptr), cpuModes(-1), baseReg(nullptr), indexReg(nullptr),
+	indexScale(0), displacement(0)
 {
-	symbol = nullptr;
 	
-	cpuModes = -1;
-
-	baseReg = -1;
-	indexReg = -1;
-	indexScale = 0;
-			
-	displacement = 0;
 }
 
 void MemoryOperand::SetCPUmode()
 {
 	cpuModes = -1;
-	if (baseReg > 7 || indexReg > 7)
+
+	Ceng::BOOL expand = false;
+
+	if ( (baseReg != nullptr && baseReg->index > 7)
+		|| (indexReg != nullptr && indexReg->index > 7) )
 	{
 		usesREX = true;
 		cpuModes = CPU_MODE::X64;
@@ -44,156 +42,123 @@ void MemoryOperand::SetCPUmode()
 }
 
 MemoryOperand::MemoryOperand(std::shared_ptr<Casm::Symbol> symbol)
-	: Operand(OPERAND_TYPE::MEM,false,symbol->AsData()->elementSize)
+	: Operand(OPERAND_TYPE::MEM,false,symbol->AsData()->elementSize),
+	symbol(symbol),baseReg(nullptr), indexReg(nullptr), displacement(0),
+	indexScale(0)
 {
-	this->symbol = symbol;
-
-	baseReg = -1;
-
-	indexReg = -1;
-	indexScale = -1;
-
-	displacement = 0;
-
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const Ceng::INT32 displacement)
-	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT)
+	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT),
+	symbol(nullptr), baseReg(nullptr), indexReg(nullptr), indexScale(0),
+	displacement(displacement)
 {
-	symbol = nullptr;
-
-	baseReg = -1;
-
-	indexReg = -1;
-	indexScale = 0;
-
-	this->displacement = displacement;
-
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const RegisterOperand &base)
-	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT)
+	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT),
+	symbol(nullptr), baseReg(&base), indexReg(nullptr), indexScale(0),
+	displacement(0)
 {
-	symbol = nullptr;
-
-	baseReg = base.index;
-
-	indexReg = -1;
-	indexScale = 0;
-
-	displacement = 0;
-
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const OPERAND_SIZE::value operandSize,
 							 const RegisterOperand &base)
-	: Operand(OPERAND_TYPE::MEM,false,operandSize)
+	: Operand(OPERAND_TYPE::MEM,false,operandSize),
+	symbol(nullptr), baseReg(&base), indexReg(nullptr), indexScale(0),
+	displacement(0)
 {
-	symbol = nullptr;
-
-	baseReg = base.index;
-
-	indexReg = -1;
-	indexScale = 0;
-
-	displacement = 0;
-
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const RegisterOperand &base,const Ceng::INT32 displacement)
-	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT)
+	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT),
+	symbol(nullptr), baseReg(&base), indexReg(nullptr), indexScale(0), 
+	displacement(displacement)
 {
-	symbol = nullptr;
-
-	baseReg = base.index;
-	indexReg = -1;
-	indexScale = 0;
-
-	this->displacement = displacement;
-
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const OPERAND_SIZE::value operandSize,
 									 const RegisterOperand &base,const Ceng::INT32 displacement)
-	: Operand(OPERAND_TYPE::MEM,false,operandSize)
+	: Operand(OPERAND_TYPE::MEM,false,operandSize),
+	symbol(nullptr), baseReg(&base), indexReg(nullptr), indexScale(0),
+	displacement(displacement)
 {
-	symbol = nullptr;
-
-	baseReg = base.index;
-	indexReg = -1;
-	indexScale = 0;
-
-	this->displacement = displacement;
-
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const RegisterOperand &base,const RegisterOperand &indexReg,
 									 const Ceng::INT32 indexScale)
-	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT)
+	: Operand(OPERAND_TYPE::MEM,false,OPERAND_SIZE::IMPLICIT),
+	symbol(nullptr), baseReg(&base), indexReg(&indexReg), indexScale(indexScale),
+	displacement(displacement)
 {
-	symbol = nullptr;
-
-	baseReg = base.index;
-	this->indexReg = indexReg.index;
-	this->indexScale = indexScale;
-
-	this->displacement = 0;
-	
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const OPERAND_SIZE::value operandSize,
 									 const RegisterOperand &base,const RegisterOperand &indexReg,
 									 const Ceng::INT32 indexScale)
-	: Operand(OPERAND_TYPE::MEM,false,operandSize)
-{
-	symbol = nullptr;
-
-	baseReg = base.index;
-	this->indexReg = indexReg.index;
-	this->indexScale = indexScale;
-
-	this->displacement = 0;
-	
+	: Operand(OPERAND_TYPE::MEM,false,operandSize),
+	symbol(nullptr), baseReg(&base), indexReg(&indexReg), indexScale(indexScale),
+	displacement(0)
+{	
 	SetCPUmode();
 }
 
 MemoryOperand::MemoryOperand(const OPERAND_SIZE::value operandSize,
-									 const RegisterOperand *base,const RegisterOperand *indexReg,
+									 const RegisterOperand& base,const RegisterOperand& indexReg,
 									 const Ceng::INT32 indexScale,const Ceng::INT32 displacement)
-	: Operand(OPERAND_TYPE::MEM,false,operandSize)
-{
-	symbol = nullptr;
-
-	baseReg = -1;
-	if (base != nullptr)
-	{
-		baseReg = base->index;
-	}
-
-	this->indexReg = -1;
-	this->indexScale = 0;
-
-	if (indexReg != nullptr)
-	{
-		this->indexReg = indexReg->index;
-		this->indexScale = indexScale;
-	}	
-
-	this->displacement = displacement;
-	
+	: Operand(OPERAND_TYPE::MEM,false,operandSize),
+	symbol(nullptr), baseReg(&base), indexReg(&indexReg), indexScale(indexScale),
+	displacement(displacement)
+{	
 	SetCPUmode();
 }
 
 Ceng::String MemoryOperand::ToString() const
 {
-	return "memory";
+	Ceng::String temp = "[";
+
+	Ceng::BOOL prevOp = false;
+
+	if (baseReg != nullptr)
+	{
+		temp += baseReg->name;
+		prevOp = true;
+	}
+
+	if (indexReg != nullptr)
+	{
+		if (prevOp)
+		{
+			temp += " + ";
+		}
+
+		temp += indexReg->name;
+
+		prevOp = true;
+	}
+
+	if (displacement != 0)
+	{
+		temp += " ";
+
+		if (displacement > 0)
+		{
+			temp += "+ ";
+		}
+
+		temp += displacement;
+	}
+
+	temp += "]";
+
+	return temp;
 }
 
 
@@ -207,7 +172,7 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 
 	// Error conditions
 
-	if (indexReg == X86::RIP.index)
+	if (indexReg->index == X86::RIP.index)
 	{
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
@@ -216,23 +181,26 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 
 	Ceng::BOOL useSib = false;
 
-	if (indexReg != -1)
+	if (indexReg != nullptr)
 	{
 		// Use of index register always requires SIB-byte
 		useSib = true;
 	}
 
-	if ( (baseReg & 7) == ESP.index) 
+	if (baseReg != nullptr)
 	{
-		// Use of ESP or R12 as base register
-		useSib = true;
+		if ((baseReg->index & 7) == ESP.index)
+		{
+			// Use of ESP or R12 as base register
+			useSib = true;
+		}
 	}
 
 	if (params->mode->cpuMode == CPU_MODE::X64)
 	{
 		// Using bare disp32 in 64-bit mode
 		
-		if (baseReg == -1 && indexReg == -1)
+		if (baseReg == nullptr && indexReg == nullptr)
 		{
 			useSib = true;
 		}
@@ -241,17 +209,24 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 	{
 		// RIP-based addressing only available in x64
 
-		if (baseReg == X86::RIP.index)
+		if (baseReg != nullptr && baseReg->index == X86::RIP.index)
 		{
-			// TODO: check mode
-
 			return Ceng::CE_ERR_INVALID_PARAM;
 		}
 	}
 
 	if (useSib == false)
 	{
-		if (baseReg == X86::RIP.index)
+		if (baseReg == nullptr)
+		{
+			// pure disp32
+
+			encodeData->modRM.SetBaseField(5);
+
+			encodeData->hasDisplacement = true;
+			encodeData->dispEncoding = OPERAND_SIZE::DWORD;
+		}
+		else if (baseReg->index == X86::RIP.index)
 		{	
 			// RIP + disp32
 
@@ -260,29 +235,19 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 			encodeData->hasDisplacement = true;
 			encodeData->dispEncoding = OPERAND_SIZE::DWORD;		
 		}
-
-		if (baseReg == -1)
-		{
-			// pure disp32
-
-			encodeData->modRM.SetBaseField(5); 
-			
-			encodeData->hasDisplacement = true;
-			encodeData->dispEncoding = OPERAND_SIZE::DWORD;
-		}
 		else
 		{
 			// Base register
 
-			encodeData->modRM.SetBaseField(baseReg);
+			encodeData->modRM.SetBaseField(baseReg->index);
 
-			encodeData->rex.SetBaseReg(baseReg);
-			encodeData->vex.SetBaseReg(baseReg);
+			encodeData->rex.SetBaseReg(baseReg->index);
+			encodeData->vex.SetBaseReg(baseReg->index);
 
 			if (displacement == 0)
 			{
 				// EBP or R13 as base register 
-				if ( (baseReg & 7) == EBP.index)
+				if ( (baseReg->index & 7) == EBP.index)
 				{
 					// must encode as disp8 = 0
 
@@ -314,7 +279,7 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 	}
 	else
 	{
-		if (baseReg == X86::RIP.index)
+		if (baseReg != nullptr && baseReg->index == X86::RIP.index)
 		{
 			return Ceng::CE_ERR_INVALID_PARAM;
 		}
@@ -322,7 +287,7 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 		// has sib-byte
 		encodeData->modRM.UseSIB(); 
 
-		if (indexReg == -1)
+		if (indexReg == nullptr)
 		{
 			encodeData->sib.NoIndexReg();
 		}
@@ -332,15 +297,15 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 		
 			// EXCEPTION: R12 can be used even though (R12.index & 7) == ESP.index
 
-			if (indexReg == ESP.index)
+			if (indexReg->index == ESP.index)
 			{
 				return Ceng::CE_ERR_INVALID_PARAM;
 			}
 
-			encodeData->sib.SetIndexField(indexReg);
+			encodeData->sib.SetIndexField(indexReg->index);
 
-			encodeData->rex.SetIndexReg(indexReg);
-			encodeData->vex.SetIndexReg(indexReg);
+			encodeData->rex.SetIndexReg(indexReg->index);
+			encodeData->vex.SetIndexReg(indexReg->index);
 
 			SIB_Byte::INDEX_SCALE scaleValue;
 
@@ -365,27 +330,30 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 			encodeData->sib.SetIndexScale(scaleValue);
 		}
 
-		if (baseReg == -1 || (baseReg & 7) == X86::EBP.index)
+		if (baseReg == nullptr || (baseReg->index & 7) == X86::EBP.index)
 		{
 			encodeData->sib.NoBaseReg();
 		}
 		else
 		{
-			encodeData->sib.SetBaseField(baseReg);			
-			encodeData->rex.SetBaseReg(baseReg);
-			encodeData->vex.SetBaseReg(baseReg);
+			encodeData->sib.SetBaseField(baseReg->index);			
+			encodeData->rex.SetBaseReg(baseReg->index);
+			encodeData->vex.SetBaseReg(baseReg->index);
 		}
 
 		if (displacement == 0)
 		{
-			if ( (baseReg & 7) == X86::EBP.index)
+			if (baseReg != nullptr)
 			{
-				// has disp8
-				encodeData->modRM.SetBasetype(ModRM_Byte::BASE_DISP8);
+				if ((baseReg->index & 7) == X86::EBP.index)
+				{
+					// has disp8
+					encodeData->modRM.SetBasetype(ModRM_Byte::BASE_DISP8);
 
-				encodeData->hasDisplacement = true;
-				encodeData->dispEncoding = OPERAND_SIZE::BYTE;
-			}
+					encodeData->hasDisplacement = true;
+					encodeData->dispEncoding = OPERAND_SIZE::BYTE;
+				}
+			}			
 		}
 		else if (displacement >= -128 && displacement <= 127)
 		{
