@@ -44,6 +44,11 @@ namespace Casm
 			return Ceng::CE_OK;
 		}
 
+		virtual Ceng::CRESULT WriteValues(std::vector<uint8_t>& destBuffer) const
+		{
+			return Ceng::CE_OK;
+		}
+
 		virtual void Print(std::wostream& out) const
 		{
 
@@ -84,6 +89,18 @@ namespace Casm
 			T *ptr = (T*)destBuffer;
 
 			*ptr = data;
+
+			return Ceng::CE_OK;
+		}
+
+		Ceng::CRESULT WriteValues(std::vector<uint8_t>& destBuffer) const override
+		{
+			uint8_t* ptr = (uint8_t*)&data;
+
+			for (size_t k = 0; k < sizeof(T); ++k)
+			{
+				destBuffer.push_back(ptr[k]);
+			}
 
 			return Ceng::CE_OK;
 		}
@@ -134,6 +151,22 @@ namespace Casm
 			{
 				destBuffer[i] = data[i];
 			}
+
+			return Ceng::CE_OK;
+		}
+
+		Ceng::CRESULT WriteValues(std::vector<uint8_t>& destBuffer) const override
+		{
+			std::copy(data.cbegin(), data.cend(), std::back_inserter(destBuffer));
+
+			/*
+			uint8_t* ptr = (uint8_t*)&data;
+
+			for (size_t k = 0; k < sizeof(T); ++k)
+			{
+				destBuffer.push_back(ptr[k]);
+			}
+			*/
 
 			return Ceng::CE_OK;
 		}
@@ -221,6 +254,22 @@ namespace Casm
 			for (Ceng::UINT32 i = 0; i < data.size(); i++)
 			{
 				ptr[i] = data[i];
+			}
+
+			return Ceng::CE_OK;
+		}
+
+		Ceng::CRESULT WriteValues(std::vector<uint8_t>& destBuffer) const override
+		{
+
+			for (size_t k = 0; k < data.size(); ++k)
+			{
+				uint8_t* ptr = (uint8_t*)&data[k];
+
+				for (size_t i = 0; i < sizeof(T); ++i)
+				{
+					destBuffer.push_back(ptr[i]);
+				}
 			}
 
 			return Ceng::CE_OK;
