@@ -22,6 +22,8 @@
 
 #include "code-label.h"
 
+#include <sstream>
+
 using namespace X86;
 
 ImmediateOperand::ImmediateOperand(std::shared_ptr<Casm::Label> &symbol,
@@ -45,10 +47,12 @@ Ceng::String ImmediateOperand::ToString() const
 	{
 		return symbol->Name();
 	}
-	
-	return "immediate";
 
-	//return Ceng::String(value);
+	std::stringstream stream;
+
+	stream << value << " (0x" << std::hex << value << std::dec << ")";
+	
+	return Ceng::String(stream.str().c_str());
 }
 
 
