@@ -138,7 +138,7 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 	else
 	{
 		FlushCurrentBlock();
-		labels.emplace_back(std::make_shared<Label>(this, name, false));
+		labels.emplace_back(std::make_shared<Label>(codeList.size(), this, name, false));
 
 		codeList.push_back(labels.back());
 	}
@@ -148,6 +148,11 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 
 Ceng::CRESULT Section::AttachLabels()
 {
+	for (size_t k = 0; k < codeList.size(); ++k)
+	{
+		
+	}
+
 	/*
 	if (labels.size() == 0) return Ceng::CE_OK;
 
@@ -221,15 +226,8 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		}
 	}
 
-	/*
-	cresult = Finalize();
-	if (cresult != Ceng::CE_OK)
-	{
-		return cresult;
-	}
-	*/
+	AttachLabels();
 
-	/*
 	std::vector<Ceng::UINT8> codeBuffer;
 
 	for (size_t k = 0; k < codeList.size(); k++)
@@ -246,9 +244,7 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 	output = std::make_shared<ObjectSection>(name, std::move(labels), std::move(references),
 		std::move(codeBuffer));
 
-	objectSection = output;
-
-	*/
+	//objectSection = output;
 
 	return Ceng::CE_OK;
 }
@@ -505,6 +501,8 @@ Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,
 
 	Ceng::UINT32 k;
 
+	/*
+
 	for (k = 0; k < labels.size(); k++)
 	{
 		if (labels[k]->CompareName(label))
@@ -529,6 +527,7 @@ Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,
 	{
 		return cresult;
 	}
+	*/
 
 	return Ceng::CE_OK;
 }

@@ -38,7 +38,7 @@ namespace Casm
 		};
 
 	protected:
-		Ceng::UINT32 position;
+		Ceng::INT32 position;
 		TYPE type;
 
 		CodeElement() : offset(0),position(0),type(BASIC_BLOCK)
@@ -49,7 +49,7 @@ namespace Casm
 
 		Ceng::INT64 offset;
 
-		CodeElement(const Ceng::UINT32 position);
+		CodeElement(TYPE type, const Ceng::INT32 position);
 
 		virtual ~CodeElement();	
 
@@ -62,7 +62,7 @@ namespace Casm
 	
 		virtual Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;
 
-		Ceng::UINT32 Position() const;
+		Ceng::INT32 Position() const;
 
 		TYPE Type() const;
 
@@ -73,7 +73,7 @@ namespace Casm
 		virtual const Ceng::String Name() const;
 	};
 
-	inline Ceng::UINT32 CodeElement::Position() const
+	inline Ceng::INT32 CodeElement::Position() const
 	{
 		return position;
 	}

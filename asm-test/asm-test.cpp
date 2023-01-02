@@ -134,16 +134,21 @@ int main()
 	//*****************************************
 	// TestFunction
 
+	/*
 	std::shared_ptr<Casm::Section>  codeSection;
 
 	programBuild->AddSection(Casm::SectionOptions::executable | Casm::SectionOptions::alloc_mem,
 		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".code", codeSection);
+	*/
 
 	//X86::FunctionBuilder *testFunc;
 	//programBuild->AddFunction(0,X86::PROTECTED_MODE,X86::PRIVILEDGE_LEVEL::USER,"main",&testFunc);
 
 	//******************************************'
 	// printf test
+
+	/*
+
 	codeSection->AddLabel("main");
 	
 	// mov eax, hello_str
@@ -175,7 +180,7 @@ int main()
 
 	// ret
 	codeSection->AddInstruction(X86::RET_NEAR);
-	
+	*/
 	
 
 	//*****************************************
@@ -221,23 +226,22 @@ int main()
 
 	programBuild->Print(std::wcout);
 
-	return 0;
-
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
 	{
 		std::wcout << "Error : Build failed" << std::endl;
 		return 0;
 	}
-	
-
-	delete programBuild;
 
 	std::wcout << "object code dump:" << std::endl;
 
 	testObject->Print(std::wcout);
 
 	std::wcout << "object code end" << std::endl;
+
+	return 0;
+
+	delete programBuild;
 
 	Casm::Linker linker = Casm::Linker(64);
 

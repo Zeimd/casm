@@ -15,13 +15,12 @@
 
 using namespace Casm;
 
-ConditionJump::ConditionJump(const Ceng::UINT32 position, const Casm::CONDITION::value condition,
-							 const Label *label) 
-							 : CodeElement(position),condition(condition),label(label)
+ConditionJump::ConditionJump(const Ceng::UINT32 position,
+	const Casm::CONDITION::value condition, const Label* label)
+	: CodeElement(CONDITION_JUMP, position), condition(condition), label(label),
+	jumpSize(X86::OPERAND_SIZE::BYTE), jumpCommand(nullptr)
 {
-	jumpSize = X86::OPERAND_SIZE::BYTE;
-	type = CONDITION_JUMP;
-	jumpCommand = nullptr;
+	
 }	
 
 Ceng::CRESULT ConditionJump::AdjustOffset(X86::BuildParams *params,const Ceng::INT32 offset)
@@ -100,7 +99,7 @@ Ceng::CRESULT ConditionJump::Build(X86::BuildParams *params,
 								   const std::vector<std::shared_ptr<Label>> &labels,
 								   const std::vector<std::shared_ptr<CodeElement>> &codeList)
 {
-	Ceng::UINT32 k;
+	Ceng::INT32 k;
 
 	if (label->Undefined())
 	{

@@ -14,7 +14,8 @@
 
 using namespace Casm;
 
-CodeElement::CodeElement(const Ceng::UINT32 position) : position(position)
+CodeElement::CodeElement(CodeElement::TYPE type, const Ceng::INT32 position) 
+	: type(type), position(position), offset(0)
 {
 }
 

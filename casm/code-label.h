@@ -34,13 +34,18 @@ namespace Casm
 		// Next code element following the label
 		CodeElement *target;
 
-		Label() : section(nullptr), target(nullptr), undefined(true)
+		// Offset in object section
+		Ceng::UINT64 objOffset;
+
+		Label() : section(nullptr), target(nullptr), undefined(true),
+			objOffset(0)
 		{
 		}
 	public:
 		
 
-		Label(Section* section, const Ceng::String name,const Ceng::BOOL undefined);
+		Label(const Ceng::UINT32 position,
+			Section* section, const Ceng::String name,const Ceng::BOOL undefined);
 
 		~Label();
 		

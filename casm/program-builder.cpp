@@ -128,7 +128,7 @@ std::shared_ptr<Label> ProgramBuilder::FindLabel(const Ceng::String& name)
 
 	// Create missing label
 
-	missingLabels.emplace_back(std::make_shared<Label>(nullptr, name, true));
+	missingLabels.emplace_back(std::make_shared<Label>(-1, nullptr, name, true));
 
 	return missingLabels.back();
 }
@@ -159,6 +159,8 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 
 Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 {
+	*output = nullptr;
+
 	Ceng::CRESULT cresult;
 
 	std::vector<std::shared_ptr<ObjectSection>> objSections;
@@ -177,43 +179,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		objSections.push_back(temp);
 	}
 
-
-
-	//Ceng::CRESULT cresult;
-
-	/*
-
-	std::vector<std::shared_ptr<ObjectFunction>>* objFunctions;
-
-	objFunctions = new std::vector<std::shared_ptr<ObjectFunction>>();
-
-	for (size_t k = 0; k < functions.size(); k++)
-	{
-		std::shared_ptr<ObjectFunction> temp;
-
-		cresult = functions[k]->Build(&temp);
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-
-		objFunctions->push_back(temp);
-	}
-
-	// Re-link all function references to object functions
-
-	for (size_t k = 0; k < functions.size(); k++)
-	{
-		functions[k]->MoveReferencesToObjectCode();
-	}
-
-	*output = new ObjectCode(dataSection, bssSection, objFunctions);
-
-	functions.clear();
-
-	dataSection = nullptr;
-	bssSection = nullptr;
-	*/
+	*output = new ObjectCode(std::move(objSections));
 
 	return Ceng::CE_OK;
 }

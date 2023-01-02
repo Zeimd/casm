@@ -10,9 +10,10 @@
 
 using namespace Casm;
 
-BasicBlock::BasicBlock(const Ceng::UINT32 position) : CodeElement(position)
+BasicBlock::BasicBlock(const Ceng::UINT32 position) 
+	: CodeElement(BASIC_BLOCK, position)
 {
-	type = BASIC_BLOCK;
+
 }
 
 BasicBlock::~BasicBlock()
