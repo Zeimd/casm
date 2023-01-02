@@ -39,7 +39,16 @@ ImmediateOperand::~ImmediateOperand()
 
 Ceng::String ImmediateOperand::ToString() const
 {
+	Ceng::String temp;
+
+	if (symbol != nullptr)
+	{
+		return symbol->Name();
+	}
+	
 	return "immediate";
+
+	//return Ceng::String(value);
 }
 
 

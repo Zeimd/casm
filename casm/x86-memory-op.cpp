@@ -146,7 +146,16 @@ Ceng::String MemoryOperand::ToString() const
 		prevOp = true;
 	}
 
-	if (displacement != 0)
+	if (displacement == 0 && symbol != nullptr)
+	{
+		if (prevOp)
+		{
+			temp += " + ";
+		}
+
+		temp += symbol->Name();
+	}
+	else if (displacement != 0)
 	{
 		temp += " ";
 

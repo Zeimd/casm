@@ -69,6 +69,11 @@ namespace Casm
 		{
 			out << "CodeElement";
 		}
+
+		virtual const Ceng::String Name() const
+		{
+			return "CodeElement";
+		}
 	};
 
 	inline Ceng::UINT32 CodeElement::Position() const

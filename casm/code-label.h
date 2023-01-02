@@ -53,6 +53,11 @@ namespace Casm
 		void MarkDefined();
 
 		Ceng::CRESULT SetTarget(CodeElement *target);
+
+		const Ceng::String Name() const override
+		{
+			return name;
+		}
 	};
 }
 
