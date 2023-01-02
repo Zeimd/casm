@@ -160,6 +160,10 @@ Ceng::CRESULT Section::AttachLabels()
 			{
 				temp->SetTarget(codeList[next]);
 			}
+			else
+			{
+				// TODO: how to indicate label to end of section?
+			}
 		}
 		
 	}
