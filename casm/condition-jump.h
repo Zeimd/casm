@@ -24,7 +24,7 @@ namespace Casm
 	{
 	public:
 		Casm::CONDITION::value condition;
-		const Label *label;
+		const CodeLabel *label;
 
 		const X86::Instruction *jumpCommand;
 
@@ -47,10 +47,10 @@ namespace Casm
 		}
 	public:
 		ConditionJump(const Ceng::UINT32 position, const Casm::CONDITION::value condition,
-						const Label *label);
+						const CodeLabel *label);
 
 		virtual Ceng::CRESULT Build(X86::BuildParams *params,
-									 const std::vector<std::shared_ptr<Label>> &labels,
+									 const std::vector<std::shared_ptr<CodeLabel>> &labels,
 									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
 
 		virtual Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;

@@ -21,7 +21,7 @@ namespace Casm
 	class CodeElement;
 	class Section;
 
-	class Label : public CodeElement
+	class CodeLabel : public CodeElement
 	{
 	protected:
 
@@ -37,18 +37,18 @@ namespace Casm
 		// Next code element following the label
 		std::shared_ptr<CodeElement> target;
 
-		Label() : section(nullptr), target(nullptr), undefined(true), isGlobal(false)
+		CodeLabel() : section(nullptr), target(nullptr), undefined(true), isGlobal(false)
 		{
 
 		}
 	public:
 		
 
-		Label(const Ceng::UINT32 position,
+		CodeLabel(const Ceng::UINT32 position,
 			Section* section, const Ceng::String name,const Ceng::BOOL undefined,
 			bool isGlobal);
 
-		~Label();
+		~CodeLabel();
 		
 		std::shared_ptr<CodeElement> Target() const;	
 

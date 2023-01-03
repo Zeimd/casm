@@ -17,7 +17,7 @@ namespace Casm
 {
 	class Symbol;
 	class SymbolRef;
-	class Label;
+	class CodeLabel;
 
 	class ObjectSection : public Symbol
 	{
@@ -25,7 +25,7 @@ namespace Casm
 
 		std::vector<std::shared_ptr<SymbolRef>> references;
 
-		std::vector < std::shared_ptr<Label>> labels;
+		std::vector < std::shared_ptr<CodeLabel>> labels;
 
 		std::vector<Ceng::UINT8> codeBuffer;
 
@@ -35,7 +35,7 @@ namespace Casm
 
 
 		ObjectSection(const Ceng::String& name,
-			std::vector<std::shared_ptr<Label>>&& labels,
+			std::vector<std::shared_ptr<CodeLabel>>&& labels,
 			std::vector<std::shared_ptr<SymbolRef>>&& references,
 			std::vector<Ceng::UINT8>&& codeBuffer);
 

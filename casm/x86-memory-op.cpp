@@ -43,7 +43,7 @@ void MemoryOperand::SetCPUmode()
 	}
 }
 
-MemoryOperand::MemoryOperand(std::shared_ptr<Casm::Label>& symbol)
+MemoryOperand::MemoryOperand(std::shared_ptr<Casm::CodeLabel>& symbol)
 	: Operand(OPERAND_TYPE::MEM,false,X86::OPERAND_SIZE::IMPLICIT),
 	symbol(symbol),baseReg(nullptr), indexReg(nullptr), displacement(0),
 	indexScale(0)

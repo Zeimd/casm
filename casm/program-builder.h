@@ -43,14 +43,14 @@ namespace Casm
 	class InitializerType;
 	
 	class CodeLine;
-	class Label;
+	class CodeLabel;
 
 	class DataDescriptor;
 
 	class ImmediateOperand;
 	class MemoryOperand;
 
-	//class Symbol;
+	class Symbol;
 
 	class ProgramBuilder
 	{
@@ -62,7 +62,9 @@ namespace Casm
 
 		std::vector<std::shared_ptr<Casm::Section>> sections;
 
-		std::vector<std::shared_ptr<Label>> missingLabels;
+		//std::vector<Symbol> symbols;
+
+		std::vector<std::shared_ptr<CodeLabel>> missingLabels;
 
 		const Assembler *assembler;
 
@@ -83,7 +85,7 @@ namespace Casm
 
 		const Assembler* Assembler() const;
 
-		std::shared_ptr<Label> FindLabel(const Ceng::String &name);
+		std::shared_ptr<CodeLabel> FindLabel(const Ceng::String &name);
 
 		Ceng::CRESULT AddSection(const Ceng::UINT32 options,
 			const X86::CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,

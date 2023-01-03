@@ -12,7 +12,7 @@
 
 using namespace Casm;
 
-Label::Label(const Ceng::UINT32 position,
+CodeLabel::CodeLabel(const Ceng::UINT32 position,
 	Section* section, const Ceng::String name,const Ceng::BOOL undefined,
 	bool isGlobal) 
 	: CodeElement(LABEL, position),	
@@ -21,42 +21,42 @@ Label::Label(const Ceng::UINT32 position,
 {
 }
 
-Label::~Label()
+CodeLabel::~CodeLabel()
 {
 }
 
-std::shared_ptr<CodeElement> Label::Target() const
+std::shared_ptr<CodeElement> CodeLabel::Target() const
 {
 	return target;
 }
 
-Ceng::BOOL Label::CompareName(const Ceng::String &test) const
+Ceng::BOOL CodeLabel::CompareName(const Ceng::String &test) const
 {
 	return (name == test);
 }
 
-Ceng::BOOL Label::Undefined() const
+Ceng::BOOL CodeLabel::Undefined() const
 {
 	return undefined;
 }
 
-void Label::MarkDefined()
+void CodeLabel::MarkDefined()
 {
 	undefined = false;
 }
 
-Ceng::CRESULT Label::SetTarget(std::shared_ptr<CodeElement> &target)
+Ceng::CRESULT CodeLabel::SetTarget(std::shared_ptr<CodeElement> &target)
 {
 	this->target = target;
 	return Ceng::CE_OK;
 }
 
-void Label::Print(std::wostream& out) const
+void CodeLabel::Print(std::wostream& out) const
 {
 	out << name << ":" << std::endl;
 }
 
-bool Label::IsGlobal() const
+bool CodeLabel::IsGlobal() const
 {
 	return isGlobal;
 }

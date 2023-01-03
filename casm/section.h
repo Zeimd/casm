@@ -33,7 +33,7 @@ namespace Casm
 	class CodeElement;
 	class BasicBlock;
 
-	class Label;
+	class CodeLabel;
 
 	class SymbolRef;
 
@@ -59,7 +59,7 @@ namespace Casm
 
 		std::vector<std::shared_ptr<CodeElement>> codeList;
 
-		std::vector<std::shared_ptr<Label>> labels;
+		std::vector<std::shared_ptr<CodeLabel>> labels;
 
 		std::vector<std::shared_ptr<SymbolRef>> references;
 
@@ -124,7 +124,7 @@ namespace Casm
 
 		void Print(std::wostream& out) const;
 
-		std::shared_ptr<Label> FindLabel(const Ceng::String& name);
+		std::shared_ptr<CodeLabel> FindLabel(const Ceng::String& name);
 
 	protected:
 
