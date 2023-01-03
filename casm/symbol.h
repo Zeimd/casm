@@ -68,6 +68,8 @@ namespace Casm
 	
 		const SymbolType::value Type() const;
 
+		void SetType(const SymbolType::value type);
+
 		const Section* Section() const;
 
 		void IncRefCount();
@@ -130,6 +132,15 @@ namespace Casm
 	{
 		return type;
 	}
+
+	inline void Symbol::SetType(const SymbolType::value type)
+	{
+		if (this->type == SymbolType::unknown)
+		{
+			this->type = type;
+		}
+	}
+
 
 	inline const Section* Symbol::Section() const
 	{

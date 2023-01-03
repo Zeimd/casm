@@ -297,6 +297,8 @@ Ceng::CRESULT Section::Call(const Ceng::String& functionName)
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
 
+	target->SetType(SymbolType::function);
+
 	StartBlock();
 
 	std::shared_ptr<CodeLine> line =
