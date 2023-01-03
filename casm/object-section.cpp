@@ -37,6 +37,20 @@ void ObjectSection::Print(std::wostream& out) const
 
 	Casm::HexDump(out, 16, SizeBytes(), &codeBuffer[0]);
 
+	out << "labels:" << std::endl;
+
+	for (auto& x : labels)
+	{
+		out << '\t' << x->Name() << " : " << x->offset << std::endl;
+	}
+
+	out << "references:" << std::endl;
+
+	for (auto& x : references)
+	{
+		out << '\t' << x->symbol->Name() << " : " << x->encodeOffset << std::endl;
+	}
+
 	out << "end section" << std::endl;
 }
 
