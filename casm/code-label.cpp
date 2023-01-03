@@ -16,7 +16,7 @@ Label::Label(const Ceng::UINT32 position,
 	Section* section, const Ceng::String name,const Ceng::BOOL undefined) 
 	: CodeElement(LABEL, position),	
 	section(section), name(name),undefined(undefined),
-	target(nullptr),objOffset(0)
+	target(nullptr)
 {
 }
 

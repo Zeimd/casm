@@ -34,12 +34,9 @@ namespace Casm
 		// Next code element following the label
 		std::shared_ptr<CodeElement> target;
 
-		// Offset in object section
-		Ceng::UINT64 objOffset;
-
-		Label() : section(nullptr), target(nullptr), undefined(true),
-			objOffset(0)
+		Label() : section(nullptr), target(nullptr), undefined(true)
 		{
+
 		}
 	public:
 		
