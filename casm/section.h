@@ -82,8 +82,6 @@ namespace Casm
 
 		Ceng::CRESULT Build(std::shared_ptr<ObjectSection>& output);
 
-		Ceng::CRESULT MoveReferencesToObjectCode();
-
 		Ceng::CRESULT AddLabel(const Ceng::String& label, bool isGlobal=false);
 
 		Ceng::CRESULT AddSymbolRef(std::shared_ptr<SymbolRef>& ref);

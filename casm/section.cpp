@@ -73,25 +73,6 @@ Ceng::CRESULT Section::SetStartMode(const X86::CPU_Mode* startMode,
 
 Ceng::CRESULT Section::FlushCurrentBlock()
 {
-	/*
-	Ceng::CRESULT cresult = Ceng::CE_OK;;
-
-	if (currentBlock != nullptr)
-	{
-		cresult = currentBlock->Build(params.get(), labels, codeList);
-
-		if (cresult != Ceng::CE_OK)
-		{
-			return cresult;
-		}
-
-		codeList.push_back(currentBlock);
-		AttachLabels();
-
-		currentBlock = nullptr;
-	}
-	*/
-
 	if (currentBlock != nullptr)
 	{
 		codeList.push_back(currentBlock);
@@ -156,7 +137,7 @@ Ceng::CRESULT Section::AttachLabels()
 			std::shared_ptr<Label> temp = 
 				std::static_pointer_cast<Label>(codeList[k]);
 			
-			int next = k++;
+			size_t next = k++;
 			if (next < codeList.size())
 			{
 				temp->SetTarget(codeList[next]);
@@ -208,30 +189,22 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		}
 	}
 
+	/*
+	std::vector<std::shared_ptr<Label>> exportLabels;
+
+	for (auto& x : labels)
+	{
+		if (x->IsGlobal())
+		{
+			exportLabels.push_back(x);
+		}
+	}
+	*/
+
 	output = std::make_shared<ObjectSection>(name, std::move(labels), std::move(references),
 		std::move(codeBuffer));
 
 	//objectSection = output;
-
-	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::MoveReferencesToObjectCode()
-{
-	Ceng::UINT32 k;
-
-	for (k = 0; k < references.size(); k++)
-	{
-		if (references[k]->symbol->Type() == X86::SymbolType::function)
-		{
-			/*
-			FunctionBuilder* function = references[k]->symbol->AsFunction();
-
-			references[k]->symbol =
-				static_cast<std::shared_ptr<Symbol>>(function->objectFunction);
-			*/
-		}
-	}
 
 	return Ceng::CE_OK;
 }
@@ -466,9 +439,10 @@ Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,
 {
 	FlushCurrentBlock();
 
+	/*
+
 	Ceng::UINT32 k;
 
-	/*
 
 	for (k = 0; k < labels.size(); k++)
 	{
