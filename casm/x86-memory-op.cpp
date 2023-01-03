@@ -183,7 +183,7 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 
 	// Error conditions
 
-	if (indexReg->index == X86::RIP.index)
+	if (indexReg != nullptr && (indexReg->index == X86::RIP.index))
 	{
 		return Ceng::CE_ERR_INVALID_PARAM;
 	}
