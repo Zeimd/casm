@@ -101,15 +101,16 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name, bool isGlobal)
 		symbolType = SymbolType::function;
 	}
 
-	FlushCurrentBlock();
-
 	std::shared_ptr<Symbol> symbol = program->FindSymbol(name);
 
-	if (symbol->IsDefined() == false)
+	if (symbol->IsDefined())
 	{
-		symbol->MarkDefined(symbolType, isGlobal);
-		return Ceng::CE_OK;
+		return Ceng::CE_ERR_INVALID_PARAM;
 	}
+
+	FlushCurrentBlock();
+
+	symbol->MarkDefined(symbolType, isGlobal);
 
 	labels.emplace_back(
 		std::make_shared<CodeLabel>(codeList.size(), symbol));
