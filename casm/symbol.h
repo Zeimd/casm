@@ -66,6 +66,10 @@ namespace Casm
 
 		void MarkDefined(SymbolType::value type, Ceng::BOOL isGlobal);
 	
+		const SymbolType::value Type() const;
+
+		const Section* Section() const;
+
 		void IncRefCount();
 		void DecRefCount();
 		
@@ -120,6 +124,16 @@ namespace Casm
 	inline void Symbol::SetOffset(const Ceng::INT64 offset)
 	{
 		this->offset = offset;
+	}
+
+	inline const SymbolType::value Symbol::Type() const
+	{
+		return type;
+	}
+
+	inline const Section* Symbol::Section() const
+	{
+		return section;
 	}
 
 }
