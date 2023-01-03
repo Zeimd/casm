@@ -237,8 +237,6 @@ int main()
 
 	std::wcout << "object code end" << std::endl;
 
-	return 0;
-
 	delete programBuild;
 
 	Casm::Linker linker = Casm::Linker(64);
@@ -247,9 +245,9 @@ int main()
 
 	objects.push_back(testObject);
 
-	Casm::Program *testLink;
+	std::shared_ptr<Casm::Program> testLink;
 
-	cresult = linker.LinkProgram("main",objects, &testLink);
+	cresult = linker.LinkProgram(objects, testLink);
 
 	if (cresult != Ceng::CE_OK)
 	{
@@ -262,6 +260,8 @@ int main()
 	testLink->Print(std::wcout);
 
 	std::wcout << "program end" << std::endl;
+
+	return 0;
 
 	delete testObject;
 
@@ -292,8 +292,6 @@ int main()
 	std::wcout << "executable end" << std::endl;
 
 	//return 0;
-
-	delete testLink;
 	
 	std::wcout << "test in = " << work[0] << " (0x" << std::hex << work[0] << std::dec << ")" << std::endl;
 	//std::wcout << "ftest in = " << floatWork << std::endl;
