@@ -33,3 +33,18 @@ Symbol::Symbol(const Ceng::String& name, Casm::Section* section,
 Symbol::~Symbol()
 {
 }
+
+const Section* Symbol::GetSection() const
+{
+	return section;
+}
+
+void Symbol::MarkDefined(Section* section, SymbolType::value type, Ceng::BOOL isGlobal)
+{
+	defined = true;
+
+	this->section = section;
+
+	this->type = type;
+	this->isGlobal = isGlobal;
+}

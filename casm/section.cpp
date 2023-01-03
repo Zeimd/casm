@@ -110,7 +110,7 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name, bool isGlobal)
 
 	FlushCurrentBlock();
 
-	symbol->MarkDefined(symbolType, isGlobal);
+	symbol->MarkDefined(this, symbolType, isGlobal);
 
 	labels.emplace_back(
 		std::make_shared<CodeLabel>(codeList.size(), symbol));
@@ -172,7 +172,7 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 
 	for (size_t k = 0; k < codeList.size(); k++)
 	{
-		codeList[k]->offset = codeBuffer.size();
+		codeList[k]->SetOffset(codeBuffer.size());
 
 		cresult = codeList[k]->Append(codeBuffer);
 		if (cresult != Ceng::CE_OK)

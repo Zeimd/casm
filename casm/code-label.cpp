@@ -44,3 +44,9 @@ void CodeLabel::Print(std::wostream& out) const
 {
 	out << symbol->name << ":" << std::endl;
 }
+
+void CodeLabel::SetOffset(const Ceng::UINT64 offset)
+{
+	this->offset = offset;
+	symbol->SetOffset(offset);
+}

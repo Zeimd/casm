@@ -65,23 +65,20 @@ void ObjectCode::Print(std::wostream& out) const
 
 		out << " ";
 
-		if (x->Type() != SymbolType::section)
-		{
-			const Section* section = x->Section();
-			
-			if (section != nullptr)
-			{
-				out << " : " << x->Section()->name << " : ";
-			}
-		}
-
 		out << x->name << " : ";
 
 		if (x->Type() != SymbolType::section)
 		{
-			out << x->Offset();
+			const Section* section = x->GetSection();
+			
+			if (section != nullptr)
+			{
+				out << x->GetSection()->name << " : ";
+			}
 		}
 
+		out << x->Offset();
+	
 		out << std::endl;
 	}
 

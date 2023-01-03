@@ -55,3 +55,8 @@ Ceng::UINT32 CodeElement::SizeBytes() const
 {
 	return 0;
 }
+
+void CodeElement::SetOffset(const Ceng::UINT64 offset)
+{
+	this->offset = offset;
+}

@@ -56,6 +56,8 @@ namespace Casm
 		}
 
 		void Print(std::wostream& out) const override;
+
+		void SetOffset(const Ceng::UINT64 offset) override;
 	};
 }
 

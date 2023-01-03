@@ -41,7 +41,11 @@ namespace Casm
 
 	protected:
 		Ceng::INT32 position;
+
 		TYPE type;
+
+		Ceng::INT64 offset;
+
 
 		CodeElement() : offset(0),position(0),type(BASIC_BLOCK)
 		{
@@ -49,7 +53,6 @@ namespace Casm
 
 	public:
 
-		Ceng::INT64 offset;
 
 		CodeElement(TYPE type, const Ceng::INT32 position);
 
@@ -68,6 +71,10 @@ namespace Casm
 
 		TYPE Type() const;
 
+		Ceng::UINT64 Offset() const;
+
+		virtual void SetOffset(const Ceng::UINT64 offset);
+
 		virtual Ceng::UINT32 SizeBytes() const;
 
 		virtual void Print(std::wostream& out) const;
@@ -84,6 +91,14 @@ namespace Casm
 	{
 		return type;
 	}
+
+	inline Ceng::UINT64 CodeElement::Offset() const
+	{
+		return offset;
+	}
+
+
+
 }
 
 #endif
