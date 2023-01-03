@@ -13,9 +13,11 @@
 
 #include "object-section.h"
 
+#include "relocation-data.h"
+
 using namespace Casm;
 
-Linker::Linker()
+Linker::Linker() : cacheLine(64)
 {
 }
 
@@ -28,9 +30,19 @@ Linker::~Linker()
 
 }
 
-Ceng::CRESULT Linker::LinkProgram(const Ceng::String& entryFunction, 
-	std::vector<Casm::ObjectCode*> &objects, Casm::Program **output)
+Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects, 
+	std::shared_ptr<Program>& output)
 {
+	output = nullptr;
+
+	std::vector<ProgramSection> progSections;
+	std::vector<X86::RelocationData> relocationData;
+
+	output = std::make_shared<Program>(std::move(relocationData), std::move(progSections));
+
+
+
+
 	// Find entry point function
 
 	/*

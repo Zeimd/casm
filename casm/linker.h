@@ -30,8 +30,8 @@ namespace Casm
 
 		virtual ~Linker();
 
-		Ceng::CRESULT LinkProgram(const Ceng::String &entryFunction,
-			std::vector<Casm::ObjectCode*> &objects,Casm::Program **output);
+		Ceng::CRESULT LinkProgram(std::vector<Casm::ObjectCode*> &objects,
+			std::shared_ptr<Program>& output);
 			
 	};
 }
