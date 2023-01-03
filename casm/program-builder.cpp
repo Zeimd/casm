@@ -150,6 +150,12 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 	return Ceng::CE_OK;
 }
 
+Ceng::CRESULT ProgramBuilder::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
+{
+	references.push_back(ref);
+	return Ceng::CE_OK;
+}
+
 Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 {
 	*output = nullptr;
@@ -172,7 +178,8 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		objSections.push_back(temp);
 	}
 
-	*output = new ObjectCode(std::move(objSections));
+	*output = new ObjectCode(std::move(objSections), std::move(symbols),
+		std::move(references));
 
 	return Ceng::CE_OK;
 }

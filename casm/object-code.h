@@ -18,6 +18,8 @@
 namespace Casm
 {
 	class ObjectSection;
+	class Symbol;
+	class SymbolRef;
 
 	class ObjectCode
 	{
@@ -25,7 +27,12 @@ namespace Casm
 
 		std::vector<std::shared_ptr<ObjectSection>> sections;
 
-		ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections);
+		std::vector<std::shared_ptr<Symbol>> symbols;
+		std::vector<std::shared_ptr<SymbolRef>> references;
+
+		ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections,
+			std::vector<std::shared_ptr<Symbol>>&& symbols,
+			std::vector<std::shared_ptr<SymbolRef>>&& references);
 
 		~ObjectCode();
 

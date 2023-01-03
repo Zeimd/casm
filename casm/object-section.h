@@ -23,10 +23,6 @@ namespace Casm
 	{
 	protected:
 
-		std::vector<std::shared_ptr<SymbolRef>> references;
-
-		std::vector < std::shared_ptr<CodeLabel>> labels;
-
 		std::vector<Ceng::UINT8> codeBuffer;
 
 	public:
@@ -34,10 +30,7 @@ namespace Casm
 		ObjectSection();
 
 
-		ObjectSection(const Ceng::String& name,
-			std::vector<std::shared_ptr<CodeLabel>>&& labels,
-			std::vector<std::shared_ptr<SymbolRef>>&& references,
-			std::vector<Ceng::UINT8>&& codeBuffer);
+		ObjectSection(const Ceng::String& name, std::vector<Ceng::UINT8>&& codeBuffer);
 
 		~ObjectSection() override;
 

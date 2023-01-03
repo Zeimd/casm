@@ -15,11 +15,9 @@ ObjectSection::ObjectSection()
 }
 
 ObjectSection::ObjectSection(const Ceng::String& name,
-	std::vector<std::shared_ptr<CodeLabel>>&& labels,
-	std::vector<std::shared_ptr<SymbolRef>>&& references,
 	std::vector<Ceng::UINT8>&& codeBuffer)
 	: Symbol(name, nullptr, Casm::SymbolType::section, true, false),
-	labels(labels), references(references), codeBuffer(codeBuffer)
+	codeBuffer(codeBuffer)
 {
 }
 
@@ -36,20 +34,6 @@ void ObjectSection::Print(std::wostream& out) const
 		std::dec << SizeBytes() << ")" << std::endl;
 
 	Casm::HexDump(out, 16, SizeBytes(), &codeBuffer[0]);
-
-	out << "labels:" << std::endl;
-
-	for (auto& x : labels)
-	{
-		out << '\t' << x->Name() << " : " << x->offset << std::endl;
-	}
-
-	out << "references:" << std::endl;
-
-	for (auto& x : references)
-	{
-		out << '\t' << x->symbol->name << " : " << x->encodeOffset << std::endl;
-	}
 
 	out << "end section" << std::endl;
 }
@@ -97,10 +81,12 @@ Ceng::CRESULT ObjectSection::WriteAllOffsets()
 {
 	Ceng::UINT32 k;
 
+	/*
 	for (k = 0; k < references.size(); k++)
 	{
 		references[k]->WriteOffset((Ceng::UINT64) & codeBuffer[0]);
 	}
+	*/
 
 	return Ceng::CE_OK;
 }
@@ -116,6 +102,7 @@ Ceng::CRESULT ObjectSection::AppendRelocationData(std::vector<X86::RelocationDat
 {
 	Ceng::UINT32 k;
 
+	/*
 	for (k = 0; k < references.size(); k++)
 	{
 		if (references[k]->deleted)
@@ -147,7 +134,7 @@ Ceng::CRESULT ObjectSection::AppendRelocationData(std::vector<X86::RelocationDat
 		}
 		*/
 
-		Ceng::INT64 encodeOffset = references[k]->encodeOffset + offset;
+		//Ceng::INT64 encodeOffset = references[k]->encodeOffset + offset;
 
 		/*
 		if ((*references)[k]->refType == Casm::REFERENCE_TYPE::IP_RELATIVE)
@@ -156,12 +143,13 @@ Ceng::CRESULT ObjectSection::AppendRelocationData(std::vector<X86::RelocationDat
 		}
 		*/
 
+	/*
 		relocationData.push_back(X86::RelocationData(X86::RelocationData::CODE_SECTION,
 			encodeOffset, symbolSection,
 			references[k]->encodeSize,
 			references[k]->refType, externName, 0));
-
-	}
+			*/
+	//}
 
 	return Ceng::CE_OK;
 }

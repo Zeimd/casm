@@ -193,8 +193,7 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 	}
 	*/
 
-	output = std::make_shared<ObjectSection>(name, std::move(labels), std::move(references),
-		std::move(codeBuffer));
+	output = std::make_shared<ObjectSection>(name,std::move(codeBuffer));
 
 	//objectSection = output;
 
@@ -409,8 +408,7 @@ const Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 
 Ceng::CRESULT Section::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
 {
-	references.push_back(ref);
-	return Ceng::CE_OK;
+	return program->AddSymbolRef(ref);
 }
 
 Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,

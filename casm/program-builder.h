@@ -51,6 +51,7 @@ namespace Casm
 	class MemoryOperand;
 
 	class Symbol;
+	class SymbolRef;
 
 	class ProgramBuilder
 	{
@@ -63,6 +64,8 @@ namespace Casm
 		std::vector<std::shared_ptr<Casm::Section>> sections;
 
 		std::vector<std::shared_ptr<Symbol>> symbols;
+
+		std::vector<std::shared_ptr<SymbolRef>> references;
 
 		const Assembler *assembler;
 
@@ -96,6 +99,8 @@ namespace Casm
 		//X86::CodeLine* ParseInstruction(const Ceng::String &input);
 
 		void Print(std::wostream& out);
+
+		Ceng::CRESULT AddSymbolRef(std::shared_ptr<SymbolRef>& ref);
 
 	protected:
 

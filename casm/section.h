@@ -61,8 +61,6 @@ namespace Casm
 
 		std::vector<std::shared_ptr<CodeLabel>> labels;
 
-		std::vector<std::shared_ptr<SymbolRef>> references;
-
 		std::shared_ptr<BasicBlock> currentBlock;
 
 		std::shared_ptr<ObjectSection> objectSection;
