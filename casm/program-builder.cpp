@@ -143,6 +143,8 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 
 	sections.push_back(temp);
 
+	symbols.push_back(temp);
+
 	out_section = temp;
 
 	return Ceng::CE_OK;
