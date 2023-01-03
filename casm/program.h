@@ -21,21 +21,35 @@
 
 #include "extern-symbol.h"
 
+#include "enums/section-options.h"
+
 namespace Casm
 {
-	class Program
+	class ProgramSection
 	{
 	public:
+		Ceng::String name;
 
-		Ceng::UINT64 entryPoint;
+		Ceng::UINT32 options;
+
+		std::vector<Ceng::UINT8> buffer;
+	};
+
+	class Program
+	{
+	protected:
 
 		std::vector<X86::RelocationData> relocationData;
 
-		Ceng::AlignedBuffer<Ceng::UINT8> codeBuffer;
-
-		Ceng::AlignedBuffer<Ceng::UINT8> dataSection;
+		std::vector<ProgramSection> sections;
 
 		Program();
+
+	public:
+
+		Program(std::vector<X86::RelocationData>&& relocationData,
+			std::vector<ProgramSection>&& sections);
+
 		~Program();
 
 		Ceng::CRESULT GetExecutable(Casm::ExternSymbol* externs, uint32_t externCount,

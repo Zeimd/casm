@@ -20,6 +20,14 @@ Program::Program()
 {
 }
 
+Program::Program(std::vector<X86::RelocationData>&& relocationData,
+	std::vector<ProgramSection>&& sections)
+	: relocationData(relocationData), sections(sections)
+{
+
+}
+
+
 Program::~Program()
 {
 	//codeBuffer.Release();
@@ -29,6 +37,8 @@ Program::~Program()
 Ceng::CRESULT Program::GetExecutable(Casm::ExternSymbol* externs, uint32_t externCount,
 	Executable **output)
 {
+	/*
+
 	Ceng::UINT32 k;
 
 	Ceng::UINT32 programSize = codeBuffer.GetElements();
@@ -86,6 +96,7 @@ Ceng::CRESULT Program::GetExecutable(Casm::ExternSymbol* externs, uint32_t exter
 	Executable *temp = Executable::Create(execPage,programSize,std::move(dataCopy));
 
 	*output = temp;
+	*/
 
 	return Ceng::CE_OK;
 }
@@ -94,12 +105,11 @@ void Program::Print(std::wostream& out) const
 {
 	const int groupSize = 16;
 
-	out << "section data (size=" << dataSection.GetSize() << ")" << std::endl << std::endl;
+	for (auto& x : sections)
+	{
+		out << "section " << x.name << " (size = " << x.buffer.size() << ")" << std::endl << std::endl;
 
-	Casm::HexDump(out, 16, dataSection.GetSize(), &dataSection[0]);
+		Casm::HexDump(out, 16, x.buffer.size(), &x.buffer[0]);
 
-	out << "section code (size=" << codeBuffer.GetSize() << ")" << std::endl << std::endl;
-
-	Casm::HexDump(out, 16, codeBuffer.GetSize(), &codeBuffer[0]);
-
+	}
 }
