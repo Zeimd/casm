@@ -18,7 +18,7 @@
 
 #include "section.h"
 
-#include "code-label.h"
+#include "symbol.h"
 
 using namespace X86;
 
@@ -43,7 +43,7 @@ void MemoryOperand::SetCPUmode()
 	}
 }
 
-MemoryOperand::MemoryOperand(std::shared_ptr<Casm::CodeLabel>& symbol)
+MemoryOperand::MemoryOperand(std::shared_ptr<Casm::Symbol>& symbol)
 	: Operand(OPERAND_TYPE::MEM,false,X86::OPERAND_SIZE::IMPLICIT),
 	symbol(symbol),baseReg(nullptr), indexReg(nullptr), displacement(0),
 	indexScale(0)
@@ -153,7 +153,7 @@ Ceng::String MemoryOperand::ToString() const
 			temp += " + ";
 		}
 
-		temp += symbol->Name();
+		temp += symbol->name;
 	}
 	else if (displacement != 0)
 	{

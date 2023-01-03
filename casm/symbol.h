@@ -27,14 +27,20 @@ namespace Casm
 	{
 	protected:
 		Ceng::UINT32 refCount;
+
+		// Symbol is defined in this file
 		Ceng::BOOL defined;
-		Ceng::BOOL external;
+ 
+		// Symbol is visible outside of file
+		Ceng::BOOL isGlobal;
 
 		// Offset of the symbol in its section.
 		Ceng::INT64 offset;
 
 		SymbolType::value type;
 		
+		// NOTE: must be weak so that section can
+		//       point to itself
 		Section* section;
 
 	protected:
@@ -45,20 +51,20 @@ namespace Casm
 
 		Ceng::String name;
 
-
 		Symbol(const Ceng::String& name, Section* section, 
 			const SymbolType::value type,
-			const Ceng::BOOL defined, const Ceng::BOOL external);
+			const Ceng::BOOL defined,const Ceng::BOOL isGlobal);
 			
 		virtual ~Symbol();
 
 		const Ceng::BOOL IsDefined() const;
 		const Ceng::BOOL IsExternal() const;
+		const Ceng::BOOL IsGlobal() const;
 
 		const Ceng::INT64 Offset() const;
 		void SetOffset(const Ceng::INT64 offset);
 
-		void MarkDefined();
+		void MarkDefined(SymbolType::value type, Ceng::BOOL isGlobal);
 	
 		void IncRefCount();
 		void DecRefCount();
@@ -73,14 +79,17 @@ namespace Casm
 		return defined;
 	}
 
-	inline const Ceng::BOOL Symbol::IsExternal() const
+	inline const Ceng::BOOL Symbol::IsGlobal() const
 	{
-		return external;
+		return isGlobal;
 	}
 
-	inline void Symbol::MarkDefined()
+	inline void Symbol::MarkDefined(SymbolType::value type, Ceng::BOOL isGlobal)
 	{
 		defined = true;
+
+		this->type = type;
+		this->isGlobal = isGlobal;
 	}
 
 	inline void Symbol::IncRefCount()

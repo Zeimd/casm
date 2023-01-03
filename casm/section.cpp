@@ -94,36 +94,27 @@ Ceng::CRESULT Section::StartBlock()
 
 Ceng::CRESULT Section::AddLabel(const Ceng::String& name, bool isGlobal)
 {
-	size_t k;
+	SymbolType::value symbolType = SymbolType::data;
 
-	for (k = 0; k < labels.size(); k++)
+	if (options & SectionOptions::executable)
 	{
-		if (labels[k]->CompareName(name))
-		{
-			break;
-		}
+		symbolType = SymbolType::function;
 	}
 
-	if (k < labels.size())
-	{
-		if (labels[k]->Undefined())
-		{
-			FlushCurrentBlock();
-			labels[k]->MarkDefined();
-		}
-		else
-		{
-			return Ceng::CE_ERR_INVALID_PARAM;
-		}
-	}
-	else
-	{
-		FlushCurrentBlock();
-		labels.emplace_back(
-			std::make_shared<CodeLabel>(codeList.size(), this, name, false,isGlobal));
+	FlushCurrentBlock();
 
-		codeList.push_back(labels.back());
+	std::shared_ptr<Symbol> symbol = program->FindSymbol(name);
+
+	if (symbol->IsDefined() == false)
+	{
+		symbol->MarkDefined(symbolType, isGlobal);
+		return Ceng::CE_OK;
 	}
+
+	labels.emplace_back(
+		std::make_shared<CodeLabel>(codeList.size(), symbol));
+
+	codeList.push_back(labels.back());
 
 	return Ceng::CE_OK;
 }
@@ -280,7 +271,7 @@ Ceng::CRESULT Section::AddData(const DataDescriptor& dataDesc, const Ceng::Strin
 
 Ceng::CRESULT Section::MoveAddress(const X86::Operand* dest, const Ceng::String& sourceSymbol)
 {
-	std::shared_ptr<CodeLabel> source = program->FindLabel(sourceSymbol);
+	std::shared_ptr<Symbol> source = program->FindSymbol(sourceSymbol);
 
 	if (source == nullptr)
 	{
@@ -297,22 +288,9 @@ Ceng::CRESULT Section::MoveAddress(const X86::Operand* dest, const Ceng::String&
 	return Ceng::CE_OK;
 }
 
-std::shared_ptr<CodeLabel> Section::FindLabel(const Ceng::String& name)
-{
-	for (auto& x : labels)
-	{
-		if (x->CompareName(name))
-		{
-			return x;
-		}
-	}
-
-	return nullptr;
-}
-
 Ceng::CRESULT Section::Call(const Ceng::String& functionName)
 {
-	std::shared_ptr<CodeLabel> target = program->FindLabel(functionName);
+	std::shared_ptr<Symbol> target = program->FindSymbol(functionName);
 
 	if (target == nullptr)
 	{
@@ -344,7 +322,7 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction)
 Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction, const Ceng::String& destSymbol,
 	const X86::Operand* source)
 {
-	std::shared_ptr<CodeLabel> dest = program->FindLabel(destSymbol);
+	std::shared_ptr<Symbol> dest = program->FindSymbol(destSymbol);
 
 	if (dest == nullptr)
 	{
@@ -363,7 +341,7 @@ Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction, const
 Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction, 
 	const X86::Operand* dest, const Ceng::String& sourceSymbol)
 {
-	std::shared_ptr<CodeLabel> source = program->FindLabel(sourceSymbol);
+	std::shared_ptr<Symbol> source = program->FindSymbol(sourceSymbol);
 
 	if (source == nullptr)
 	{

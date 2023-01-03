@@ -48,7 +48,7 @@ void ObjectSection::Print(std::wostream& out) const
 
 	for (auto& x : references)
 	{
-		out << '\t' << x->symbol->Name() << " : " << x->encodeOffset << std::endl;
+		out << '\t' << x->symbol->name << " : " << x->encodeOffset << std::endl;
 	}
 
 	out << "end section" << std::endl;

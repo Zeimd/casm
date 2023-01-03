@@ -101,7 +101,7 @@ Ceng::CRESULT ConditionJump::Build(X86::BuildParams *params,
 {
 	Ceng::INT32 k;
 
-	if (label->Undefined())
+	if (label->symbol->IsDefined() == false)
 	{
 		return Ceng::CE_ERR_FAIL;
 	}

@@ -18,6 +18,8 @@
 
 #include "enums/condition-codes.h"
 
+#include "enums/x86-operand-sizes.h"
+
 namespace Casm
 {
 	class ConditionJump : public Casm::CodeElement

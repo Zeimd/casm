@@ -10,9 +10,11 @@
 #define X86_CODE_ELEMENT_H
 
 #include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/ce-string.h>
 
-#include "symbol-ref.h"
+#include <ceng/datatypes/return-val.h>
 
+#include <vector>
 #include <ostream>
 
 namespace X86

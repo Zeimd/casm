@@ -8,6 +8,8 @@
 
 #include "basic-block.h"
 
+#include "symbol-ref.h"
+
 using namespace Casm;
 
 BasicBlock::BasicBlock(const Ceng::UINT32 position) 

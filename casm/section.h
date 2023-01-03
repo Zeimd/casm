@@ -124,8 +124,6 @@ namespace Casm
 
 		void Print(std::wostream& out) const;
 
-		std::shared_ptr<CodeLabel> FindLabel(const Ceng::String& name);
-
 	protected:
 
 		Ceng::CRESULT AttachLabels();

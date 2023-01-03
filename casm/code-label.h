@@ -11,6 +11,8 @@
 
 #include "code-element.h"
 
+#include "symbol.h"
+
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/boolean.h>
 #include <ceng/datatypes/ce-string.h>
@@ -20,33 +22,25 @@ namespace Casm
 {
 	class CodeElement;
 	class Section;
+	class Symbol;
 
 	class CodeLabel : public CodeElement
 	{
 	protected:
 
-		Ceng::BOOL undefined;
-		Ceng::String name;
-
-		// Visible outside the object file?
-		bool isGlobal;
-
-		// Section where the label is
-		Section* section;
-
 		// Next code element following the label
 		std::shared_ptr<CodeElement> target;
 
-		CodeLabel() : section(nullptr), target(nullptr), undefined(true), isGlobal(false)
+		CodeLabel() : symbol(nullptr), target(nullptr)
 		{
 
 		}
 	public:
-		
 
-		CodeLabel(const Ceng::UINT32 position,
-			Section* section, const Ceng::String name,const Ceng::BOOL undefined,
-			bool isGlobal);
+		std::shared_ptr<Symbol> symbol;
+
+
+		CodeLabel(const Ceng::UINT32 position,std::shared_ptr<Symbol>& symbol);
 
 		~CodeLabel();
 		
@@ -54,17 +48,11 @@ namespace Casm
 
 		Ceng::BOOL CompareName(const Ceng::String &test) const;
 
-		Ceng::BOOL Undefined() const;
-
-		bool IsGlobal() const;
-
-		void MarkDefined();
-
 		Ceng::CRESULT SetTarget(std::shared_ptr<CodeElement>& target);
 
 		const Ceng::String Name() const override
 		{
-			return name;
+			return symbol->name;
 		}
 
 		void Print(std::wostream& out) const override;

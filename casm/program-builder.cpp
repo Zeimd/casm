@@ -106,31 +106,22 @@ const Casm::BuilderOptions* ProgramBuilder::BuildOptions() const
 	return &options;
 }
 
-std::shared_ptr<CodeLabel> ProgramBuilder::FindLabel(const Ceng::String& name)
+std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String& name)
 {
-	for (auto& section : sections)
+	for (auto& x : symbols)
 	{
-		std::shared_ptr<CodeLabel> temp = section->FindLabel(name);
-
-		if (temp != nullptr)
-		{
-			return temp;
-		}
-	}
-
-	for (auto& x : missingLabels)
-	{
-		if (x->CompareName(name))
+		if (x->name == name)
 		{
 			return x;
 		}
 	}
 
-	// Create missing label
+	// Create undefined symbol
 
-	missingLabels.emplace_back(std::make_shared<CodeLabel>(-1, nullptr, name, true, true));
+	symbols.emplace_back(std::make_shared<Symbol>(name, nullptr, SymbolType::unknown,
+		false, false));
 
-	return missingLabels.back();
+	return symbols.back();
 }
 
 Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,

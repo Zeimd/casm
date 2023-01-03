@@ -62,9 +62,7 @@ namespace Casm
 
 		std::vector<std::shared_ptr<Casm::Section>> sections;
 
-		//std::vector<Symbol> symbols;
-
-		std::vector<std::shared_ptr<CodeLabel>> missingLabels;
+		std::vector<std::shared_ptr<Symbol>> symbols;
 
 		const Assembler *assembler;
 
@@ -85,7 +83,7 @@ namespace Casm
 
 		const Assembler* Assembler() const;
 
-		std::shared_ptr<CodeLabel> FindLabel(const Ceng::String &name);
+		std::shared_ptr<Symbol> FindSymbol(const Ceng::String &name);
 
 		Ceng::CRESULT AddSection(const Ceng::UINT32 options,
 			const X86::CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,

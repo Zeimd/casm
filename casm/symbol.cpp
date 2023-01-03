@@ -16,16 +16,16 @@ using namespace Casm;
 
 Symbol::Symbol() 
 	: type(Casm::SymbolType::unknown), section(nullptr),
-	offset(0), refCount(0), defined(false), external(false)
+	offset(0), refCount(0), defined(false), isGlobal(false)
 {
 
 }
 
 Symbol::Symbol(const Ceng::String& name, Casm::Section* section, 
 	const Casm::SymbolType::value type,
-	const Ceng::BOOL defined,const Ceng::BOOL external)
+	const Ceng::BOOL defined,const Ceng::BOOL isGlobal)
 	: name(name), section(section), type(type), offset(0), 
-	refCount(0), defined(defined),external(external)
+	refCount(0), defined(defined),isGlobal(isGlobal)
 {
 
 }

@@ -11,13 +11,11 @@
 
 #include "x86-operand.h"
 
-#include "symbol.h"
-
 #include <memory>
 
 namespace Casm
 {
-	class CodeLabel;
+	class Symbol;
 }
 
 namespace X86
@@ -26,7 +24,7 @@ namespace X86
 	{
 	protected:
 
-		std::shared_ptr<Casm::CodeLabel> symbol;
+		std::shared_ptr<Casm::Symbol> symbol;
 
 		Ceng::UINT32 bytes;
 		Ceng::INT64 value;
@@ -35,7 +33,7 @@ namespace X86
 
 		~ImmediateOperand() override;
 
-		ImmediateOperand(std::shared_ptr<Casm::CodeLabel> &symbol, 
+		ImmediateOperand(std::shared_ptr<Casm::Symbol> &symbol, 
 			const X86::OPERAND_SIZE::value addressSize);
 
 		ImmediateOperand(const Ceng::INT64 value);
@@ -52,7 +50,7 @@ namespace X86
 
 		const Ceng::INT64 Value64() const;
 
-		const std::shared_ptr<Casm::CodeLabel> GetSymbol() const;
+		const std::shared_ptr<Casm::Symbol> GetSymbol() const;
 
 		const Ceng::CRESULT EncodeAsOperand(BuildParams *params,EncodeData *encodeData,
 			const Ceng::UINT32 operandIndex) const override;
