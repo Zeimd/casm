@@ -13,9 +13,10 @@
 using namespace Casm;
 
 Label::Label(const Ceng::UINT32 position,
-	Section* section, const Ceng::String name,const Ceng::BOOL undefined) 
+	Section* section, const Ceng::String name,const Ceng::BOOL undefined,
+	bool isGlobal) 
 	: CodeElement(LABEL, position),	
-	section(section), name(name),undefined(undefined),
+	section(section), name(name),undefined(undefined), isGlobal(isGlobal),
 	target(nullptr)
 {
 }
@@ -53,4 +54,9 @@ Ceng::CRESULT Label::SetTarget(std::shared_ptr<CodeElement> &target)
 void Label::Print(std::wostream& out) const
 {
 	out << name << ":" << std::endl;
+}
+
+bool Label::IsGlobal() const
+{
+	return isGlobal;
 }

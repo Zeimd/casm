@@ -28,13 +28,16 @@ namespace Casm
 		Ceng::BOOL undefined;
 		Ceng::String name;
 
+		// Visible outside the object file?
+		bool isGlobal;
+
 		// Section where the label is
 		Section* section;
 
 		// Next code element following the label
 		std::shared_ptr<CodeElement> target;
 
-		Label() : section(nullptr), target(nullptr), undefined(true)
+		Label() : section(nullptr), target(nullptr), undefined(true), isGlobal(false)
 		{
 
 		}
@@ -42,7 +45,8 @@ namespace Casm
 		
 
 		Label(const Ceng::UINT32 position,
-			Section* section, const Ceng::String name,const Ceng::BOOL undefined);
+			Section* section, const Ceng::String name,const Ceng::BOOL undefined,
+			bool isGlobal);
 
 		~Label();
 		
@@ -51,6 +55,8 @@ namespace Casm
 		Ceng::BOOL CompareName(const Ceng::String &test) const;
 
 		Ceng::BOOL Undefined() const;
+
+		bool IsGlobal() const;
 
 		void MarkDefined();
 

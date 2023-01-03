@@ -111,7 +111,7 @@ Ceng::CRESULT Section::StartBlock()
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
+Ceng::CRESULT Section::AddLabel(const Ceng::String& name, bool isGlobal)
 {
 	size_t k;
 
@@ -138,7 +138,8 @@ Ceng::CRESULT Section::AddLabel(const Ceng::String& name)
 	else
 	{
 		FlushCurrentBlock();
-		labels.emplace_back(std::make_shared<Label>(codeList.size(), this, name, false));
+		labels.emplace_back(
+			std::make_shared<Label>(codeList.size(), this, name, false,isGlobal));
 
 		codeList.push_back(labels.back());
 	}
