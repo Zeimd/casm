@@ -42,7 +42,7 @@ Section::~Section()
 Section::Section(const Ceng::String& name, const uint32_t options,
 	const X86::CPU_Mode* startMode,
 	X86::PRIVILEDGE_LEVEL::value prLevel, ProgramBuilder* program)
-	: Symbol(name, nullptr, X86::SymbolType::section,true,false),
+	: Symbol(name, nullptr, Casm::SymbolType::section,true,false),
 	currentMode(startMode), options(options), currentPR(prLevel), program(program)
 {
 	InitializeParams();

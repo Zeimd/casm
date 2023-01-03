@@ -13,8 +13,7 @@
 #include <ceng/datatypes/boolean.h>
 #include <ceng/datatypes/ce-string.h>
 
-#include "enums/x86-section-type.h"
-#include "enums/x86-symbol-type.h"
+#include "enums/symbol-type.h"
 
 namespace Casm
 {
@@ -34,7 +33,7 @@ namespace Casm
 		// Offset of the symbol in its section.
 		Ceng::INT64 offset;
 
-		X86::SymbolType::value type;
+		SymbolType::value type;
 		
 		Section* section;
 
@@ -48,7 +47,7 @@ namespace Casm
 
 
 		Symbol(const Ceng::String& name, Section* section, 
-			const X86::SymbolType::value type,
+			const SymbolType::value type,
 			const Ceng::BOOL defined, const Ceng::BOOL external);
 			
 		virtual ~Symbol();
@@ -66,14 +65,7 @@ namespace Casm
 		
 		void ResetRefCount();
 
-		const Ceng::UINT32 RefCount() const;
-	
-		const X86::SymbolType::value Type() const;
-
-		DataItem* AsData() const;
-		FunctionBuilder* AsFunction() const;
-		ObjectFunction* AsObjectFunction() const;
-		
+		const Ceng::UINT32 RefCount() const;		
 	};
 
 	inline const Ceng::BOOL Symbol::IsDefined() const
@@ -109,11 +101,6 @@ namespace Casm
 	inline const Ceng::UINT32 Symbol::RefCount() const
 	{
 		return refCount;
-	}
-
-	inline const X86::SymbolType::value Symbol::Type() const
-	{
-		return type;
 	}
 
 	inline const Ceng::INT64 Symbol::Offset() const

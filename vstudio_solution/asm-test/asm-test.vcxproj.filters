@@ -332,16 +332,13 @@
     <ClInclude Include="..\..\casm\enums\x86-register-types.h">
       <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\casm\enums\x86-relocation-type.h">
-      <Filter>Header Files\casm\enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\casm\enums\x86-section-type.h">
+    <ClInclude Include="..\..\casm\enums\relocation-type.h">
       <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\enums\x86-simd-encoding.h">
       <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\casm\enums\x86-symbol-type.h">
+    <ClInclude Include="..\..\casm\enums\symbol-type.h">
       <Filter>Header Files\casm\enums</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\enums\x86-vex-w.h">

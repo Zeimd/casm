@@ -18,7 +18,7 @@ ObjectSection::ObjectSection(const Ceng::String& name,
 	std::vector<std::shared_ptr<Label>>&& labels,
 	std::vector<std::shared_ptr<SymbolRef>>&& references,
 	std::vector<Ceng::UINT8>&& codeBuffer)
-	: Symbol(name, nullptr, X86::SymbolType::object_function, true, false),
+	: Symbol(name, nullptr, Casm::SymbolType::section, true, false),
 	labels(labels), references(references), codeBuffer(codeBuffer)
 {
 }

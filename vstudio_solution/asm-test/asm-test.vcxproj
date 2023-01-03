@@ -136,10 +136,9 @@
     <ClInclude Include="..\..\casm\enums\x86-prefix-bytes.h" />
     <ClInclude Include="..\..\casm\enums\x86-priviledge-levels.h" />
     <ClInclude Include="..\..\casm\enums\x86-register-types.h" />
-    <ClInclude Include="..\..\casm\enums\x86-relocation-type.h" />
-    <ClInclude Include="..\..\casm\enums\x86-section-type.h" />
+    <ClInclude Include="..\..\casm\enums\relocation-type.h" />
     <ClInclude Include="..\..\casm\enums\x86-simd-encoding.h" />
-    <ClInclude Include="..\..\casm\enums\x86-symbol-type.h" />
+    <ClInclude Include="..\..\casm\enums\symbol-type.h" />
     <ClInclude Include="..\..\casm\enums\x86-vex-w.h" />
     <ClInclude Include="..\..\casm\executable.h" />
     <ClInclude Include="..\..\casm\extern-symbol.h" />
