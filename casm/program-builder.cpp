@@ -128,7 +128,7 @@ std::shared_ptr<Label> ProgramBuilder::FindLabel(const Ceng::String& name)
 
 	// Create missing label
 
-	missingLabels.emplace_back(std::make_shared<Label>(-1, nullptr, name, true));
+	missingLabels.emplace_back(std::make_shared<Label>(-1, nullptr, name, true, true));
 
 	return missingLabels.back();
 }
