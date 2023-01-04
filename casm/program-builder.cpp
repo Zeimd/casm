@@ -162,7 +162,7 @@ Ceng::CRESULT ProgramBuilder::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
+Ceng::CRESULT ProgramBuilder::Build(const Ceng::String& outName, ObjectCode** output)
 {
 	*output = nullptr;
 
@@ -189,7 +189,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		objSymbols.push_back(temp);
 	}
 
-	std::vector<std::shared_ptr<RelocationData>> relocationData;
+	std::vector<RelocationData> relocationData;
 
 	for (auto& x : references)
 	{
@@ -202,13 +202,13 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 			if (x->symbol->GetSection() == nullptr)
 			{
 				relocationData.emplace_back(
-					std::make_shared<RelocationData>(x->symbol->name,
+					x->symbol->name,
 						x->symbol->Type(),
 						x->section->name,
 						x->encodeOffset,
 						x->encodeSize,
 						Casm::RelocationType::full_int32,
-						0)
+						0
 				);
 
 				continue;
@@ -239,13 +239,13 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 			}
 
 			relocationData.emplace_back(
-				std::make_shared<RelocationData>(x->symbol->GetSection()->name,
+				x->symbol->GetSection()->name,
 					SymbolType::section,
 					x->section->name,
 					x->encodeOffset,
 					x->encodeSize,
 					relType,
-					0)
+					0
 			);
 		}
 		else
@@ -265,13 +265,13 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 				else
 				{
 					relocationData.emplace_back(
-						std::make_shared<RelocationData>(x->symbol->name,
+						x->symbol->name,
 							x->symbol->Type(),
 							x->section->name,
 							x->encodeOffset,
 							x->encodeSize,
 							Casm::RelocationType::rel32_add,
-							x->ipDelta)
+							x->ipDelta
 					);
 				}
 			}
@@ -297,7 +297,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		}
 	}
 
-	*output = new ObjectCode(std::move(objSections), std::move(objSymbols),
+	*output = new ObjectCode(outName, std::move(objSections), std::move(objSymbols),
 		std::move(relocationData));
 
 	return Ceng::CE_OK;

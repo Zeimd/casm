@@ -21,10 +21,11 @@
 
 using namespace Casm;
 
-ObjectCode::ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections,
+ObjectCode::ObjectCode(const Ceng::String& name,
+	std::vector<std::shared_ptr<ObjectSection>>&& sections,
 	std::vector<std::shared_ptr<Symbol>>&& symbols,
-	std::vector<std::shared_ptr<RelocationData>>&& relocationData)
-	: sections(sections), symbols(symbols), relocationData(relocationData)
+	std::vector<RelocationData>&& relocationData)
+	: name(name), sections(sections), symbols(symbols), relocationData(relocationData)
 {
 }
 
@@ -84,13 +85,13 @@ void ObjectCode::Print(std::wostream& out) const
 
 	for (auto& x : relocationData)
 	{
-		out << '\t' << Symbol::TypeToString(x->symbolType);
+		out << '\t' << Symbol::TypeToString(x.symbolType);
 			
-		out << ' ' << x->symbol << " -> ";
+		out << ' ' << x.symbol << " -> ";
 
-		out << x->writeSection << " : ";
+		out << x.writeSection << " : ";
 
-		out << x->writeOffset << std::endl;
+		out << x.writeOffset << std::endl;
 	}
 }
 

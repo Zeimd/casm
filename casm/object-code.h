@@ -27,15 +27,16 @@ namespace Casm
 	class ObjectCode
 	{
 	public:
+		Ceng::String name;
 
 		std::vector<std::shared_ptr<ObjectSection>> sections;
 
 		std::vector<std::shared_ptr<Symbol>> symbols;
-		std::vector<std::shared_ptr<RelocationData>> relocationData;
+		std::vector<RelocationData> relocationData;
 
-		ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections,
+		ObjectCode(const Ceng::String& name, std::vector<std::shared_ptr<ObjectSection>>&& sections,
 			std::vector<std::shared_ptr<Symbol>>&& symbols,
-			std::vector<std::shared_ptr<RelocationData>>&& relocationData);
+			std::vector<RelocationData>&& relocationData);
 
 		~ObjectCode();
 

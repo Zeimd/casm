@@ -94,7 +94,7 @@ namespace Casm
 
 		//const Ceng::CRESULT AddFromString(const Ceng::String &code);
 		
-		Ceng::CRESULT Build(ObjectCode **output);
+		Ceng::CRESULT Build(const Ceng::String& outName, ObjectCode **output);
 
 		//X86::CodeLine* ParseInstruction(const Ceng::String &input);
 

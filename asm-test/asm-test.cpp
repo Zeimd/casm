@@ -228,7 +228,7 @@ int main()
 
 	Casm::ObjectCode* testObject;
 
-	cresult = programBuild->Build(&testObject);
+	cresult = programBuild->Build("test", &testObject);
 	if (cresult != Ceng::CE_OK)
 	{
 		std::wcout << "Error : Build failed" << std::endl;
