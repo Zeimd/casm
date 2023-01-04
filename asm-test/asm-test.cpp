@@ -235,6 +235,8 @@ int main()
 		return 0;
 	}
 
+	delete programBuild;
+
 	std::wcout << "****************************************************" << std::endl;
 	std::wcout << std::endl;
 
@@ -267,8 +269,6 @@ int main()
 	testLink->Print(std::wcout);
 
 	std::wcout << "program end" << std::endl;
-
-	delete programBuild;
 
 	delete testObject;
 
