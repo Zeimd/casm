@@ -63,7 +63,7 @@ namespace Casm
 
 		std::shared_ptr<BasicBlock> currentBlock;
 
-		std::shared_ptr<ObjectSection> objectSection;
+		ObjectSection* objectSection;
 
 		Section();
 
@@ -75,7 +75,7 @@ namespace Casm
 			const X86::CPU_Mode* startMode,
 			X86::PRIVILEDGE_LEVEL::value prLevel, ProgramBuilder* program);
 
-		std::shared_ptr<ObjectSection> GetObjectSection();
+		ObjectSection* GetObjectSection();
 
 		Ceng::CRESULT SetStartMode(const X86::CPU_Mode* startMode,
 			const X86::PRIVILEDGE_LEVEL::value prLevel);

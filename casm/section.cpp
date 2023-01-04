@@ -71,7 +71,7 @@ Ceng::CRESULT Section::SetStartMode(const X86::CPU_Mode* startMode,
 	return Ceng::CE_OK;
 }
 
-std::shared_ptr<ObjectSection> Section::GetObjectSection()
+ObjectSection* Section::GetObjectSection()
 {
 	return objectSection;
 }
@@ -201,7 +201,7 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 
 	output = std::make_shared<ObjectSection>(name,std::move(codeBuffer));
 
-	objectSection = output;
+	objectSection = output.get();
 
 	return Ceng::CE_OK;
 }
