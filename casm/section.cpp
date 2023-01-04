@@ -153,6 +153,8 @@ Ceng::CRESULT Section::AttachLabels()
 
 Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 {
+	output = nullptr;
+
 	Ceng::CRESULT cresult;
 
 	cresult = FlushCurrentBlock();
