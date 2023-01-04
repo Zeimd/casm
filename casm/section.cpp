@@ -187,18 +187,6 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		}
 	}
 
-	/*
-	std::vector<std::shared_ptr<Label>> exportLabels;
-
-	for (auto& x : labels)
-	{
-		if (x->IsGlobal())
-		{
-			exportLabels.push_back(x);
-		}
-	}
-	*/
-
 	output = std::make_shared<ObjectSection>(name,std::move(codeBuffer));
 
 	objectSection = output.get();
