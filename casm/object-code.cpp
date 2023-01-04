@@ -73,7 +73,7 @@ void ObjectCode::Print(std::wostream& out) const
 	{
 		out << '\t' << Symbol::TypeToString(x->symbolType);
 			
-		out << ' ' << x->symbol << " : ";
+		out << ' ' << x->symbol << " -> ";
 
 		out << x->writeSection << " : ";
 
