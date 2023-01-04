@@ -30,6 +30,38 @@ Linker::~Linker()
 
 }
 
+std::shared_ptr<Symbol> Linker::FindSymbol(
+	const Ceng::String& name,
+	Casm::ObjectCode* currentFile,
+	std::vector<Casm::ObjectCode*>& files)
+{
+	std::shared_ptr<Symbol> temp;
+
+	temp = currentFile->FindSymbol(name);
+
+	if (temp != nullptr)
+	{
+		return temp;
+	}
+
+	for (auto& file : files)
+	{
+		if (file == currentFile)
+		{
+			continue;
+		}
+
+		temp = file->FindSymbol(name);
+
+		if (temp != nullptr)
+		{
+			return temp;
+		}
+	}
+
+	return nullptr;
+}
+
 Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects, 
 	std::shared_ptr<Program>& output)
 {
@@ -91,6 +123,9 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 
 	std::vector<ProgramSection> progSections;
 
+	// Calculate offsets that sections will have after
+	// merging
+
 	Ceng::UINT64 offset = 0;
 
 	for (auto& info : sectionInfo)
@@ -104,16 +139,83 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 				if (sect->name == *info.name)
 				{
 					sect->SetOffset(offset);
-
-					sect->Append(progSections.back().buffer);
 				}
 			}
 		}
 	}
 
-
-
 	std::vector<Casm::RelocationData> relocationData;
+
+	
+	for (auto& file : objects)
+	{
+		for (auto& relocation : file->relocationData)
+		{
+			std::shared_ptr<ObjectSection> relocationSection =
+				std::static_pointer_cast<ObjectSection>(
+					FindSymbol(relocation.writeSection,
+						file, objects)
+					);
+
+			std::shared_ptr<Symbol> symbol = FindSymbol(relocation.symbol,
+				file, objects);
+
+			if (symbol == nullptr)
+			{
+				// We are dealing with genuinely extern linkage symbol.
+				// These won't be available until executable relocationing.
+
+				switch (relocation.type)
+				{
+				case RelocationType::rel32_add:
+					{
+						Ceng::INT32* ptr = 
+							(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+						*ptr = -Ceng::INT32(relocation.ipDelta);
+
+						relocationData.emplace_back(
+							relocation.symbol,
+							relocation.symbolType,
+							relocationSection->name,
+							relocation.writeOffset + relocationSection->Offset(),
+							relocation.offsetSize,
+							Casm::RelocationType::rel32_add,
+							0);
+					}
+					break;
+				case RelocationType::full_int32:
+
+					relocationData.push_back(relocation);
+
+					break;
+				default:
+					std::wcout << "WARNING: Linker: unhandled relocation type" << std::endl;
+					break;
+				};	
+
+				continue;
+			}
+			
+		}			
+	}
+	
+
+	size_t k;
+
+	for (k=0; k < sectionInfo.size();++k)
+	{
+		for (auto& file : objects)
+		{
+			for (auto& sect : file->sections)
+			{
+				if (sect->name == *sectionInfo[k].name)
+				{
+					sect->Append(progSections[k].buffer);
+				}
+			}
+		}
+	}
 
 	output = std::make_shared<Program>(std::move(relocationData), std::move(progSections));
 

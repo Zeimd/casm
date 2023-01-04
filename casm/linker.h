@@ -17,6 +17,7 @@ namespace Casm
 {
 	class Program;
 	class ObjectCode;
+	class Symbol;
 
 	class Linker
 	{
@@ -32,6 +33,13 @@ namespace Casm
 
 		Ceng::CRESULT LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 			std::shared_ptr<Program>& output);
+
+	protected:
+
+		static std::shared_ptr<Symbol> FindSymbol(
+			const Ceng::String& name,
+			Casm::ObjectCode* currentFile,
+			std::vector<Casm::ObjectCode*>& files);
 			
 	};
 }
