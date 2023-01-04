@@ -41,7 +41,7 @@ namespace Casm
 		
 		// NOTE: must be weak so that section can
 		//       point to itself
-		Section* section;
+		Symbol* section;
 
 	protected:
 
@@ -78,6 +78,8 @@ namespace Casm
 		void ResetRefCount();
 
 		const Ceng::UINT32 RefCount() const;		
+
+		static const char* TypeToString(Casm::SymbolType::value type);
 	};
 
 	inline const Ceng::BOOL Symbol::IsDefined() const

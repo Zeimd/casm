@@ -36,7 +36,7 @@ Symbol::~Symbol()
 
 const Section* Symbol::GetSection() const
 {
-	return section;
+	return (Section*)section;
 }
 
 void Symbol::MarkDefined(Section* section, SymbolType::value type, Ceng::BOOL isGlobal)
