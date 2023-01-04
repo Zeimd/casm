@@ -35,6 +35,42 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 {
 	output = nullptr;
 
+	// Gather unique section names
+
+	std::vector<Ceng::String*> sectionNames;
+
+	for (auto& file : objects)
+	{
+		for (auto& sect : file->sections)
+		{
+			size_t k;
+			bool found = false;
+
+			for (k = 0; k < sectionNames.size(); ++k)
+			{
+				if ((*sectionNames[k]) == sect->name)
+				{
+					found = true;
+					break;
+				}
+			}
+
+			if (found == false)
+			{
+				sectionNames.push_back(&sect->name);
+			}			
+		}
+	}
+
+	/*
+	std::wcout << "unique names:" << std::endl;
+
+	for (auto& name : sectionNames)
+	{
+		std::wcout << '\t' << (*name) << std::endl;
+	}
+	*/
+
 	std::vector<ProgramSection> progSections;
 	std::vector<Casm::RelocationData> relocationData;
 
