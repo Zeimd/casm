@@ -113,9 +113,7 @@ int main()
 
 	//************************************************************
 	// New code generator test
-	
-	Casm::ObjectCode *testObject;
-	
+		
 	Casm::ProgramBuilder *programBuild;
 
 	assembler.CreateProgram(Casm::BuilderOptions(false),&programBuild);
@@ -228,6 +226,8 @@ int main()
 
 	programBuild->Print(std::wcout);
 
+	Casm::ObjectCode* testObject;
+
 	cresult = programBuild->Build(&testObject);
 	if (cresult != Ceng::CE_OK)
 	{
@@ -245,6 +245,10 @@ int main()
 	std::wcout << "object code end" << std::endl;
 
 	delete programBuild;
+
+	delete testObject;
+
+	return 0;
 
 	Casm::Linker linker = Casm::Linker(64);
 
@@ -269,10 +273,6 @@ int main()
 	testLink->Print(std::wcout);
 
 	std::wcout << "program end" << std::endl;
-
-	return 0;
-
-	delete testObject;
 
 	Casm::ExternSymbol externs[] =
 	{
