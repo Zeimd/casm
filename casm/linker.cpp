@@ -209,7 +209,14 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 
 					*ptr += symbol->GetSection()->Offset();
 
-					relocationData.push_back(relocation);
+					relocationData.emplace_back(
+						relocation.symbol,
+						relocation.symbolType,
+						relocationSection->name,
+						relocation.writeOffset + relocationSection->Offset(),
+						relocation.offsetSize,
+						Casm::RelocationType::full_int32,
+						0);
 				}
 				break;
 			default:
