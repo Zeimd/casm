@@ -220,7 +220,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 			continue;
 		}
 
-		Section* relocationSection = x->symbol->GetSection();
+		Section* relocationSection = static_cast<Section*>(x->section);
 
 		std::shared_ptr<ObjectSection> objSect = relocationSection->GetObjectSection();
 
