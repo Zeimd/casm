@@ -51,7 +51,7 @@ namespace Casm
 
 		Ceng::String name;
 
-		Symbol(const Ceng::String& name, Section* section, 
+		Symbol(const Ceng::String& name, Symbol* section, 
 			const SymbolType::value type,
 			const Ceng::BOOL defined,const Ceng::BOOL isGlobal);
 			

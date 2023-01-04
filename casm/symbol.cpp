@@ -21,7 +21,7 @@ Symbol::Symbol()
 
 }
 
-Symbol::Symbol(const Ceng::String& name, Casm::Section* section, 
+Symbol::Symbol(const Ceng::String& name, Casm::Symbol* section, 
 	const Casm::SymbolType::value type,
 	const Ceng::BOOL defined,const Ceng::BOOL isGlobal)
 	: name(name), section(section), type(type), offset(0), 
