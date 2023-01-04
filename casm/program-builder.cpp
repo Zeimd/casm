@@ -170,8 +170,6 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 
 	std::vector<std::shared_ptr<ObjectSection>> objSections;
 
-	std::vector<std::shared_ptr<RelocationData>> relocationData;
-
 	for (auto& section : sections)
 	{
 		std::shared_ptr<ObjectSection> temp;
@@ -186,13 +184,17 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		objSections.push_back(temp);
 	}
 
-	// Write address information for local symbols
+	std::vector<std::shared_ptr<RelocationData>> relocationData;
 
 	for (auto& x : references)
 	{
-		if (x->symbol->GetSection() == nullptr)
+		Section* relocationSection = static_cast<Section*>(x->section);
+
+		std::shared_ptr<ObjectSection> objSect = relocationSection->GetObjectSection();
+
+		if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
 		{
-			if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
+			if (x->symbol->GetSection() == nullptr)
 			{
 				relocationData.emplace_back(
 					std::make_shared<RelocationData>(x->symbol->name,
@@ -203,29 +205,10 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 						Casm::RelocationType::full_int32,
 						0)
 				);
-			}
-			else if (x->refType == Casm::REFERENCE_TYPE::IP_RELATIVE)
-			{
-				relocationData.emplace_back(
-					std::make_shared<RelocationData>(x->symbol->name,
-						x->symbol->Type(),
-						x->section->name,
-						x->encodeOffset,
-						x->encodeSize,
-						Casm::RelocationType::rel32_add,
-						0)
-				);
+
+				continue;
 			}
 
-			continue;
-		}
-
-		Section* relocationSection = static_cast<Section*>(x->section);
-
-		std::shared_ptr<ObjectSection> objSect = relocationSection->GetObjectSection();
-
-		if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
-		{
 			Casm::RelocationType::value relType;
 
 			switch (x->encodeSize)
