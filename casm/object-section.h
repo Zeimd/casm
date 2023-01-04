@@ -23,13 +23,13 @@ namespace Casm
 	{
 	protected:
 
+		ObjectSection();
+
 	public:
 
 		std::vector<Ceng::UINT8> codeBuffer;
 
 	public:
-
-		ObjectSection();
 
 
 		ObjectSection(const Ceng::String& name, std::vector<Ceng::UINT8>&& codeBuffer);

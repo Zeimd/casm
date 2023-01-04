@@ -32,12 +32,7 @@ namespace Casm
 		
 		BasicBlock(const Ceng::UINT32 position);
 
-		virtual ~BasicBlock();
-
-		virtual Ceng::BOOL IsBasicBlock() const
-		{
-			return true;
-		}
+		~BasicBlock() override;
 
 		Ceng::CRESULT AddLine(std::shared_ptr<CodeLine>& newLine);
 
@@ -47,9 +42,9 @@ namespace Casm
 			const std::vector<std::shared_ptr<Label>> &labels,
 			const std::vector<std::shared_ptr<CodeElement>> &codeList) override;
 
-		virtual Ceng::UINT32 SizeBytes() const override;
+		Ceng::UINT32 SizeBytes() const override;
 	
-		virtual Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const override;
+		Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const override;
 
 		void Print(std::wostream& out) const override;
 	};
