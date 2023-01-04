@@ -189,7 +189,7 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		}
 	}
 
-	output = std::make_shared<ObjectSection>(name,std::move(codeBuffer));
+	output = std::make_shared<ObjectSection>(name,options, std::move(codeBuffer));
 
 	objectSection = output.get();
 

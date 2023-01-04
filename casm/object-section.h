@@ -27,12 +27,15 @@ namespace Casm
 
 	public:
 
+		Ceng::UINT32 options;
+
 		std::vector<Ceng::UINT8> codeBuffer;
 
 	public:
 
 
-		ObjectSection(const Ceng::String& name, std::vector<Ceng::UINT8>&& codeBuffer);
+		ObjectSection(const Ceng::String& name, const Ceng::UINT32 options,
+			std::vector<Ceng::UINT8>&& codeBuffer);
 
 		~ObjectSection() override;
 

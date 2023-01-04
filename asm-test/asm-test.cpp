@@ -244,12 +244,6 @@ int main()
 
 	std::wcout << "object code end" << std::endl;
 
-	delete programBuild;
-
-	delete testObject;
-
-	return 0;
-
 	Casm::Linker linker = Casm::Linker(64);
 
 	std::vector<Casm::ObjectCode*> objects;
@@ -273,6 +267,12 @@ int main()
 	testLink->Print(std::wcout);
 
 	std::wcout << "program end" << std::endl;
+
+	delete programBuild;
+
+	delete testObject;
+
+	return 0;
 
 	Casm::ExternSymbol externs[] =
 	{
