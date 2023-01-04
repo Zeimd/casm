@@ -129,9 +129,9 @@ int main()
 	programBuild->AddSection(Casm::SectionOptions::writable | Casm::SectionOptions::alloc_mem,
 		X86::PROTECTED_MODE, X86::PRIVILEDGE_LEVEL::ANY, ".data", dataSection);
 
-	dataSection->AddData(Casm::DataDescriptor(), "hello_str", "Hello World!\n");
-
 	dataSection->AddData(Casm::DataDescriptor(), "x", new Casm::Initializer<int32_t>(15));
+
+	dataSection->AddData(Casm::DataDescriptor(), "hello_str", "Hello World!\n");
 
 	//*****************************************
 	// TestFunction
