@@ -190,7 +190,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 	{
 		Section* relocationSection = static_cast<Section*>(x->section);
 
-		std::shared_ptr<ObjectSection> objSect = relocationSection->GetObjectSection();
+		ObjectSection* objSect = relocationSection->GetObjectSection();
 
 		if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
 		{
@@ -281,7 +281,11 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 	{
 		if (x->IsDefined() == true && x->IsGlobal())
 		{
-			objSymbols.push_back(x);
+			objSymbols.emplace_back(
+
+				std::make_shared<Symbol>(x->name, x->GetSection()->GetObjectSection(),
+					x->Type(), x->IsDefined(), x->IsGlobal())
+			);
 		}
 	}
 
