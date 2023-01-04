@@ -21,6 +21,8 @@ namespace Casm
 	class Symbol;
 	class SymbolRef;
 
+	class RelocationData;
+
 	class ObjectCode
 	{
 	public:
@@ -28,11 +30,11 @@ namespace Casm
 		std::vector<std::shared_ptr<ObjectSection>> sections;
 
 		std::vector<std::shared_ptr<Symbol>> symbols;
-		std::vector<std::shared_ptr<SymbolRef>> references;
+		std::vector<std::shared_ptr<RelocationData>> relocationData;
 
 		ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections,
 			std::vector<std::shared_ptr<Symbol>>&& symbols,
-			std::vector<std::shared_ptr<SymbolRef>>&& references);
+			std::vector<std::shared_ptr<RelocationData>>&& relocationData);
 
 		~ObjectCode();
 

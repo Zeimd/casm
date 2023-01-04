@@ -16,62 +16,47 @@
 #include "enums/reference-type.h"
 #include "enums/x86-operand-sizes.h"
 
+#include "enums/symbol-type.h"
+
+#include "enums/relocation-type.h"
+
 #include "extern-symbol.h"
 
-namespace X86
+namespace Casm
 {
 	class RelocationData
 	{
 	public:
-		enum SECTION
-		{
-			CODE_SECTION = 0 ,
-			DATA_SECTION = 1 ,
 
-			EXTERNAL = 2,
-			
-			SECTION_FORCE_32B = 1 << 30 ,
-		};
+		Ceng::String symbol;
 
-		/**
-		 * Which section the relocation value is written to.
-		 */
-		SECTION writeSection;
+		Casm::SymbolType::value symbolType;
 
-		/**
-		 * Which offset the relocation value is written to.
-		 */
+		Casm::RelocationType::value type;
+
+		// Section that needs to be modified for the relocation
+		Ceng::String writeSection;
+
+		// Which offset the relocation value is written to.
 		Ceng::UINT64 writeOffset;
 
-		/**
-		 * Which section's base address is added.
-		 */
-		SECTION relocationSection;	
-
-		OPERAND_SIZE::value offsetSize;
-
-		Casm::REFERENCE_TYPE::value type;
-
-		Ceng::String externName;
+		X86::OPERAND_SIZE::value offsetSize;
 
 		Ceng::INT64 negativeExtra;
 
-		RelocationData(const SECTION writeSection,const Ceng::UINT64 writeOffset,
-						const SECTION relocationSection,
-						const OPERAND_SIZE::value offsetSize,
-						const Casm::REFERENCE_TYPE::value type,
-						const Ceng::String externName,
-						const Ceng::INT64 negativeExtra)
-			: writeSection(writeSection),writeOffset(writeOffset),
-			relocationSection(relocationSection),offsetSize(offsetSize),type(type),
-			externName(externName),negativeExtra(negativeExtra)
-		{
+		RelocationData(const Ceng::String& symbol,
+			const Casm::SymbolType::value symbolType,
+			const Ceng::String& writeSection,
+			const Ceng::UINT64 writeOffset,
+			const X86::OPERAND_SIZE::value offsetSize,
+			const Casm::RelocationType::value type,
+			const Ceng::INT64 negativeExtra);
 
-		}
-
+		/*
 		Ceng::CRESULT Relocate(const Ceng::UINT64 dataSectionBase,
 								const Ceng::UINT64 codeSectionBase,
 			Casm::ExternSymbol* externs, uint32_t externCount) const;
+			*/
 	};
 }
 

@@ -39,7 +39,7 @@ namespace Casm
 	{
 	protected:
 
-		std::vector<X86::RelocationData> relocationData;
+		std::vector<Casm::RelocationData> relocationData;
 
 		std::vector<ProgramSection> sections;
 
@@ -47,7 +47,7 @@ namespace Casm
 
 	public:
 
-		Program(std::vector<X86::RelocationData>&& relocationData,
+		Program(std::vector<Casm::RelocationData>&& relocationData,
 			std::vector<ProgramSection>&& sections);
 
 		~Program();

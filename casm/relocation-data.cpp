@@ -10,8 +10,23 @@
 
 #include <iostream>
 
-using namespace X86;
+using namespace Casm;
 
+RelocationData::RelocationData(const Ceng::String& symbol,
+	const Casm::SymbolType::value symbolType,
+	const Ceng::String& writeSection,
+	const Ceng::UINT64 writeOffset,
+	const X86::OPERAND_SIZE::value offsetSize,
+	const Casm::RelocationType::value type,
+	const Ceng::INT64 negativeExtra)
+	: symbol(symbol), symbolType(symbolType),
+	writeSection(writeSection), writeOffset(writeOffset),
+	offsetSize(offsetSize), type(type), negativeExtra(negativeExtra)
+{
+
+}
+
+/*
 Ceng::CRESULT RelocationData::Relocate(const Ceng::UINT64 dataSectionBase,
 									   const Ceng::UINT64 codeSectionBase,
 	Casm::ExternSymbol* externs, uint32_t externCount) const
@@ -98,3 +113,4 @@ Ceng::CRESULT RelocationData::Relocate(const Ceng::UINT64 dataSectionBase,
 
 	return Ceng::CE_OK;
 }
+*/

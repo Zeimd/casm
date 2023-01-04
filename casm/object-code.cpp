@@ -17,12 +17,14 @@
 
 #include "section.h"
 
+#include "relocation-data.h"
+
 using namespace Casm;
 
 ObjectCode::ObjectCode(std::vector<std::shared_ptr<ObjectSection>>&& sections,
 	std::vector<std::shared_ptr<Symbol>>&& symbols,
-	std::vector<std::shared_ptr<SymbolRef>>&& references)
-	: sections(sections), symbols(symbols), references(references)
+	std::vector<std::shared_ptr<RelocationData>>&& relocationData)
+	: sections(sections), symbols(symbols), relocationData(relocationData)
 {
 }
 
@@ -44,24 +46,7 @@ void ObjectCode::Print(std::wostream& out) const
 	{
 		out << '\t';
 			
-		switch (x->Type())
-		{
-		case SymbolType::section:
-			out << "section";
-			break;
-		case SymbolType::function:
-			out << "function";
-			break;
-		case SymbolType::data:
-			out << "data";
-			break;
-		case SymbolType::unknown:
-			out << "unknown";
-			break;
-		default:
-			out << "<invalid_value>";
-			break;
-		}
+		out << Symbol::TypeToString(x->Type());
 
 		out << " ";
 
@@ -82,11 +67,17 @@ void ObjectCode::Print(std::wostream& out) const
 		out << std::endl;
 	}
 
-	out << "references:" << std::endl;
+	out << "relocation data:" << std::endl;
 
-	for (auto& x : references)
+	for (auto& x : relocationData)
 	{
-		out << '\t' << x->symbol->name << " : " << x->encodeOffset << std::endl;
+		out << '\t' << Symbol::TypeToString(x->symbolType);
+			
+		out << ' ' << x->symbol << " : ";
+
+		out << x->writeSection << " : ";
+
+		out << x->writeOffset << std::endl;
 	}
 }
 

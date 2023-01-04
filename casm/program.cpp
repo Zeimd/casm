@@ -20,7 +20,7 @@ Program::Program()
 {
 }
 
-Program::Program(std::vector<X86::RelocationData>&& relocationData,
+Program::Program(std::vector<Casm::RelocationData>&& relocationData,
 	std::vector<ProgramSection>&& sections)
 	: relocationData(relocationData), sections(sections)
 {

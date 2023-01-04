@@ -48,3 +48,25 @@ void Symbol::MarkDefined(Section* section, SymbolType::value type, Ceng::BOOL is
 	this->type = type;
 	this->isGlobal = isGlobal;
 }
+
+const char* Symbol::TypeToString(Casm::SymbolType::value symbolType)
+{
+	switch (symbolType)
+	{
+	case SymbolType::section:
+		return "section";
+		break;
+	case SymbolType::function:
+		return "function";
+		break;
+	case SymbolType::data:
+		return "data";
+		break;
+	case SymbolType::unknown:
+		return "unknown";
+		break;
+	default:
+		return "<invalid_value>";
+		break;
+	}
+}

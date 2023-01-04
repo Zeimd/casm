@@ -52,6 +52,10 @@
 
 #include "code-label.h"
 
+#include "relocation-data.h"
+
+#include "symbol-ref.h"
+
 using namespace Casm;
 
 namespace Casm
@@ -164,6 +168,8 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 
 	std::vector<std::shared_ptr<ObjectSection>> objSections;
 
+	std::vector<std::shared_ptr<RelocationData>> relocationData;
+
 	for (auto& section : sections)
 	{
 		std::shared_ptr<ObjectSection> temp;
@@ -178,8 +184,36 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		objSections.push_back(temp);
 	}
 
+	for (auto& x : references)
+	{
+		if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
+		{
+			relocationData.emplace_back(
+				std::make_shared<RelocationData>(x->symbol->name,
+					x->symbol->Type(),
+					x->symbol->GetSection()->name,
+					x->encodeOffset,
+					x->encodeSize,
+					Casm::RelocationType::full_int32,
+					0)
+			);
+		}
+		else if (x->refType == Casm::REFERENCE_TYPE::IP_RELATIVE)
+		{
+			relocationData.emplace_back(
+				std::make_shared<RelocationData>(x->symbol->name,
+					x->symbol->Type(),
+					x->section->name,
+					x->encodeOffset,
+					x->encodeSize,
+					Casm::RelocationType::rel32_add,
+					0)
+			);
+		}
+	}
+
 	*output = new ObjectCode(std::move(objSections), std::move(symbols),
-		std::move(references));
+		std::move(relocationData));
 
 	return Ceng::CE_OK;
 }

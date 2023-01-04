@@ -36,7 +36,7 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 	output = nullptr;
 
 	std::vector<ProgramSection> progSections;
-	std::vector<X86::RelocationData> relocationData;
+	std::vector<Casm::RelocationData> relocationData;
 
 	output = std::make_shared<Program>(std::move(relocationData), std::move(progSections));
 
