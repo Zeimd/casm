@@ -170,6 +170,9 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 
 	std::vector<std::shared_ptr<ObjectSection>> objSections;
 
+	std::vector<std::shared_ptr<Symbol>> objSymbols;
+
+
 	for (auto& section : sections)
 	{
 		std::shared_ptr<ObjectSection> temp;
@@ -182,6 +185,8 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		}
 
 		objSections.push_back(temp);
+
+		objSymbols.push_back(temp);
 	}
 
 	std::vector<std::shared_ptr<RelocationData>> relocationData;
@@ -275,10 +280,13 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		}
 	}
 
-	std::vector<std::shared_ptr<Symbol>> objSymbols;
-
 	for (auto& x : symbols)
 	{
+		if (x->Type() == SymbolType::section)
+		{
+			continue;
+		}
+
 		if (x->IsDefined() == true && x->IsGlobal())
 		{
 			objSymbols.emplace_back(
