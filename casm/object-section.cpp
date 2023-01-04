@@ -17,7 +17,7 @@ ObjectSection::ObjectSection()
 ObjectSection::ObjectSection(const Ceng::String& name,
 	const Ceng::UINT32 options,
 	std::vector<Ceng::UINT8>&& codeBuffer)
-	: Symbol(name, nullptr, Casm::SymbolType::section, true, false),
+	: Symbol(name, this, Casm::SymbolType::section, true, false),
 	options(options), codeBuffer(codeBuffer)
 {
 }
