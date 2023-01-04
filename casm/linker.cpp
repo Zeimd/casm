@@ -14,6 +14,7 @@
 #include "object-section.h"
 
 #include "relocation-data.h"
+#include "section.h"
 
 using namespace Casm;
 
@@ -195,6 +196,25 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 				};	
 
 				continue;
+			}
+
+			switch (relocation.type)
+			{
+			case RelocationType::rel32_add:
+				break;
+			case RelocationType::full_int32:
+				{
+					Ceng::INT32* ptr =
+					(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+					*ptr += symbol->GetSection()->Offset();
+
+					relocationData.push_back(relocation);
+				}
+				break;
+			default:
+				std::wcout << "WARNING: Linker: unhandled relocation type" << std::endl;
+				break;
 			}
 			
 		}			
