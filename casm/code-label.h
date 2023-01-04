@@ -29,7 +29,8 @@ namespace Casm
 	protected:
 
 		// Next code element following the label
-		std::shared_ptr<CodeElement> target;
+		// Needs to be weak to prevent circular references
+		CodeElement* target;
 
 		CodeLabel() : symbol(nullptr), target(nullptr)
 		{
@@ -44,11 +45,11 @@ namespace Casm
 
 		~CodeLabel();
 		
-		std::shared_ptr<CodeElement> Target() const;	
+		CodeElement* Target() const;	
 
 		Ceng::BOOL CompareName(const Ceng::String &test) const;
 
-		Ceng::CRESULT SetTarget(std::shared_ptr<CodeElement>& target);
+		Ceng::CRESULT SetTarget(CodeElement* target);
 
 		const Ceng::String Name() const override
 		{

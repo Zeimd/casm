@@ -138,7 +138,7 @@ Ceng::CRESULT Section::AttachLabels()
 			size_t next = k++;
 			if (next < codeList.size())
 			{
-				temp->SetTarget(codeList[next]);
+				temp->SetTarget(codeList[next].get());
 			}
 			else
 			{

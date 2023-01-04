@@ -24,7 +24,7 @@ CodeLabel::~CodeLabel()
 {
 }
 
-std::shared_ptr<CodeElement> CodeLabel::Target() const
+CodeElement* CodeLabel::Target() const
 {
 	return target;
 }
@@ -34,7 +34,7 @@ Ceng::BOOL CodeLabel::CompareName(const Ceng::String &test) const
 	return (symbol->name == test);
 }
 
-Ceng::CRESULT CodeLabel::SetTarget(std::shared_ptr<CodeElement> &target)
+Ceng::CRESULT CodeLabel::SetTarget(CodeElement* target)
 {
 	this->target = target;
 	return Ceng::CE_OK;

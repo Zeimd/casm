@@ -106,7 +106,7 @@ Ceng::CRESULT ConditionJump::Build(X86::BuildParams *params,
 		return Ceng::CE_ERR_FAIL;
 	}
 
-	std::shared_ptr<CodeElement> target = label->Target();
+	CodeElement* target = label->Target();
 
 	// Calculate jump offset
 
