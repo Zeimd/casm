@@ -33,6 +33,19 @@ ObjectCode::~ObjectCode()
 
 }
 
+std::shared_ptr<Symbol> ObjectCode::FindSymbol(const Ceng::String& name)
+{
+	for (auto& x : symbols)
+	{
+		if (x->name == name)
+		{
+			return x;
+		}
+	}
+
+	return nullptr;
+}
+
 void ObjectCode::Print(std::wostream& out) const
 {
 	for (auto& x : sections)

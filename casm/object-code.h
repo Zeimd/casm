@@ -10,6 +10,7 @@
 #define X86_OBJECT_CODE_H
 
 #include <ceng/datatypes/basic-types.h>
+#include <ceng/datatypes/ce-string.h>
 #include <memory>
 #include <vector>
 
@@ -39,6 +40,8 @@ namespace Casm
 		~ObjectCode();
 
 		void Print(std::wostream& out) const;
+
+		std::shared_ptr<Symbol> FindSymbol(const Ceng::String& name);
 	};
 }
 
