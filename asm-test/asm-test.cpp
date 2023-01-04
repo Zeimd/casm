@@ -97,6 +97,7 @@ int main()
 
 	std::wcout << "Code generator test:" << std::endl;
 
+	/*
 	std::wcout << "Test array: " << std::endl;
 
 	for(k=0;k<4;k++)
@@ -104,8 +105,7 @@ int main()
 		std::wcout << vector[k][0] << "," << vector[k][1] <<
 			"," << vector[k][2] << "," << vector[k][3] << std::endl;
 	}
-
-	Ceng::INT32 work[4] = {0,1,2,3};
+	*/
 
 	Ceng::FLOAT32 floatWork = 0.0f;
 
@@ -222,6 +222,10 @@ int main()
 	//************************************************'
 	// build program
 
+	std::wcout << "****************************************************" << std::endl;
+	std::wcout << "Intermediate format dump:" << std::endl;
+	std::wcout << std::endl;
+
 	programBuild->Print(std::wcout);
 
 	cresult = programBuild->Build(&testObject);
@@ -230,6 +234,9 @@ int main()
 		std::wcout << "Error : Build failed" << std::endl;
 		return 0;
 	}
+
+	std::wcout << "****************************************************" << std::endl;
+	std::wcout << std::endl;
 
 	std::wcout << "object code dump:" << std::endl;
 
@@ -254,6 +261,8 @@ int main()
 		std::wcout << "Error : Linking failed" << std::endl;
 		return 0;
 	}
+
+	std::wcout << "****************************************************" << std::endl;
 
 	std::wcout << "program dump:" << std::endl;
 
@@ -281,9 +290,7 @@ int main()
 		return 0;
 	}
 
-	std::wcout << "&printf = " << std::hex << (Ceng::POINTER)&printf << std::dec << std::endl;
-
-	std::wcout << "&test = " << std::hex << (Ceng::POINTER)&work << std::dec << std::endl;
+	std::wcout << "****************************************************" << std::endl;
 
 	std::wcout << "executable dump:" << std::endl;
 
@@ -292,7 +299,14 @@ int main()
 	std::wcout << "executable end" << std::endl;
 
 	//return 0;
-	
+
+	Ceng::INT32 work[4] = { 0,1,2,3 };
+
+	std::wcout << "&printf = " << std::hex << (Ceng::POINTER)&printf << std::dec << std::endl;
+
+	std::wcout << "&test = " << std::hex << (Ceng::POINTER)&work << std::dec << std::endl;
+
+
 	std::wcout << "test in = " << work[0] << " (0x" << std::hex << work[0] << std::dec << ")" << std::endl;
 	//std::wcout << "ftest in = " << floatWork << std::endl;
 
