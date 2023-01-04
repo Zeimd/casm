@@ -266,7 +266,7 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 							x->encodeOffset,
 							x->encodeSize,
 							Casm::RelocationType::rel32_add,
-							0)
+							x->ipDelta)
 					);
 				}
 			}

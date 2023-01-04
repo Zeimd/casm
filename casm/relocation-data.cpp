@@ -18,10 +18,10 @@ RelocationData::RelocationData(const Ceng::String& symbol,
 	const Ceng::UINT64 writeOffset,
 	const X86::OPERAND_SIZE::value offsetSize,
 	const Casm::RelocationType::value type,
-	const Ceng::INT64 negativeExtra)
+	const Ceng::INT64 ipDelta)
 	: symbol(symbol), symbolType(symbolType),
 	writeSection(writeSection), writeOffset(writeOffset),
-	offsetSize(offsetSize), type(type), negativeExtra(negativeExtra)
+	offsetSize(offsetSize), type(type), ipDelta(ipDelta)
 {
 
 }

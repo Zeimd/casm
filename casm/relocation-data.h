@@ -42,7 +42,7 @@ namespace Casm
 
 		X86::OPERAND_SIZE::value offsetSize;
 
-		Ceng::INT64 negativeExtra;
+		Ceng::INT64 ipDelta;
 
 		RelocationData(const Ceng::String& symbol,
 			const Casm::SymbolType::value symbolType,
@@ -50,7 +50,7 @@ namespace Casm
 			const Ceng::UINT64 writeOffset,
 			const X86::OPERAND_SIZE::value offsetSize,
 			const Casm::RelocationType::value type,
-			const Ceng::INT64 negativeExtra);
+			const Ceng::INT64 ipDelta);
 
 		/*
 		Ceng::CRESULT Relocate(const Ceng::UINT64 dataSectionBase,
