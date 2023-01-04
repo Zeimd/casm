@@ -54,22 +54,24 @@ namespace Casm
 	{
 	protected:
 		const X86::Instruction *instruction;
-	public:
+
 		BareOp()
 		{
 		}
+
+	public:
 
 		BareOp(const X86::Instruction &instruction) :
 			instruction(&instruction)
 		{
 		}
 
-		virtual ~BareOp()
+		~BareOp() override
 		{
 		}
 
-		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
-										std::vector<Ceng::UINT8> &destBuffer)
+		Ceng::CRESULT Encode(X86::BuildParams *params,
+			std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeBare(params,destBuffer);
 		};
@@ -85,17 +87,19 @@ namespace Casm
 	{
 	protected:
 		const X86::Operand *operand;
-	public:
+
 		UnaryOp()
 		{
 		}
+	public:
+	
 
 		UnaryOp(const X86::Instruction &instruction,const X86::Operand *operand) :
 			BareOp(instruction),operand(operand)
 		{
 		}
 
-		virtual ~UnaryOp()
+		~UnaryOp() override
 		{
 			if (!operand->IsRegisterOperand())
 			{
@@ -103,8 +107,8 @@ namespace Casm
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
-										std::vector<Ceng::UINT8> &destBuffer) override
+		Ceng::CRESULT Encode(X86::BuildParams *params,
+			std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeOneForm(params,destBuffer,operand);
 		};
@@ -120,10 +124,13 @@ namespace Casm
 	{
 	protected:
 		const X86::Operand *source;
-	public:
+		
 		BinaryOp()
 		{
 		}
+
+	public:
+	
 
 		BinaryOp(const X86::Instruction &instruction,const X86::Operand *dest,
 					const X86::Operand *source) :
@@ -131,7 +138,7 @@ namespace Casm
 		{
 		}
 
-		virtual ~BinaryOp()
+		~BinaryOp() override
 		{
 			if (!source->IsRegisterOperand())
 			{
@@ -139,8 +146,8 @@ namespace Casm
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
-										std::vector<Ceng::UINT8> &destBuffer) override
+		Ceng::CRESULT Encode(X86::BuildParams *params,
+			std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeTwoForm(params,destBuffer,operand,source);
 		};
@@ -158,11 +165,10 @@ namespace Casm
 	protected:
 		const X86::Operand *source2;
 
-	public:
-
 		ThreeOp()
 		{
 		}
+	public:
 
 		ThreeOp(const X86::Instruction &instruction,const X86::Operand *dest,
 					const X86::Operand *source,const X86::Operand *source2) :
@@ -170,7 +176,7 @@ namespace Casm
 		{
 		}
 
-		virtual ~ThreeOp()
+		~ThreeOp() override
 		{
 			if (!source2->IsRegisterOperand())
 			{
@@ -178,16 +184,18 @@ namespace Casm
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(X86::BuildParams *params,
-										std::vector<Ceng::UINT8> &destBuffer) override
+		Ceng::CRESULT Encode(X86::BuildParams *params,
+			std::vector<Ceng::UINT8> &destBuffer) override
 		{
 			return instruction->EncodeThreeForm(params,destBuffer,operand,source,source2);
 		};
 
 		void Print(std::wostream& out) const override
 		{
-			out << '\t' << instruction->Name() << ' ' << operand->ToString() <<
-				", " << source->ToString() << ", " << source2->ToString() << std::endl;
+			out << '\t' << instruction->Name() << ' '
+				<< operand->ToString() <<
+				", " << source->ToString() << ", " 
+				<< source2->ToString() << std::endl;
 		}
 
 	};
@@ -198,11 +206,11 @@ namespace Casm
 	protected:
 		const X86::Operand* source3;
 
-	public:
-
 		FourOp()
 		{
 		}
+
+	public:
 
 		FourOp(const X86::Instruction& instruction, const X86::Operand* dest,
 			const X86::Operand* source, const X86::Operand* source2, 
@@ -211,7 +219,7 @@ namespace Casm
 		{
 		}
 
-		virtual ~FourOp()
+		~FourOp() override
 		{
 			if (!source3->IsRegisterOperand())
 			{
@@ -219,7 +227,7 @@ namespace Casm
 			}
 		}
 
-		virtual Ceng::CRESULT Encode(X86::BuildParams* params,
+		Ceng::CRESULT Encode(X86::BuildParams* params,
 			std::vector<Ceng::UINT8>& destBuffer) override
 		{
 			return instruction->EncodeFourForm(params, destBuffer, operand, 
