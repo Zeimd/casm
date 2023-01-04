@@ -275,7 +275,17 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		}
 	}
 
-	*output = new ObjectCode(std::move(objSections), std::move(symbols),
+	std::vector<std::shared_ptr<Symbol>> objSymbols;
+
+	for (auto& x : symbols)
+	{
+		if (x->IsDefined() == true && x->IsGlobal())
+		{
+			objSymbols.push_back(x);
+		}
+	}
+
+	*output = new ObjectCode(std::move(objSections), std::move(objSymbols),
 		std::move(relocationData));
 
 	return Ceng::CE_OK;

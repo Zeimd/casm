@@ -147,7 +147,7 @@ int main()
 
 	
 
-	codeSection->AddLabel("main");
+	codeSection->AddLabel("main", true);
 	
 	// mov eax, hello_str
 	codeSection->MoveAddress(&X86::EAX, "hello_str");
