@@ -30,6 +30,9 @@ namespace Casm
 
 		Ceng::BOOL deleted;
 
+		// Which section does the referencing
+		Symbol* section;
+
 		/**
 		 * Offset of IP pointer
 		 */
@@ -38,7 +41,8 @@ namespace Casm
 		X86::OPERAND_SIZE::value encodeSize;
 		Casm::REFERENCE_TYPE::value refType;
 
-		SymbolRef(const std::shared_ptr<Symbol>& symbol,const Ceng::UINT64 offset,
+		SymbolRef(const std::shared_ptr<Symbol>& symbol, 
+			Symbol* section, const Ceng::UINT64 offset,
 							const X86::OPERAND_SIZE::value encodeSize,
 							const Casm::REFERENCE_TYPE::value refType);
 

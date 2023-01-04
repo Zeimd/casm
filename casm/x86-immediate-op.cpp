@@ -164,7 +164,8 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 		*/
 
 		std::shared_ptr<Casm::SymbolRef> temp
-			= std::make_shared<Casm::SymbolRef>(symbol, params->out_immOffset,
+			= std::make_shared<Casm::SymbolRef>(symbol, 
+				params->section, params->out_immOffset,
 				params->out_immSize, refType);
 
 		params->section->AddSymbolRef(temp);
