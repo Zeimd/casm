@@ -39,7 +39,7 @@ Section* Symbol::GetSection() const
 	return (Section*)section;
 }
 
-void Symbol::MarkDefined(Section* section, SymbolType::value type, Ceng::BOOL isGlobal)
+void Symbol::MarkDefined(Symbol* section, SymbolType::value type, Ceng::BOOL isGlobal)
 {
 	defined = true;
 

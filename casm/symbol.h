@@ -64,7 +64,7 @@ namespace Casm
 		const Ceng::INT64 Offset() const;
 		void SetOffset(const Ceng::INT64 offset);
 
-		void MarkDefined(Section* section, SymbolType::value type, Ceng::BOOL isGlobal);
+		void MarkDefined(Symbol* section, SymbolType::value type, Ceng::BOOL isGlobal);
 	
 		const SymbolType::value Type() const;
 
