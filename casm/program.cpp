@@ -10,6 +10,8 @@
 
 #include "hex-dump.h"
 
+#include "symbol.h"
+
 #include <Windows.h>
 
 #include <iostream>
@@ -111,5 +113,18 @@ void Program::Print(std::wostream& out) const
 
 		Casm::HexDump(out, 16, x.buffer.size(), &x.buffer[0]);
 
+	}
+
+	out << "relocation data:" << std::endl;
+
+	for (auto& x : relocationData)
+	{
+		out << '\t' << Symbol::TypeToString(x.symbolType);
+
+		out << ' ' << x.symbol << " -> ";
+
+		out << x.writeSection << " : ";
+
+		out << x.writeOffset << std::endl;
 	}
 }
