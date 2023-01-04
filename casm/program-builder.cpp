@@ -56,6 +56,8 @@
 
 #include "symbol-ref.h"
 
+#include "object-section.h"
+
 using namespace Casm;
 
 namespace Casm
@@ -184,31 +186,109 @@ Ceng::CRESULT ProgramBuilder::Build(ObjectCode** output)
 		objSections.push_back(temp);
 	}
 
+	// Write address information for local symbols
+
 	for (auto& x : references)
 	{
+		if (x->symbol->GetSection() == nullptr)
+		{
+			if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
+			{
+				relocationData.emplace_back(
+					std::make_shared<RelocationData>(x->symbol->name,
+						x->symbol->Type(),
+						x->section->name,
+						x->encodeOffset,
+						x->encodeSize,
+						Casm::RelocationType::full_int32,
+						0)
+				);
+			}
+			else if (x->refType == Casm::REFERENCE_TYPE::IP_RELATIVE)
+			{
+				relocationData.emplace_back(
+					std::make_shared<RelocationData>(x->symbol->name,
+						x->symbol->Type(),
+						x->section->name,
+						x->encodeOffset,
+						x->encodeSize,
+						Casm::RelocationType::rel32_add,
+						0)
+				);
+			}
+
+			continue;
+		}
+
+		Section* relocationSection = x->symbol->GetSection();
+
+		std::shared_ptr<ObjectSection> objSect = relocationSection->GetObjectSection();
+
 		if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
 		{
+			Casm::RelocationType::value relType;
+
+			switch (x->encodeSize)
+			{
+			case X86::OPERAND_SIZE::DWORD:
+			{
+				Ceng::UINT32* ptr = (Ceng::UINT32*)&objSect->codeBuffer[x->encodeOffset];
+
+				*ptr = Ceng::UINT32(x->symbol->Offset());
+
+				relType = RelocationType::full_int32;
+			}
+			break;
+			case X86::OPERAND_SIZE::QWORD:
+			{
+				Ceng::UINT64* ptr = (Ceng::UINT64*)&objSect->codeBuffer[x->encodeOffset];
+
+				*ptr = Ceng::UINT64(x->symbol->Offset());
+
+				relType = RelocationType::full_uint64;
+			}
+			break;
+			}
+
 			relocationData.emplace_back(
-				std::make_shared<RelocationData>(x->symbol->name,
-					x->symbol->Type(),
-					x->symbol->GetSection()->name,
-					x->encodeOffset,
-					x->encodeSize,
-					Casm::RelocationType::full_int32,
-					0)
-			);
-		}
-		else if (x->refType == Casm::REFERENCE_TYPE::IP_RELATIVE)
-		{
-			relocationData.emplace_back(
-				std::make_shared<RelocationData>(x->symbol->name,
-					x->symbol->Type(),
+				std::make_shared<RelocationData>(x->symbol->GetSection()->name,
+					SymbolType::section,
 					x->section->name,
 					x->encodeOffset,
 					x->encodeSize,
-					Casm::RelocationType::rel32_add,
+					relType,
 					0)
 			);
+		}
+		else
+		{
+			// IP RELATIVE
+
+			switch (x->encodeSize)
+			{
+			case X86::OPERAND_SIZE::DWORD:
+			{
+				Ceng::INT32* ptr = (Ceng::INT32*)&objSect->codeBuffer[x->encodeOffset];
+
+				if (x->symbol->GetSection() == x->section)
+				{
+					*ptr = Ceng::INT32(x->symbol->Offset() - (x->encodeOffset + x->ipDelta));
+				}
+				else
+				{
+					relocationData.emplace_back(
+						std::make_shared<RelocationData>(x->symbol->name,
+							x->symbol->Type(),
+							x->section->name,
+							x->encodeOffset,
+							x->encodeSize,
+							Casm::RelocationType::rel32_add,
+							0)
+					);
+				}
+			}
+			break;
+			}
 		}
 	}
 

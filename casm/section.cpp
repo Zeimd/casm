@@ -29,7 +29,7 @@ using namespace Casm;
 
 Section::Section() :
 	currentMode(nullptr),currentPR(X86::PRIVILEDGE_LEVEL::ANY),program(nullptr),
-	options(0)
+	options(0),objectSection(nullptr)
 {
 
 }
@@ -43,7 +43,8 @@ Section::Section(const Ceng::String& name, const uint32_t options,
 	const X86::CPU_Mode* startMode,
 	X86::PRIVILEDGE_LEVEL::value prLevel, ProgramBuilder* program)
 	: Symbol(name, nullptr, Casm::SymbolType::section,true,false),
-	currentMode(startMode), options(options), currentPR(prLevel), program(program)
+	currentMode(startMode), options(options), currentPR(prLevel), program(program),
+	objectSection(nullptr)
 {
 	InitializeParams();
 }
@@ -68,6 +69,11 @@ Ceng::CRESULT Section::SetStartMode(const X86::CPU_Mode* startMode,
 	InitializeParams();
 
 	return Ceng::CE_OK;
+}
+
+std::shared_ptr<ObjectSection> Section::GetObjectSection()
+{
+	return objectSection;
 }
 
 
@@ -195,7 +201,7 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 
 	output = std::make_shared<ObjectSection>(name,std::move(codeBuffer));
 
-	//objectSection = output;
+	objectSection = output;
 
 	return Ceng::CE_OK;
 }

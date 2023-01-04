@@ -75,6 +75,8 @@ namespace Casm
 			const X86::CPU_Mode* startMode,
 			X86::PRIVILEDGE_LEVEL::value prLevel, ProgramBuilder* program);
 
+		std::shared_ptr<ObjectSection> GetObjectSection();
+
 		Ceng::CRESULT SetStartMode(const X86::CPU_Mode* startMode,
 			const X86::PRIVILEDGE_LEVEL::value prLevel);
 

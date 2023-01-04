@@ -70,7 +70,7 @@ namespace Casm
 
 		void SetType(const SymbolType::value type);
 
-		const Section* GetSection() const;
+		Section* GetSection() const;
 
 		void IncRefCount();
 		void DecRefCount();

@@ -23,6 +23,8 @@ namespace Casm
 	{
 	protected:
 
+	public:
+
 		std::vector<Ceng::UINT8> codeBuffer;
 
 	public:

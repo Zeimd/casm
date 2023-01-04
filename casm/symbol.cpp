@@ -34,7 +34,7 @@ Symbol::~Symbol()
 {
 }
 
-const Section* Symbol::GetSection() const
+Section* Symbol::GetSection() const
 {
 	return (Section*)section;
 }
