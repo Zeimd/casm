@@ -35,9 +35,18 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 {
 	output = nullptr;
 
+	// TODO: Set reference counts so that only sections
+	//       that need to be present get included
+
 	// Gather unique section names
 
-	std::vector<Ceng::String*> sectionNames;
+	struct SectionInfo
+	{
+		Ceng::String* name;
+		Ceng::UINT32 options;
+	};
+
+	std::vector<SectionInfo> sectionInfo;
 
 	for (auto& file : objects)
 	{
@@ -46,9 +55,9 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 			size_t k;
 			bool found = false;
 
-			for (k = 0; k < sectionNames.size(); ++k)
+			for (k = 0; k < sectionInfo.size(); ++k)
 			{
-				if ((*sectionNames[k]) == sect->name)
+				if (*sectionInfo[k].name == sect->name)
 				{
 					found = true;
 					break;
@@ -57,8 +66,17 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 
 			if (found == false)
 			{
-				sectionNames.push_back(&sect->name);
+				sectionInfo.push_back({&sect->name,sect->options});
 			}			
+			else
+			{
+				// Sections with same name need to have same options
+				// for merging
+				if (sectionInfo[k].options != sect->options)
+				{
+					return Ceng::CE_ERR_INCOMPATIBLE_FORMAT;
+				}
+			}
 		}
 	}
 
@@ -72,6 +90,29 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 	*/
 
 	std::vector<ProgramSection> progSections;
+
+	Ceng::UINT64 offset = 0;
+
+	for (auto& info : sectionInfo)
+	{
+		progSections.emplace_back(*info.name, info.options);
+
+		for (auto& file : objects)
+		{
+			for (auto& sect : file->sections)
+			{
+				if (sect->name == *info.name)
+				{
+					sect->SetOffset(offset);
+
+					sect->Append(progSections.back().buffer);
+				}
+			}
+		}
+	}
+
+
+
 	std::vector<Casm::RelocationData> relocationData;
 
 	output = std::make_shared<Program>(std::move(relocationData), std::move(progSections));

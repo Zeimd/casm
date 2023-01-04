@@ -33,6 +33,14 @@ namespace Casm
 		Ceng::UINT32 options;
 
 		std::vector<Ceng::UINT8> buffer;
+
+	public:
+
+		ProgramSection(const Ceng::String& name, const Ceng::UINT32 options)
+			: name(name), options(options)
+		{
+
+		}
 	};
 
 	class Program
