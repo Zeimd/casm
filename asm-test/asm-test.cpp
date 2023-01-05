@@ -272,17 +272,16 @@ int main()
 
 	delete testObject;
 
-	return 0;
+	//return 0;
 
 	Casm::ExternSymbol externs[] =
 	{
-		{"printf", &printf}
+		{"printf", Casm::SymbolType::function, &printf}
 	};
 
-	/*
 	Casm::Executable *testProgram;
 
-	cresult = testLink->GetExecutable(externs,
+	cresult = testLink->GetJitExecutable("main",externs,
 		sizeof(externs) / sizeof(Casm::ExternSymbol), &testProgram);
 
 	if (cresult != Ceng::CE_OK)
@@ -299,14 +298,13 @@ int main()
 
 	std::wcout << "executable end" << std::endl;
 
-	//return 0;
-
 	Ceng::INT32 work[4] = { 0,1,2,3 };
 
 	std::wcout << "&printf = " << std::hex << (Ceng::POINTER)&printf << std::dec << std::endl;
 
 	std::wcout << "&test = " << std::hex << (Ceng::POINTER)&work << std::dec << std::endl;
 
+	return 0;
 
 	std::wcout << "test in = " << work[0] << " (0x" << std::hex << work[0] << std::dec << ")" << std::endl;
 	//std::wcout << "ftest in = " << floatWork << std::endl;

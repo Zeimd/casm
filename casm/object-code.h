@@ -11,6 +11,8 @@
 
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/ce-string.h>
+#include <ceng/datatypes/return-val.h>
+
 #include <memory>
 #include <vector>
 
@@ -23,6 +25,10 @@ namespace Casm
 	class SymbolRef;
 
 	class RelocationData;
+
+	struct ExternSymbol;
+
+	class Executable;
 
 	class ObjectCode
 	{
@@ -43,6 +49,13 @@ namespace Casm
 		void Print(std::wostream& out) const;
 
 		std::shared_ptr<Symbol> FindSymbol(const Ceng::String& name);
+
+		std::shared_ptr<Symbol> FindSymbol(const Ceng::String& name,
+			Casm::ExternSymbol* externs, uint32_t externCount);
+
+		Ceng::CRESULT GetJitExecutable(const Ceng::String& entryPoint,
+			Casm::ExternSymbol* externs, uint32_t externCount,
+			Executable** output);
 	};
 }
 

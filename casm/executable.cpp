@@ -15,31 +15,37 @@
 using namespace Casm;
 
 Executable::Executable()
-	: callback(nullptr), pageSize(0)
+	: entryPoint(nullptr), codeBuffer(nullptr), pageSize(0)
 {
 
 }
 
 Executable::~Executable()
 {
-	if (callback != nullptr)
+	if (codeBuffer != nullptr)
 	{
-		VirtualFree((void*)callback, 0, MEM_RELEASE);
+		VirtualFree((void*)codeBuffer, 0, MEM_RELEASE);
 	}
 }
 
-Executable* Executable::Create(void *functionPage,const Ceng::UINT32 pageSize,
+Executable* Executable::Create(void* entryPoint, void *codeBuffer,const Ceng::UINT32 pageSize,
 							   Ceng::AlignedBuffer<Ceng::UINT8> &&dataSegment)
 {
-	if (functionPage == nullptr)
+	if (entryPoint == nullptr)
+	{
+		return nullptr;
+	}
+
+	if (codeBuffer == nullptr)
 	{
 		return nullptr;				
 	}
 
 	Executable *temp = new Executable();
 
+	temp->entryPoint = (void(*)(Ceng::POINTER))entryPoint;
 	temp->pageSize = pageSize;
-	temp->callback = (void(*)(Ceng::POINTER))functionPage;
+	temp->codeBuffer = codeBuffer;
 
 	temp->dataSegment = std::move(dataSegment);
 
@@ -55,11 +61,10 @@ void Executable::Print(std::wostream& out) const
 
 	Casm::HexDump(out, 16, dataSegment.GetSize(), &dataSegment[0]);
 
-	uint8_t* textSection = (uint8_t*)callback;
+	uint8_t* textSection = (uint8_t*)codeBuffer;
 
-	out << "section .text (base=0x" << std::hex << callback << std::dec <<
+	out << "section .text (base=0x" << std::hex << codeBuffer << std::dec <<
 		", size = " << pageSize << ")" << std::endl << std::endl;
 
 	Casm::HexDump(out, 16, pageSize, &textSection[0]);
-
 }

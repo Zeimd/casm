@@ -21,7 +21,9 @@ namespace Casm
 	public:
 
 		Ceng::UINT32 pageSize;
-		void (*callback)(Ceng::POINTER);
+		void (*entryPoint)(Ceng::POINTER);
+
+		void* codeBuffer;
 
 		Ceng::AlignedBuffer<Ceng::UINT8> dataSegment;
 
@@ -32,7 +34,8 @@ namespace Casm
 
 		~Executable();
 
-		static Executable* Create(void *functionPage,const Ceng::UINT32 pageSize,
+		static Executable* Create(void* entryPoint,
+			void *codeBuffer,const Ceng::UINT32 pageSize,
 								Ceng::AlignedBuffer<Ceng::UINT8> &&dataSegment);
 
 		void Execute(Ceng::POINTER param) const;
@@ -42,7 +45,7 @@ namespace Casm
 
 	inline void Executable::Execute(Ceng::POINTER param) const
 	{
-		(*callback)(param);
+		(*entryPoint)(param);
 	}
 
 	
