@@ -304,7 +304,7 @@ int main()
 
 	std::wcout << "&test = " << std::hex << (Ceng::POINTER)&work << std::dec << std::endl;
 
-	return 0;
+	//return 0;
 
 	std::wcout << "test in = " << work[0] << " (0x" << std::hex << work[0] << std::dec << ")" << std::endl;
 	//std::wcout << "ftest in = " << floatWork << std::endl;
@@ -326,7 +326,7 @@ int main()
 	}
 	*/
 
-	//delete testProgram;
+	delete testProgram;
 	
 
 	return 0;
