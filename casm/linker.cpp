@@ -30,6 +30,21 @@ Linker::~Linker()
 
 }
 
+std::shared_ptr<ObjectSection> Linker::FindSection(
+	const Ceng::String& name,
+	const std::vector<std::shared_ptr<ObjectSection>>&	sections)
+{
+	for (auto& x : sections)
+	{
+		if (x->name == name)
+		{
+			return x;
+		}
+	}
+
+	return nullptr;
+}
+
 std::shared_ptr<Symbol> Linker::FindSymbol(
 	const Ceng::String& name,
 	Casm::ObjectCode* currentFile,
@@ -263,9 +278,12 @@ Ceng::CRESULT Linker::LinkProgram(
 
 			if (x->IsDefined() == true && x->IsGlobal())
 			{
+				std::shared_ptr<ObjectSection> newSect =
+					FindSection(x->GetSection()->name, outSections);
+
 				outSymbols.emplace_back(
 
-					std::make_shared<Symbol>(x->name, x->GetSection(),
+					std::make_shared<Symbol>(x->name, newSect.get(),
 						x->Type(), x->IsDefined(), x->IsGlobal())
 				);
 

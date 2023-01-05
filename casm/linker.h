@@ -16,6 +16,7 @@
 namespace Casm
 {
 	class ObjectCode;
+	class ObjectSection;
 	class Symbol;
 
 	class Linker
@@ -36,10 +37,14 @@ namespace Casm
 
 	protected:
 
-		static std::shared_ptr<Symbol> FindSymbol(
+		std::shared_ptr<Symbol> FindSymbol(
 			const Ceng::String& name,
 			Casm::ObjectCode* currentFile,
 			std::vector<Casm::ObjectCode*>& files);
+
+		std::shared_ptr<ObjectSection> FindSection(
+			const Ceng::String& name,
+			const std::vector<std::shared_ptr<ObjectSection>>& sections);
 			
 	};
 }
