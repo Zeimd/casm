@@ -46,8 +46,6 @@ namespace Casm
 							const X86::OPERAND_SIZE::value encodeSize,
 							const Casm::REFERENCE_TYPE::value refType);
 
-		Ceng::CRESULT WriteOffset(const Ceng::UINT64 baseAddress);
-
 		Ceng::CRESULT ConfigIPdelta(const Ceng::UINT64 baseIP);
 	};
 }
