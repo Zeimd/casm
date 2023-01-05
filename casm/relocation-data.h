@@ -6,8 +6,8 @@
 *
 *****************************************************************************/
 
-#ifndef X86_RELOCATION_DATA_H
-#define X86_RELOCATION_DATA_H
+#ifndef CASM_RELOCATION_DATA_H
+#define CASM_RELOCATION_DATA_H
 
 #include <ceng/datatypes/basic-types.h>
 #include <ceng/datatypes/return-val.h>
@@ -51,12 +51,6 @@ namespace Casm
 			const X86::OPERAND_SIZE::value offsetSize,
 			const Casm::RelocationType::value type,
 			const Ceng::INT64 ipDelta);
-
-		/*
-		Ceng::CRESULT Relocate(const Ceng::UINT64 dataSectionBase,
-								const Ceng::UINT64 codeSectionBase,
-			Casm::ExternSymbol* externs, uint32_t externCount) const;
-			*/
 	};
 }
 
