@@ -259,6 +259,12 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 
 	std::shared_ptr<Symbol> entry = FindSymbol(entryPoint);
 
+	if (entry == nullptr)
+	{
+		std::wcout << "Failed to find entry point: " << entryPoint << std::endl;
+		return Ceng::CE_ERR_FAIL;
+	}
+
 	entryAddress = entry->Offset() +
 		entry->GetSection()->Offset() +
 		entry->GetSection()->GetSection()->Offset();
