@@ -157,8 +157,12 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 
 	// Relocationing
 
+	//std::wcout << "relocationing:" << std::endl;
+
 	for (auto& relocation : relocationData)
 	{
+		//std::wcout << "symbol : " << relocation.symbol << std::endl;
+
 		std::shared_ptr<ObjectSection> relocationSection =
 			std::static_pointer_cast<ObjectSection>(
 				FindSymbol(relocation.writeSection)
@@ -199,19 +203,28 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 			}
 		}
 
+		//std::wcout << "symbol address = " << std::hex << symbolAddress << std::dec << std::endl;
+
 		switch (relocation.type)
 		{
 		case RelocationType::rel32_add:
 		{
+			//std::wcout << "rel32_add:" << std::endl;
+
 			Ceng::UINT64 fullWriteAddress =
 				relocation.writeOffset +
 				relocationSection->Offset() +              // Offset of section in allocation 
 				relocationSection->GetSection()->Offset(); // Start of allocation (virtual symbol)
 
+			//std::wcout << "full write address = " << std::hex << fullWriteAddress << std::dec
+			//	<< std::endl;
+
+			//std::wcout << "ipDelta = " << relocation.ipDelta << std::endl;
+
 			Ceng::INT32* ptr =
 				(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
 
-			*ptr = Ceng::INT32(symbolAddress - (fullWriteAddress + relocation.ipDelta));
+			*ptr += Ceng::INT32(symbolAddress - fullWriteAddress);
 		}
 		break;
 		case RelocationType::full_int32:
