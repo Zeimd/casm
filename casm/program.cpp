@@ -22,12 +22,14 @@ Program::Program()
 {
 }
 
+/*
 Program::Program(std::vector<Casm::RelocationData>&& relocationData,
 	std::vector<ProgramSection>&& sections)
 	: relocationData(relocationData), sections(sections)
 {
 
 }
+*/
 
 
 Program::~Program()
@@ -105,6 +107,7 @@ Ceng::CRESULT Program::GetExecutable(Casm::ExternSymbol* externs, uint32_t exter
 
 void Program::Print(std::wostream& out) const
 {
+	/*
 	const int groupSize = 16;
 
 	for (auto& x : sections)
@@ -127,4 +130,5 @@ void Program::Print(std::wostream& out) const
 
 		out << x.writeOffset << std::endl;
 	}
+	*/
 }

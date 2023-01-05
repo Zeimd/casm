@@ -10,8 +10,15 @@
 
 using namespace Casm;
 
-ObjectSection::ObjectSection()
+ObjectSection::ObjectSection() : options(0)
 {
+}
+
+ObjectSection::ObjectSection(const Ceng::String& name, const Ceng::UINT32 options)
+	: Symbol(name, this, Casm::SymbolType::section, true, false),
+	options(options)
+{
+
 }
 
 ObjectSection::ObjectSection(const Ceng::String& name,

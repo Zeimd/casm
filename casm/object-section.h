@@ -17,7 +17,6 @@ namespace Casm
 {
 	class Symbol;
 	class SymbolRef;
-	class CodeLabel;
 
 	class ObjectSection : public Symbol
 	{
@@ -33,6 +32,7 @@ namespace Casm
 
 	public:
 
+		ObjectSection(const Ceng::String& name, const Ceng::UINT32 options);
 
 		ObjectSection(const Ceng::String& name, const Ceng::UINT32 options,
 			std::vector<Ceng::UINT8>&& codeBuffer);

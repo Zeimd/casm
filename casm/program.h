@@ -25,23 +25,6 @@
 
 namespace Casm
 {
-	class ProgramSection
-	{
-	public:
-		Ceng::String name;
-
-		Ceng::UINT32 options;
-
-		std::vector<Ceng::UINT8> buffer;
-
-	public:
-
-		ProgramSection(const Ceng::String& name, const Ceng::UINT32 options)
-			: name(name), options(options)
-		{
-
-		}
-	};
 
 	class Program
 	{
@@ -49,15 +32,16 @@ namespace Casm
 
 		std::vector<Casm::RelocationData> relocationData;
 
-		std::vector<ProgramSection> sections;
+		//std::vector<ProgramSection> sections;
 
 		Program();
 
 	public:
 
+		/*
 		Program(std::vector<Casm::RelocationData>&& relocationData,
 			std::vector<ProgramSection>&& sections);
-
+			*/
 		~Program();
 
 		Ceng::CRESULT GetExecutable(Casm::ExternSymbol* externs, uint32_t externCount,

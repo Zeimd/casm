@@ -252,9 +252,9 @@ int main()
 
 	objects.push_back(testObject);
 
-	std::shared_ptr<Casm::Program> testLink;
+	std::shared_ptr<Casm::ObjectCode> testLink;
 
-	cresult = linker.LinkProgram(objects, testLink);
+	cresult = linker.LinkProgram("test",objects, testLink);
 
 	if (cresult != Ceng::CE_OK)
 	{
@@ -279,6 +279,7 @@ int main()
 		{"printf", &printf}
 	};
 
+	/*
 	Casm::Executable *testProgram;
 
 	cresult = testLink->GetExecutable(externs,
@@ -327,7 +328,8 @@ int main()
 	}
 	*/
 
-	delete testProgram;
+	//delete testProgram;
+	
 
 	return 0;
 }

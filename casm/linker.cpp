@@ -9,7 +9,6 @@
 #include "linker.h"
 #include "object-code.h"
 #include "data-item.h"
-#include "program.h"
 
 #include "object-section.h"
 
@@ -63,10 +62,14 @@ std::shared_ptr<Symbol> Linker::FindSymbol(
 	return nullptr;
 }
 
-Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects, 
-	std::shared_ptr<Program>& output)
+Ceng::CRESULT Linker::LinkProgram(
+	const Ceng::String& name,
+	std::vector<Casm::ObjectCode*> &objects, 
+	std::shared_ptr<ObjectCode>& output)
 {
 	output = nullptr;
+
+	// TODO: check for duplicate symbols (other than section names)
 
 	// TODO: Set reference counts so that only sections
 	//       that need to be present get included
@@ -122,7 +125,9 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 	}
 	*/
 
-	std::vector<ProgramSection> progSections;
+	std::vector<std::shared_ptr<ObjectSection>> outSections;
+
+	std::vector<std::shared_ptr<Symbol>> outSymbols;
 
 	// Calculate offsets that sections will have after
 	// merging.
@@ -134,7 +139,9 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 
 	for (auto& info : sectionInfo)
 	{
-		progSections.emplace_back(*info.name, info.options);
+		outSections.emplace_back(std::make_shared<ObjectSection>(*info.name, info.options));
+
+		outSymbols.push_back(outSections.back());
 
 		for (auto& file : objects)
 		{
@@ -231,7 +238,7 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 	// Copy sections to new buffer according to offsets
 	// calculated earlier
 
-	for (size_t k=0; k < sectionInfo.size();++k)
+	for (size_t k = 0; k < sectionInfo.size(); ++k)
 	{
 		for (auto& file : objects)
 		{
@@ -239,13 +246,38 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 			{
 				if (sect->name == *sectionInfo[k].name)
 				{
-					sect->Append(progSections[k].buffer);
+					sect->Append(outSections[k]->codeBuffer);
 				}
 			}
 		}
 	}
 
-	output = std::make_shared<Program>(std::move(relocationData), std::move(progSections));
+	for (auto& file : objects)
+	{
+		for (auto& x : file->symbols)
+		{
+			if (x->Type() == SymbolType::section)
+			{
+				continue;
+			}
+
+			if (x->IsDefined() == true && x->IsGlobal())
+			{
+				outSymbols.emplace_back(
+
+					std::make_shared<Symbol>(x->name, x->GetSection(),
+						x->Type(), x->IsDefined(), x->IsGlobal())
+				);
+
+				outSymbols.back()->SetOffset(x->Offset() +
+					x->GetSection()->Offset());
+			}
+		}
+	}
+
+	output = std::make_shared<ObjectCode>(
+		name, std::move(outSections), std::move(outSymbols),
+		std::move(relocationData) );
 
 	return Ceng::CE_OK;
 }
