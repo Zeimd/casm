@@ -161,68 +161,71 @@ Ceng::CRESULT Linker::LinkProgram(std::vector<Casm::ObjectCode*> &objects,
 			std::shared_ptr<Symbol> symbol = FindSymbol(relocation.symbol,
 				file, objects);
 
-			if (symbol == nullptr)
-			{
-				// We are dealing with genuinely extern linkage symbol.
-				// These won't be available until executable relocationing.
+			Ceng::UINT64 newWriteOffset = relocation.writeOffset +
+				relocationSection->Offset();
 
-				switch (relocation.type)
-				{
-				case RelocationType::rel32_add:
-					{
-						Ceng::INT32* ptr = 
-							(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
-
-						*ptr = -Ceng::INT32(relocation.ipDelta);
-
-						relocationData.emplace_back(
-							relocation.symbol,
-							relocation.symbolType,
-							relocationSection->name,
-							relocation.writeOffset + relocationSection->Offset(),
-							relocation.offsetSize,
-							Casm::RelocationType::rel32_add,
-							0);
-					}
-					break;
-				case RelocationType::full_int32:
-
-					relocationData.push_back(relocation);
-
-					break;
-				default:
-					std::wcout << "WARNING: Linker: unhandled relocation type" << std::endl;
-					break;
-				};	
-
-				continue;
-			}
+			bool deleted = false;
 
 			switch (relocation.type)
 			{
 			case RelocationType::rel32_add:
-				break;
-			case RelocationType::full_int32:
 				{
 					Ceng::INT32* ptr =
-					(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+						(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
 
-					*ptr += symbol->GetSection()->Offset();
+					if (symbol == nullptr)
+					{
+						*ptr = -Ceng::INT32(relocation.ipDelta);
+					}
+					else if (symbol->GetSection()->name == relocationSection->name)
+					{
+						Ceng::UINT64 newSymbolOffset = symbol->Offset() +
+							symbol->GetSection()->Offset();
 
-					relocationData.emplace_back(
-						relocation.symbol,
-						relocation.symbolType,
-						relocationSection->name,
-						relocation.writeOffset + relocationSection->Offset(),
-						relocation.offsetSize,
-						Casm::RelocationType::full_int32,
-						0);
+						*ptr = Ceng::INT32(newSymbolOffset - (newWriteOffset + relocation.ipDelta));
+
+						deleted = true;
+					}
+					else
+					{
+
+					}
 				}
+				break;
+			case RelocationType::full_int32:
+
+				if (symbol == nullptr)
+				{
+
+				}
+				else
+				{
+					Ceng::INT32* ptr =
+						(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+					*ptr += Ceng::INT32(symbol->GetSection()->Offset());
+				}
+
 				break;
 			default:
 				std::wcout << "WARNING: Linker: unhandled relocation type" << std::endl;
+				deleted = true;
 				break;
+			};
+
+			if (deleted)
+			{
+				continue;
 			}
+
+			relocationData.emplace_back(
+				relocation.symbol,
+				relocation.symbolType,
+				relocationSection->name,
+				newWriteOffset,
+				relocation.offsetSize,
+				relocation.type,
+				0);
 			
 		}			
 	}
