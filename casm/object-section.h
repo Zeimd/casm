@@ -44,16 +44,9 @@ namespace Casm
 			return codeBuffer.size();
 		}
 
-		Ceng::CRESULT ReferenceAll(std::vector<std::shared_ptr<Symbol>>* dataList,
-			std::vector<std::shared_ptr<Symbol>>* functionList);
-
-		Ceng::CRESULT WriteAllOffsets();
-
 		Ceng::CRESULT Append(std::vector<Ceng::UINT8>& destBuffer) const;
 
 		Ceng::CRESULT ToCodeBuffer(Ceng::UINT8* buffer) const;
-
-		Ceng::CRESULT AppendRelocationData(std::vector<X86::RelocationData>& relocationData) const;
 
 		void Print(std::wostream& out) const;
 	};
