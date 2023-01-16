@@ -2,10 +2,16 @@ Concept Assembler
 ------------------------------------------------------------
 
 -------------------
-Operands
+Assembler
 
 - [ ] Add option to use immediate value or displacement together with
       a symbol for struct member access etc
+
+------------------
+Relocationing
+
+- [ ] Add a centralized relocation unit instead of builder, linker and
+      executable creation all duplicating it
 
 ------------------
 Linker
