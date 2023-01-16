@@ -51,7 +51,7 @@ namespace Casm
 	class MemoryOperand;
 
 	class Symbol;
-	class SymbolRef;
+	class RelocationData;
 
 	class ProgramBuilder
 	{
@@ -65,7 +65,7 @@ namespace Casm
 
 		std::vector<std::shared_ptr<Symbol>> symbols;
 
-		std::vector<std::shared_ptr<SymbolRef>> references;
+		std::vector<std::shared_ptr<RelocationData>> relocationData;
 
 		const Assembler *assembler;
 
@@ -88,6 +88,8 @@ namespace Casm
 
 		std::shared_ptr<Symbol> FindSymbol(const Ceng::String &name);
 
+		std::shared_ptr<Section> FindSection(const Ceng::String& name);
+
 		Ceng::CRESULT AddSection(const Ceng::UINT32 options,
 			const X86::CPU_Mode &startMode,const X86::PRIVILEDGE_LEVEL::value prLevel,
 			const Ceng::String &name, std::shared_ptr<Section>& out_section);
@@ -100,7 +102,7 @@ namespace Casm
 
 		void Print(std::wostream& out);
 
-		Ceng::CRESULT AddSymbolRef(std::shared_ptr<SymbolRef>& ref);
+		Ceng::CRESULT AddRelocationData(std::shared_ptr<RelocationData>& ref);
 
 	protected:
 

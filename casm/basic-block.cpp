@@ -8,7 +8,7 @@
 
 #include "basic-block.h"
 
-#include "symbol-ref.h"
+#include "relocation-data.h"
 
 using namespace Casm;
 
@@ -48,16 +48,16 @@ Ceng::CRESULT BasicBlock::PreBuild(X86::BuildParams *params)
 	
 		if (params->immRef != nullptr)
 		{
-			params->immRef->encodeOffset = params->out_immOffset;
-			params->immRef->encodeSize = params->out_immSize;
+			params->immRef->writeOffset = params->out_immOffset;
+			params->immRef->offsetSize = params->out_immSize;
 
 			params->immRef->ConfigIPdelta(codeBuffer.size());
 		}
 
 		if (params->memRef != nullptr)
 		{
-			params->memRef->encodeOffset = params->out_dispOffset;
-			params->memRef->encodeSize = params->out_dispSize;
+			params->memRef->writeOffset = params->out_dispOffset;
+			params->memRef->offsetSize = params->out_dispSize;
 
 			params->memRef->ConfigIPdelta(codeBuffer.size());
 		}

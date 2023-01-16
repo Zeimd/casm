@@ -153,9 +153,6 @@
     <ClCompile Include="..\..\casm\x86-add-variant.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\casm\symbol-ref.cpp">
-      <Filter>Source Files\casm</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\casm\symbol.cpp">
       <Filter>Source Files\casm</Filter>
     </ClCompile>
@@ -510,9 +507,6 @@
       <Filter>Header Files\casm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\symbol.h">
-      <Filter>Header Files\casm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\casm\symbol-ref.h">
       <Filter>Header Files\casm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\casm\x86-add-variant.h">

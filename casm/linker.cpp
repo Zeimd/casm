@@ -244,6 +244,7 @@ Ceng::CRESULT Linker::LinkProgram(
 				relocationSection->name,
 				newWriteOffset,
 				relocation.offsetSize,
+				relocation.refType,
 				relocation.type,
 				0);
 			

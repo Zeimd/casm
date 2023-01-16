@@ -10,7 +10,7 @@
 
 #include "enums//reference-type.h"
 
-#include "symbol-ref.h"
+#include "relocation-data.h"
 
 #include "build-params.h"
 
@@ -156,19 +156,46 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 	{
 		Casm::REFERENCE_TYPE::value refType = params->imm_symbolRefType;
 
-		/*
-		if (params->mode->cpuMode == CPU_MODE::X64)
+		Casm::RelocationType::value relocationType;
+
+		switch (refType)
 		{
-			refType = Casm::REFERENCE_TYPE::IP_RELATIVE;
+		case Casm::REFERENCE_TYPE::ADDRESS:
+
+			/*
+			if (params->mode->cpuMode == CPU_MODE::X64)
+			{
+				refType = Casm::REFERENCE_TYPE::IP_RELATIVE;
+			}
+			*/
+
+			relocationType = Casm::RelocationType::full_uint32;
+
+			if (params->out_immSize == X86::OPERAND_SIZE::QWORD)
+			{
+				relocationType = Casm::RelocationType::full_uint64;
+			}
+
+			break;
+		case Casm::REFERENCE_TYPE::IP_RELATIVE:
+
+			relocationType = Casm::RelocationType::rel32_add;
+
+			break;
+		default:
+			return Ceng::CE_ERR_INVALID_PARAM;
+			break;
 		}
-		*/
 
-		std::shared_ptr<Casm::SymbolRef> temp
-			= std::make_shared<Casm::SymbolRef>(symbol, 
-				params->section, params->out_immOffset,
-				params->out_immSize, refType);
+		std::shared_ptr<Casm::RelocationData> temp
+			= std::make_shared<Casm::RelocationData>(symbol->name, 
+				symbol->Type(),
+				params->section->name, params->out_immOffset,
+				params->out_immSize, refType,
+				relocationType,
+				0);
 
-		params->section->AddSymbolRef(temp);
+		params->section->AddRelocationData(temp);
 		params->immRef = temp;
 
 		encodeData->immediate = 0;

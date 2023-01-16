@@ -63,7 +63,6 @@
     <ClCompile Include="..\..\casm\sse-compare.cpp" />
     <ClCompile Include="..\..\casm\sse-instruction.cpp" />
     <ClCompile Include="..\..\casm\sse-sign-mask.cpp" />
-    <ClCompile Include="..\..\casm\symbol-ref.cpp" />
     <ClCompile Include="..\..\casm\symbol.cpp" />
     <ClCompile Include="..\..\casm\x86-add-variant.cpp" />
     <ClCompile Include="..\..\casm\x86-alu-ascii.cpp" />
@@ -187,7 +186,6 @@
     <ClInclude Include="..\..\casm\sse-compare.h" />
     <ClInclude Include="..\..\casm\sse-instruction.h" />
     <ClInclude Include="..\..\casm\sse-sign-mask.h" />
-    <ClInclude Include="..\..\casm\symbol-ref.h" />
     <ClInclude Include="..\..\casm\symbol.h" />
     <ClInclude Include="..\..\casm\x86-add-variant.h" />
     <ClInclude Include="..\..\casm\x86-alu-ascii.h" />

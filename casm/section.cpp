@@ -404,9 +404,9 @@ const Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT Section::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
+Ceng::CRESULT Section::AddRelocationData(std::shared_ptr<RelocationData>& ref)
 {
-	return program->AddSymbolRef(ref);
+	return program->AddRelocationData(ref);
 }
 
 Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,

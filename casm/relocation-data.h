@@ -32,6 +32,8 @@ namespace Casm
 
 		Casm::SymbolType::value symbolType;
 
+		Casm::REFERENCE_TYPE::value refType;
+
 		Casm::RelocationType::value type;
 
 		// Section that needs to be modified for the relocation
@@ -49,8 +51,11 @@ namespace Casm
 			const Ceng::String& writeSection,
 			const Ceng::UINT64 writeOffset,
 			const X86::OPERAND_SIZE::value offsetSize,
+			const Casm::REFERENCE_TYPE::value refType,
 			const Casm::RelocationType::value type,
 			const Ceng::INT64 ipDelta);
+
+		Ceng::CRESULT ConfigIPdelta(const Ceng::UINT64 baseIP);
 	};
 }
 

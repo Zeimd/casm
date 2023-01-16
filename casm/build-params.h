@@ -22,7 +22,7 @@ namespace Casm
 {
 	class Section;
 	class CodeElement;
-	class SymbolRef;
+	class RelocationData;
 }
 
 namespace X86
@@ -73,8 +73,8 @@ namespace X86
 
 		Ceng::INT64 ipDelta;
 
-		std::shared_ptr<Casm::SymbolRef> memRef;
-		std::shared_ptr<Casm::SymbolRef> immRef;
+		std::shared_ptr<Casm::RelocationData> memRef;
+		std::shared_ptr<Casm::RelocationData> immRef;
 
 		void Clean()
 		{

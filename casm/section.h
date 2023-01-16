@@ -35,7 +35,7 @@ namespace Casm
 
 	class CodeLabel;
 
-	class SymbolRef;
+	class RelocationData;
 
 	class ObjectSection;
 
@@ -84,7 +84,7 @@ namespace Casm
 
 		Ceng::CRESULT AddLabel(const Ceng::String& label, bool isGlobal=false);
 
-		Ceng::CRESULT AddSymbolRef(std::shared_ptr<SymbolRef>& ref);
+		Ceng::CRESULT AddRelocationData(std::shared_ptr<RelocationData>& ref);
 
 		Ceng::CRESULT ConditionalJump(const Casm::CONDITION::value condition,
 			const Ceng::String& label);

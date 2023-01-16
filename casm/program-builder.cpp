@@ -112,6 +112,19 @@ const Casm::BuilderOptions* ProgramBuilder::BuildOptions() const
 	return &options;
 }
 
+std::shared_ptr<Section> ProgramBuilder::FindSection(const Ceng::String& name)
+{
+	for (auto& x : sections)
+	{
+		if (x->name == name)
+		{
+			return x;
+		}
+	}
+
+	return nullptr;
+}
+
 std::shared_ptr<Symbol> ProgramBuilder::FindSymbol(const Ceng::String& name)
 {
 	for (auto& x : symbols)
@@ -156,9 +169,9 @@ Ceng::CRESULT ProgramBuilder::AddSection(const Ceng::UINT32 options,
 	return Ceng::CE_OK;
 }
 
-Ceng::CRESULT ProgramBuilder::AddSymbolRef(std::shared_ptr<SymbolRef>& ref)
+Ceng::CRESULT ProgramBuilder::AddRelocationData(std::shared_ptr<RelocationData>& ref)
 {
-	references.push_back(ref);
+	relocationData.push_back(ref);
 	return Ceng::CE_OK;
 }
 
@@ -189,26 +202,29 @@ Ceng::CRESULT ProgramBuilder::Build(const Ceng::String& outName, ObjectCode** ou
 		objSymbols.push_back(temp);
 	}
 
-	std::vector<RelocationData> relocationData;
+	std::vector<RelocationData> outRelocations;
 
-	for (auto& x : references)
+	for (auto& x : relocationData)
 	{
-		Section* relocationSection = static_cast<Section*>(x->section);
+		std::shared_ptr<Section> relocationSection = FindSection(x->writeSection);
 
 		ObjectSection* objSect = relocationSection->GetObjectSection();
 
+		std::shared_ptr<Symbol> target = FindSymbol(x->symbol);
+
 		if (x->refType == Casm::REFERENCE_TYPE::ADDRESS)
 		{
-			if (x->symbol->GetSection() == nullptr)
+			if (target->GetSection() == nullptr)
 			{
-				relocationData.emplace_back(
-					x->symbol->name,
-						x->symbol->Type(),
-						x->section->name,
-						x->encodeOffset,
-						x->encodeSize,
-						Casm::RelocationType::full_int32,
-						0
+				outRelocations.emplace_back(
+					x->symbol,
+					target->Type(),
+					x->writeSection,
+					x->writeOffset,
+					x->offsetSize,
+					Casm::REFERENCE_TYPE::ADDRESS,
+					Casm::RelocationType::full_int32,
+					0
 				);
 
 				continue;
@@ -216,62 +232,65 @@ Ceng::CRESULT ProgramBuilder::Build(const Ceng::String& outName, ObjectCode** ou
 
 			Casm::RelocationType::value relType;
 
-			switch (x->encodeSize)
+			switch (x->offsetSize)
 			{
 			case X86::OPERAND_SIZE::DWORD:
 			{
-				Ceng::UINT32* ptr = (Ceng::UINT32*)&objSect->codeBuffer[x->encodeOffset];
+				Ceng::UINT32* ptr = (Ceng::UINT32*)&objSect->codeBuffer[x->writeOffset];
 
-				*ptr = Ceng::UINT32(x->symbol->Offset());
+				*ptr = Ceng::UINT32(target->Offset());
 
 				relType = RelocationType::full_int32;
 			}
 			break;
 			case X86::OPERAND_SIZE::QWORD:
 			{
-				Ceng::UINT64* ptr = (Ceng::UINT64*)&objSect->codeBuffer[x->encodeOffset];
+				Ceng::UINT64* ptr = (Ceng::UINT64*)&objSect->codeBuffer[x->writeOffset];
 
-				*ptr = Ceng::UINT64(x->symbol->Offset());
+				*ptr = Ceng::UINT64(target->Offset());
 
 				relType = RelocationType::full_uint64;
 			}
 			break;
 			}
 
-			relocationData.emplace_back(
-				x->symbol->GetSection()->name,
-					SymbolType::section,
-					x->section->name,
-					x->encodeOffset,
-					x->encodeSize,
-					relType,
-					0
+			outRelocations.emplace_back(
+				target->GetSection()->name,
+				SymbolType::section,
+				x->writeSection,
+				x->writeOffset,
+				x->offsetSize,
+				x->refType,
+				relType,
+				0
 			);
 		}
 		else
 		{
 			// IP RELATIVE
 
-			switch (x->encodeSize)
+			switch (x->offsetSize)
 			{
 			case X86::OPERAND_SIZE::DWORD:
 			{
-				Ceng::INT32* ptr = (Ceng::INT32*)&objSect->codeBuffer[x->encodeOffset];
+				Ceng::INT32* ptr = (Ceng::INT32*)&objSect->codeBuffer[x->writeOffset];
 
-				if (x->symbol->GetSection() == x->section)
+				if (target->GetSection() != nullptr 
+					&& (target->GetSection()->name == x->writeSection))
 				{
-					*ptr = Ceng::INT32(x->symbol->Offset() - (x->encodeOffset + x->ipDelta));
+					*ptr = Ceng::INT32(target->Offset() - (x->writeOffset + x->ipDelta));
 				}
 				else
 				{
-					relocationData.emplace_back(
-						x->symbol->name,
-							x->symbol->Type(),
-							x->section->name,
-							x->encodeOffset,
-							x->encodeSize,
-							Casm::RelocationType::rel32_add,
-							x->ipDelta
+					outRelocations.emplace_back(
+						target->name,
+						target->Type(),
+						x->writeSection,
+						x->writeOffset,
+						x->offsetSize,
+						Casm::REFERENCE_TYPE::IP_RELATIVE,
+						Casm::RelocationType::rel32_add,
+						x->ipDelta
 					);
 				}
 			}
@@ -298,7 +317,7 @@ Ceng::CRESULT ProgramBuilder::Build(const Ceng::String& outName, ObjectCode** ou
 	}
 
 	*output = new ObjectCode(outName, std::move(objSections), std::move(objSymbols),
-		std::move(relocationData));
+		std::move(outRelocations));
 
 	return Ceng::CE_OK;
 }

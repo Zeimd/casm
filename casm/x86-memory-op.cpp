@@ -14,7 +14,7 @@
 #include "build-params.h"
 #include "encode-data.h"
 
-#include "symbol-ref.h"
+#include "relocation-data.h"
 
 #include "section.h"
 
@@ -390,6 +390,8 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 	{
 		Casm::REFERENCE_TYPE::value refType = Casm::REFERENCE_TYPE::ADDRESS;
 
+		Casm::RelocationType::value relocationType = Casm::RelocationType::full_int32;
+
 		/*
 		if (params->mode->cpuMode == CPU_MODE::X64)
 		{
@@ -397,12 +399,14 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 		}
 		*/
 
-		std::shared_ptr<Casm::SymbolRef> temp =
-			std::make_shared<Casm::SymbolRef>(symbol, 
-				params->section, params->out_dispOffset,
-				params->out_dispSize, refType);
+		std::shared_ptr<Casm::RelocationData> temp =
+			std::make_shared<Casm::RelocationData>(symbol->name,
+				symbol->Type(),
+				params->section->name, params->out_dispOffset,
+				params->out_dispSize, refType,
+				relocationType,0);
 
-		params->section->AddSymbolRef(temp);
+		params->section->AddRelocationData(temp);
 		params->memRef = temp;
 	}
 
