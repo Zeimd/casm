@@ -161,6 +161,8 @@ int main()
 	// push eax
 	codeSection->AddInstruction(X86::PUSH, &X86::EAX);
 
+	codeSection->AddLabel("foo");
+
 	//codeSection->MoveAddress(&X86::ECX, "printf");
 	//codeSection->AddInstruction(X86::CALL, &X86::ECX);
 	codeSection->Call("printf");
