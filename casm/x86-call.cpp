@@ -7,7 +7,6 @@
 *****************************************************************************/
 
 #include "x86-call.h"
-#include "symbol-ref.h"
 
 #include "build-params.h"
 #include "encode-data.h"

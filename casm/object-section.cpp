@@ -1,7 +1,6 @@
 
 #include "object-section.h"
 #include "symbol.h"
-#include "symbol-ref.h"
 #include "code-label.h"
 
 #include "relocation-data.h"

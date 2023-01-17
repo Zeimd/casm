@@ -13,7 +13,6 @@
 #include "object-section.h"
 
 #include "symbol.h"
-#include "symbol-ref.h"
 
 #include "section.h"
 

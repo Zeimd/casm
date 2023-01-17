@@ -54,8 +54,6 @@
 
 #include "relocation-data.h"
 
-#include "symbol-ref.h"
-
 #include "object-section.h"
 
 using namespace Casm;

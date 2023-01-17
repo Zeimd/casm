@@ -15,7 +15,6 @@
 
 #include "opcode-prefix.h"
 
-#include "symbol-ref.h"
 #include "code-element.h"
 
 using namespace X86;
