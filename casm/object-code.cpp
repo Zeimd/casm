@@ -228,14 +228,34 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		break;
 		case RelocationType::full_int32:
 
-			{
-				Ceng::INT32* ptr =
-					(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+		{
+			Ceng::INT32* ptr =
+				(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
 
-				*ptr += Ceng::INT32(symbolAddress);
+			*ptr += Ceng::INT32(symbolAddress);
+		}
+
+		break;
+		case RelocationType::full_uint32:
+
+			{
+				Ceng::UINT32* ptr =
+					(Ceng::UINT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+				*ptr += Ceng::UINT32(symbolAddress);
 			}
 
 			break;
+		case RelocationType::full_uint64:
+
+		{
+			Ceng::UINT64* ptr =
+				(Ceng::UINT64*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+			*ptr += Ceng::UINT64(symbolAddress);
+		}
+
+		break;
 		default:
 			std::wcout << "WARNING: JIT: unhandled relocation type" << std::endl;
 			return Ceng::CE_ERR_NOT_SUPPORTED;
@@ -329,7 +349,11 @@ void ObjectCode::Print(std::wostream& out) const
 	{
 		out << '\t' << Symbol::TypeToString(x.symbolType);
 			
-		out << ' ' << x.symbol << " -> ";
+		out << ' ' << x.symbol << " : ";
+		
+		out << x.type;
+
+		out << " -> ";
 
 		out << x.writeSection << " : ";
 

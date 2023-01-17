@@ -227,6 +227,30 @@ Ceng::CRESULT Linker::LinkProgram(
 				}
 
 				break;
+
+			case RelocationType::full_uint32:
+
+				if (symbol != nullptr)
+				{
+					Ceng::UINT32* ptr =
+						(Ceng::UINT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+					*ptr += Ceng::UINT32(symbol->GetSection()->Offset());
+				}
+
+				break;
+			case RelocationType::full_uint64:
+
+				if (symbol != nullptr)
+				{
+					Ceng::UINT64* ptr =
+						(Ceng::UINT64*)&relocationSection->codeBuffer[relocation.writeOffset];
+
+					*ptr += Ceng::UINT64(symbol->GetSection()->Offset());
+				}
+
+				break;
+
 			default:
 				std::wcout << "WARNING: Linker: unhandled relocation type" << std::endl;
 				deleted = true;
