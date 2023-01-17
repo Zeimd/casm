@@ -60,3 +60,13 @@ void CodeElement::SetOffset(const Ceng::UINT64 offset)
 {
 	this->offset = offset;
 }
+
+Ceng::CRESULT CodeElement::AppendRelocationData(std::vector<RelocationData>& out) const
+{
+	return Ceng::CE_OK;
+}
+
+Ceng::CRESULT CodeElement::AddRelocationData(std::shared_ptr<RelocationData>& data)
+{
+	return Ceng::CE_OK;
+}

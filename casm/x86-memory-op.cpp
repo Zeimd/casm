@@ -406,7 +406,7 @@ const Ceng::CRESULT MemoryOperand::EncodeAsOperand(BuildParams *params,EncodeDat
 				params->out_dispSize, refType,
 				relocationType,0);
 
-		params->section->AddRelocationData(temp);
+		params->codeElement->AddRelocationData(temp);
 		params->memRef = temp;
 	}
 

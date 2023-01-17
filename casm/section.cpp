@@ -151,6 +151,23 @@ Ceng::CRESULT Section::AttachLabels()
 	return Ceng::CE_OK;
 }
 
+Ceng::CRESULT Section::AppendRelocationData(std::vector<RelocationData>& out)
+{
+	for (auto& x : codeList)
+	{
+		Ceng::CRESULT cresult;
+
+		cresult = x->AppendRelocationData(out);
+
+		if (cresult != Ceng::CE_OK)
+		{
+			return cresult;
+		}
+	}
+
+	return Ceng::CE_OK;
+}
+
 Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 {
 	output = nullptr;
@@ -178,6 +195,8 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 
 	std::vector<Ceng::UINT8> codeBuffer;
 
+	std::vector<Casm::RelocationData> relocationData;
+
 	for (size_t k = 0; k < codeList.size(); k++)
 	{
 		codeList[k]->SetOffset(codeBuffer.size());
@@ -189,7 +208,8 @@ Ceng::CRESULT Section::Build(std::shared_ptr<ObjectSection>& output)
 		}
 	}
 
-	output = std::make_shared<ObjectSection>(name,options, std::move(codeBuffer));
+	output = std::make_shared<ObjectSection>(name,options, 
+		std::move(codeBuffer));
 
 	objectSection = output.get();
 
@@ -402,11 +422,6 @@ const Ceng::CRESULT Section::AddInstruction(const X86::Instruction& instruction,
 	currentBlock->AddLine(line);
 
 	return Ceng::CE_OK;
-}
-
-Ceng::CRESULT Section::AddRelocationData(std::shared_ptr<RelocationData>& ref)
-{
-	return program->AddRelocationData(ref);
 }
 
 Ceng::CRESULT Section::ConditionalJump(const Casm::CONDITION::value condition,

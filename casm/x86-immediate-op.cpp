@@ -195,7 +195,7 @@ const Ceng::CRESULT ImmediateOperand::EncodeAsOperand(BuildParams *params,Encode
 				relocationType,
 				0);
 
-		params->section->AddRelocationData(temp);
+		params->codeElement->AddRelocationData(temp);
 		params->immRef = temp;
 
 		encodeData->immediate = 0;

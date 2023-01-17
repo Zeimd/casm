@@ -69,6 +69,33 @@ Ceng::CRESULT BasicBlock::PreBuild(X86::BuildParams *params)
 	return Ceng::CE_OK;
 }
 
+Ceng::CRESULT BasicBlock::AddRelocationData(std::shared_ptr<RelocationData>& data)
+{
+	relocationData.push_back(data);
+
+	return Ceng::CE_OK;
+}
+
+
+Ceng::CRESULT BasicBlock::AppendRelocationData(std::vector<RelocationData>& out) const
+{
+	for (auto& x : relocationData)
+	{
+		out.emplace_back(
+			x->symbol,
+			x->symbolType,
+			x->writeSection,
+			x->writeOffset + offset,
+			x->offsetSize,
+			x->refType,
+			x->type,
+			x->ipDelta
+		);
+	}
+
+	return Ceng::CE_OK;
+}
+
 Ceng::CRESULT BasicBlock::Build(X86::BuildParams* params,
 	const std::vector<std::shared_ptr<Label>>& labels,
 	const std::vector<std::shared_ptr<CodeElement>>& codeList)

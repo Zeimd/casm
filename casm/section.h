@@ -77,14 +77,14 @@ namespace Casm
 
 		ObjectSection* GetObjectSection();
 
+		Ceng::CRESULT AppendRelocationData(std::vector<RelocationData>& out);
+
 		Ceng::CRESULT SetStartMode(const X86::CPU_Mode* startMode,
 			const X86::PRIVILEDGE_LEVEL::value prLevel);
 
 		Ceng::CRESULT Build(std::shared_ptr<ObjectSection>& output);
 
 		Ceng::CRESULT AddLabel(const Ceng::String& label, bool isGlobal=false);
-
-		Ceng::CRESULT AddRelocationData(std::shared_ptr<RelocationData>& ref);
 
 		Ceng::CRESULT ConditionalJump(const Casm::CONDITION::value condition,
 			const Ceng::String& label);

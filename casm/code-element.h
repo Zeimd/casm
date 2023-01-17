@@ -26,6 +26,7 @@ namespace Casm
 {
 	class Label;
 	class ProgramBuilder;
+	class RelocationData;
 
 	class CodeElement
 	{
@@ -66,6 +67,10 @@ namespace Casm
 									 const std::vector<std::shared_ptr<CodeElement>> &codeList);
 	
 		virtual Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const;
+
+		virtual Ceng::CRESULT AppendRelocationData(std::vector<RelocationData>& out) const;
+
+		virtual Ceng::CRESULT AddRelocationData(std::shared_ptr<RelocationData>& data);
 
 		Ceng::INT32 Position() const;
 

@@ -6,9 +6,6 @@ Assembler
 
 - [ ] Add option to use immediate value or displacement together with
       a symbol for struct member access etc
-
-- [ ] Bug fix: Relocation data offsets are incorrect if there's more than one
-      code element
  
 ------------------
 Relocationing

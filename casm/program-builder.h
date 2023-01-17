@@ -65,8 +65,6 @@ namespace Casm
 
 		std::vector<std::shared_ptr<Symbol>> symbols;
 
-		std::vector<std::shared_ptr<RelocationData>> relocationData;
-
 		const Assembler *assembler;
 
 		ProgramBuilder() : assembler(nullptr),options(Casm::BuilderOptions())

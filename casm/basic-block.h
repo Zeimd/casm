@@ -13,6 +13,8 @@
 
 #include "code-line.h"
 
+#include "relocation-data.h"
+
 namespace Casm
 {
 	// A block of code that is constant in size, and doesn't
@@ -23,6 +25,8 @@ namespace Casm
 
 		std::vector<std::shared_ptr<Casm::CodeLine>> lines;
 		std::vector<Ceng::UINT8> codeBuffer;
+
+		std::vector<std::shared_ptr<Casm::RelocationData>> relocationData;
 
 		BasicBlock()
 		{
@@ -45,6 +49,10 @@ namespace Casm
 		Ceng::UINT32 SizeBytes() const override;
 	
 		Ceng::CRESULT Append(std::vector<Ceng::UINT8> &destBuffer) const override;
+
+		Ceng::CRESULT AppendRelocationData(std::vector<RelocationData>& out) const override;
+
+		Ceng::CRESULT AddRelocationData(std::shared_ptr<RelocationData>& data) override;
 
 		void Print(std::wostream& out) const override;
 	};
