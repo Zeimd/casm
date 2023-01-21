@@ -38,7 +38,7 @@ ObjectCode::~ObjectCode()
 
 }
 
-std::shared_ptr<Symbol> ObjectCode::FindSymbol(const Ceng::String& name)
+std::shared_ptr<Symbol> ObjectCode::FindSymbol(const Ceng::String& name) const
 {
 	for (auto& x : symbols)
 	{
@@ -52,7 +52,7 @@ std::shared_ptr<Symbol> ObjectCode::FindSymbol(const Ceng::String& name)
 }
 
 std::shared_ptr<Symbol> ObjectCode::FindSymbol(const Ceng::String& name,
-	Casm::ExternSymbol* externs, uint32_t externCount)
+	Casm::ExternSymbol* externs, uint32_t externCount) const
 {
 	std::shared_ptr<Symbol> temp = FindSymbol(name);
 
@@ -84,20 +84,55 @@ std::shared_ptr<Symbol> ObjectCode::FindSymbol(const Ceng::String& name,
 	return temp;
 }
 
+Ceng::UINT64 ObjectCode::GetSectionBase(Symbol* section,
+	std::vector<SectionInfo>& sectionInfo) const
+{
+	Ceng::UINT64 baseAddress = 0;
+
+	if (section == nullptr)
+	{
+		std::wcout << "ERROR: GetSectionBase: nullptr" << std::endl;
+		return 0;
+	}
+
+	std::wcout << "GetSectionBase : " << section->name << std::endl;
+
+	for (auto& x : sectionInfo)
+	{
+		if (x.section->name == section->name)
+		{
+			std::wcout << "offset = " << std::hex << x.offset <<std::dec << std::endl;
+
+			baseAddress = x.offset;
+
+			if (x.parent != nullptr)
+			{
+				baseAddress += GetSectionBase(x.parent, sectionInfo);
+			}
+			return baseAddress;
+		}
+	}
+
+	return 0;
+
+}
 
 Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 	Casm::ExternSymbol* externs, 
-	uint32_t externCount, Executable** output)
+	uint32_t externCount, Executable** output) const
 {
 	std::wcout << "JIT: start" << std::endl;
 
 	*output = nullptr;
 
-	std::shared_ptr<Symbol> virtualCode =
-		std::make_shared<Symbol>(".text", nullptr, SymbolType::section, true, true);
+	std::vector<SectionInfo> sectionInfo;
 
-	std::shared_ptr<Symbol> virtualData =
-		std::make_shared<Symbol>(".data", nullptr, SymbolType::section, true, true);
+	Symbol virtualCode("::out_code::", nullptr, SymbolType::section, true, true);
+
+	Symbol virtualData("::out_data::", nullptr, SymbolType::section, true, true);
+
+	sectionInfo.emplace_back(&virtualCode, nullptr, 0);
+	sectionInfo.emplace_back(&virtualData, nullptr, 0);
 
 	Ceng::UINT64 codeSize = 0;
 	Ceng::UINT64 dataSize = 0;
@@ -106,16 +141,14 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 	{
 		if (x->options & SectionOptions::executable)
 		{
-			x->MarkDefined(virtualCode.get(), SymbolType::section, true);
+			sectionInfo.emplace_back(x.get(), &virtualCode, codeSize);
 
-			x->SetOffset(codeSize);
 			codeSize += x->SizeBytes();
 		}
 		else 
 		{
-			x->MarkDefined(virtualData.get(), SymbolType::section, true);
+			sectionInfo.emplace_back(x.get(), &virtualData, dataSize);
 
-			x->SetOffset(dataSize);
 			dataSize += x->SizeBytes();
 		}
 	}
@@ -138,13 +171,52 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		return Ceng::CE_ERR_OUT_OF_MEMORY;
 	}
 
-	virtualCode->SetOffset((Ceng::INT64)execPage);
+	sectionInfo[0].offset = (Ceng::UINT64)execPage;
 
 	Ceng::AlignedBuffer<Ceng::UINT8> data;
 
 	data = Ceng::AlignedBuffer<Ceng::UINT8>::AlignedBuffer(dataSize, 4096);
 
-	virtualData->SetOffset((Ceng::INT64)&data[0]);
+	sectionInfo[1].offset = (Ceng::UINT64)&data[0];
+
+	std::wcout << "section info dump:" << std::endl;
+
+	for (auto& x : sectionInfo)
+	{
+		std::wcout << x.section->name << " : " << x.offset;
+		if (x.parent != nullptr)
+		{
+			std::wcout << ", parent = " << x.parent->name;
+		}
+		std::wcout << std::endl;
+	}
+
+
+	// Copy buffers to final locations
+
+	Ceng::UINT32 offset = 0;
+
+	for (auto& x : sections)
+	{
+		if (x->options & SectionOptions::executable)
+		{
+			x->ToCodeBuffer(&execPage[offset]);
+			offset += x->SizeBytes();
+		}
+	}
+
+	offset = 0;
+
+	for (auto& x : sections)
+	{
+		if ((x->options & SectionOptions::executable) == 0)
+		{
+			x->ToCodeBuffer(&data[offset]);
+			offset += x->SizeBytes();
+		}
+	}
+
+
 
 	std::wcout << "GetExecutable:" << std::endl;
 
@@ -154,18 +226,28 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 
 	std::wcout << "data section size = " << data.GetElements() << std::endl;
 
+	std::wcout << "code section size = " << codeSize << std::endl;
+
 	// Relocationing
 
 	//std::wcout << "relocationing:" << std::endl;
 
 	for (auto& relocation : relocationData)
 	{
-		//std::wcout << "symbol : " << relocation.symbol << std::endl;
+		std::wcout << "symbol : " << relocation.symbol << std::endl;
 
 		std::shared_ptr<ObjectSection> relocationSection =
 			std::static_pointer_cast<ObjectSection>(
 				FindSymbol(relocation.writeSection)
 				);
+
+		std::wcout << "relocation section : " << relocationSection->name << std::endl;
+
+		Ceng::UINT64 fullWriteAddress =
+			relocation.writeOffset + GetSectionBase(relocationSection.get(), sectionInfo);
+
+		std::wcout << "full write address = " << std::hex << fullWriteAddress << std::dec
+			<< std::endl;
 
 		std::shared_ptr<Symbol> symbol = FindSymbol(relocation.symbol,
 			externs, externCount);
@@ -192,36 +274,17 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 
 			// Value in target field = symbol's offset within section
 
-			// Offset of section in allocation
-			symbolAddress = symbol->GetSection()->Offset();
-
-			if (symbol->Type() != SymbolType::section)
-			{
-				// Start of allocation (virtual symbol)
-				symbolAddress += symbol->GetSection()->GetSection()->Offset(); 
-			}
+			symbolAddress = GetSectionBase(symbol->GetSection(), sectionInfo);
 		}
 
-		//std::wcout << "symbol address = " << std::hex << symbolAddress << std::dec << std::endl;
+		std::wcout << "symbol address = " << std::hex << symbolAddress << std::dec << std::endl;
 
 		switch (relocation.type)
 		{
 		case RelocationType::rel32_add:
 		{
-			//std::wcout << "rel32_add:" << std::endl;
-
-			Ceng::UINT64 fullWriteAddress =
-				relocation.writeOffset +
-				relocationSection->Offset() +              // Offset of section in allocation 
-				relocationSection->GetSection()->Offset(); // Start of allocation (virtual symbol)
-
-			//std::wcout << "full write address = " << std::hex << fullWriteAddress << std::dec
-			//	<< std::endl;
-
-			//std::wcout << "ipDelta = " << relocation.ipDelta << std::endl;
-
 			Ceng::INT32* ptr =
-				(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+				(Ceng::INT32*)fullWriteAddress;
 
 			*ptr += Ceng::INT32(symbolAddress - fullWriteAddress);
 		}
@@ -229,8 +292,7 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		case RelocationType::full_int32:
 
 		{
-			Ceng::INT32* ptr =
-				(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+			Ceng::INT32* ptr = (Ceng::INT32*)fullWriteAddress;
 
 			*ptr += Ceng::INT32(symbolAddress);
 		}
@@ -239,8 +301,8 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		case RelocationType::full_uint32:
 
 			{
-				Ceng::UINT32* ptr =
-					(Ceng::UINT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+				Ceng::UINT32* ptr =	(Ceng::UINT32*)fullWriteAddress;
+
 
 				*ptr += Ceng::UINT32(symbolAddress);
 			}
@@ -249,8 +311,7 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		case RelocationType::full_uint64:
 
 		{
-			Ceng::UINT64* ptr =
-				(Ceng::UINT64*)&relocationSection->codeBuffer[relocation.writeOffset];
+			Ceng::UINT64* ptr = (Ceng::UINT64*)fullWriteAddress;
 
 			*ptr += Ceng::UINT64(symbolAddress);
 		}
@@ -263,31 +324,6 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		};
 	}
 
-	// Copy buffers to final locations
-
-	Ceng::UINT32 offset = 0;
-
-	for (auto& x : sections)
-	{
-		if (x->options & SectionOptions::executable)
-		{
-			x->ToCodeBuffer(&execPage[offset]);
-			offset += x->SizeBytes();
-		}
-	}
-
-	offset = 0;
-
-	for (auto& x : sections)
-	{
-		if ((x->options & SectionOptions::executable) == 0)
-		{
-			x->ToCodeBuffer(&data[offset]);
-			offset += x->SizeBytes();
-		}
-	}
-
-	Ceng::UINT64 entryAddress = 0;
 
 	std::shared_ptr<Symbol> entry = FindSymbol(entryPoint);
 
@@ -297,9 +333,11 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 		return Ceng::CE_ERR_FAIL;
 	}
 
-	entryAddress = entry->Offset() +
-		entry->GetSection()->Offset() +
-		entry->GetSection()->GetSection()->Offset();
+	Ceng::UINT64 entryAddress = entry->Offset() + 
+		GetSectionBase(entry->GetSection(),sectionInfo);
+
+	std::wcout << "entry point address = " << std::hex << entryAddress << std::dec
+		<< std::endl;
 
 	Executable *temp = Executable::Create((void*)entryAddress, execPage,codeSize,std::move(data));
 

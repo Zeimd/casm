@@ -24,9 +24,6 @@ Linker
 ------------------
 Executable
 
-- [ ] Update to not modify inputs. Current implementation
-      prevents objects being used in subsequent executable creation
-
 ------------------
 Instruction encoder
 

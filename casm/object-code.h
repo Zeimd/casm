@@ -22,13 +22,29 @@ namespace Casm
 {
 	class ObjectSection;
 	class Symbol;
-	class SymbolRef;
 
 	class RelocationData;
 
 	struct ExternSymbol;
 
 	class Executable;
+
+	class SectionInfo
+	{
+	public:
+		Symbol* section;
+		Symbol* parent;
+		Ceng::UINT64 offset;
+
+		SectionInfo(Symbol* section,
+			Symbol* parent,
+			Ceng::UINT64 offset)
+			: section(section), parent(parent), offset(offset)
+		{
+
+		}
+	};
+
 
 	class ObjectCode
 	{
@@ -48,14 +64,19 @@ namespace Casm
 
 		void Print(std::wostream& out) const;
 
-		std::shared_ptr<Symbol> FindSymbol(const Ceng::String& name);
+		std::shared_ptr<Symbol> FindSymbol(const Ceng::String& name) const;
 
 		std::shared_ptr<Symbol> FindSymbol(const Ceng::String& name,
-			Casm::ExternSymbol* externs, uint32_t externCount);
+			Casm::ExternSymbol* externs, uint32_t externCount) const;
 
 		Ceng::CRESULT GetJitExecutable(const Ceng::String& entryPoint,
 			Casm::ExternSymbol* externs, uint32_t externCount,
-			Executable** output);
+			Executable** output) const;
+
+	protected:
+
+		Ceng::UINT64 GetSectionBase(Symbol* section,
+			std::vector<SectionInfo>& sectionInfo) const;
 	};
 }
 
