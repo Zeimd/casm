@@ -158,6 +158,8 @@ Ceng::CRESULT Linker::LinkProgram(
 
 		outSymbols.push_back(outSections.back());
 
+		offset = 0;
+
 		for (auto& file : objects)
 		{
 			for (auto& sect : file->sections)
@@ -165,6 +167,8 @@ Ceng::CRESULT Linker::LinkProgram(
 				if (sect->name == *info.name)
 				{
 					sect->SetOffset(offset);
+
+					offset += sect->SizeBytes();
 				}
 			}
 		}
