@@ -131,8 +131,8 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 
 	Symbol virtualData("::out_data::", nullptr, SymbolType::section, true, true);
 
-	sectionInfo.emplace_back(&virtualCode, nullptr, 0);
-	sectionInfo.emplace_back(&virtualData, nullptr, 0);
+	sectionInfo.emplace_back(&virtualCode, nullptr, 0, 0);
+	sectionInfo.emplace_back(&virtualData, nullptr, 0, 0);
 
 	Ceng::UINT64 codeSize = 0;
 	Ceng::UINT64 dataSize = 0;
@@ -141,13 +141,13 @@ Ceng::CRESULT ObjectCode::GetJitExecutable(const Ceng::String& entryPoint,
 	{
 		if (x->options & SectionOptions::executable)
 		{
-			sectionInfo.emplace_back(x.get(), &virtualCode, codeSize);
+			sectionInfo.emplace_back(x.get(), &virtualCode, 0, codeSize);
 
 			codeSize += x->SizeBytes();
 		}
 		else 
 		{
-			sectionInfo.emplace_back(x.get(), &virtualData, dataSize);
+			sectionInfo.emplace_back(x.get(), &virtualData, 0, dataSize);
 
 			dataSize += x->SizeBytes();
 		}

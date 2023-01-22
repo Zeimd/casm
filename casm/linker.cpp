@@ -89,15 +89,12 @@ Ceng::CRESULT Linker::LinkProgram(
 	// TODO: Set reference counts so that only sections
 	//       that need to be present get included
 
+	// TODO: initialize section offset table
+
+
 	// Gather unique section names
 
-	struct SectionInfo
-	{
-		Ceng::String* name;
-		Ceng::UINT32 options;
-	};
-
-	std::vector<SectionInfo> sectionInfo;
+	std::vector<SectionInfo> uniqueSections;
 
 	for (auto& file : objects)
 	{
@@ -106,9 +103,9 @@ Ceng::CRESULT Linker::LinkProgram(
 			size_t k;
 			bool found = false;
 
-			for (k = 0; k < sectionInfo.size(); ++k)
+			for (k = 0; k < uniqueSections.size(); ++k)
 			{
-				if (*sectionInfo[k].name == sect->name)
+				if (uniqueSections[k].section->name == sect->name)
 				{
 					found = true;
 					break;
@@ -117,13 +114,13 @@ Ceng::CRESULT Linker::LinkProgram(
 
 			if (found == false)
 			{
-				sectionInfo.push_back({&sect->name,sect->options});
+				uniqueSections.push_back({sect.get(),nullptr,sect->options,0});
 			}			
 			else
 			{
 				// Sections with same name need to have same options
 				// for merging
-				if (sectionInfo[k].options != sect->options)
+				if (uniqueSections[k].options != sect->options)
 				{
 					return Ceng::CE_ERR_INCOMPATIBLE_FORMAT;
 				}
@@ -152,9 +149,9 @@ Ceng::CRESULT Linker::LinkProgram(
 
 	Ceng::UINT64 offset = 0;
 
-	for (auto& info : sectionInfo)
+	for (auto& info : uniqueSections)
 	{
-		outSections.emplace_back(std::make_shared<ObjectSection>(*info.name, info.options));
+		outSections.emplace_back(std::make_shared<ObjectSection>(info.section->name, info.options));
 
 		outSymbols.push_back(outSections.back());
 
@@ -164,7 +161,7 @@ Ceng::CRESULT Linker::LinkProgram(
 		{
 			for (auto& sect : file->sections)
 			{
-				if (sect->name == *info.name)
+				if (sect->name == info.section->name)
 				{
 					sect->SetOffset(offset);
 
@@ -282,13 +279,13 @@ Ceng::CRESULT Linker::LinkProgram(
 	// Copy sections to new buffer according to offsets
 	// calculated earlier
 
-	for (size_t k = 0; k < sectionInfo.size(); ++k)
+	for (size_t k = 0; k < uniqueSections.size(); ++k)
 	{
 		for (auto& file : objects)
 		{
 			for (auto& sect : file->sections)
 			{
-				if (sect->name == *sectionInfo[k].name)
+				if (sect->name == uniqueSections[k].section->name)
 				{
 					sect->Append(outSections[k]->codeBuffer);
 				}

@@ -34,12 +34,14 @@ namespace Casm
 	public:
 		Symbol* section;
 		Symbol* parent;
+		Ceng::UINT32 options;
 		Ceng::UINT64 offset;
 
 		SectionInfo(Symbol* section,
 			Symbol* parent,
+			Ceng::UINT32 options,
 			Ceng::UINT64 offset)
-			: section(section), parent(parent), offset(offset)
+			: section(section), parent(parent), options(options),offset(offset)
 		{
 
 		}
