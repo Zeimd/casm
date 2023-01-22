@@ -13,11 +13,18 @@
 #include <ceng/datatypes/return-val.h>
 #include <ceng/datatypes/ce-string.h>
 
+#include "object-code.h"
+
 namespace Casm
 {
-	class ObjectCode;
-	class ObjectSection;
 	class Symbol;
+
+	class FileInfo
+	{
+	public:
+		ObjectCode* file;
+		std::vector<SectionInfo> sections;
+	};
 
 	class Linker
 	{

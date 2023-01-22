@@ -77,6 +77,58 @@ std::shared_ptr<Symbol> Linker::FindSymbol(
 	return nullptr;
 }
 
+static Ceng::CRESULT SetSectionOffset(ObjectCode* file, Symbol* section, Ceng::UINT64 offset, std::vector<FileInfo>& sectionInfo)
+{
+	for (auto& info : sectionInfo)
+	{
+		if (info.file->name == file->name)
+		{
+			for (auto& sec : info.sections)
+			{
+				if (sec.section->name == section->name)
+				{
+					sec.offset = offset;
+					return Ceng::CE_OK;
+				}
+			}
+		}
+	}
+
+	return Ceng::CE_ERR_INVALID_PARAM;
+}
+
+static Ceng::UINT64 GetSectionOffset(ObjectCode* file, Symbol* section, std::vector<FileInfo>& sectionInfo)
+{
+	for (auto& info : sectionInfo)
+	{
+		if (info.file->name == file->name)
+		{
+			for (auto& sec : info.sections)
+			{
+				if (sec.section->name == section->name)
+				{
+					return sec.offset;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+static std::shared_ptr<ObjectSection> FindSection(const Ceng::String& name, std::vector<std::shared_ptr<ObjectSection>>& sections)
+{
+	for (auto& sect : sections)
+	{
+		if (sect->name == name)
+		{
+			return sect;
+		}
+	}
+
+	return nullptr;
+}
+
 Ceng::CRESULT Linker::LinkProgram(
 	const Ceng::String& name,
 	std::vector<Casm::ObjectCode*> &objects, 
@@ -91,12 +143,6 @@ Ceng::CRESULT Linker::LinkProgram(
 
 	// TODO: initialize section offset table
 
-	class FileInfo
-	{
-	public:
-		ObjectCode* file;
-		std::vector<SectionInfo> sections;
-	};
 
 	std::vector<FileInfo> sectionInfo;
 
@@ -186,13 +232,36 @@ Ceng::CRESULT Linker::LinkProgram(
 			{
 				if (sect->name == info.section->name)
 				{
-					sect->SetOffset(offset);
+					Ceng::CRESULT cresult;
+
+					cresult = SetSectionOffset(file, sect.get(), offset, sectionInfo);
+
+					if (cresult != Ceng::CE_OK)
+					{
+						std::wcout << "ERROR: Linker: failed to set section offset: "
+							<< file->name << " : " << sect->name << std::endl;
+					}
 
 					offset += sect->SizeBytes();
 				}
 			}
 		}
 	}
+
+	for (size_t k = 0; k < uniqueSections.size(); ++k)
+	{
+		for (auto& file : objects)
+		{
+			for (auto& sect : file->sections)
+			{
+				if (sect->name == uniqueSections[k].section->name)
+				{
+					sect->Append(outSections[k]->codeBuffer);
+				}
+			}
+		}
+	}
+
 
 	std::vector<Casm::RelocationData> relocationData;
 
@@ -209,8 +278,17 @@ Ceng::CRESULT Linker::LinkProgram(
 			std::shared_ptr<Symbol> symbol = FindSymbol(relocation.symbol,
 				file, objects);
 
+			Ceng::UINT64 symbolOffsetChange = 0;
+			
+			if (symbol != nullptr)
+			{
+				symbolOffsetChange = GetSectionOffset(file, symbol->GetSection(), sectionInfo);
+			}
+
 			Ceng::UINT64 newWriteOffset = relocation.writeOffset +
-				relocationSection->Offset();
+				GetSectionOffset(file, relocationSection.get(), sectionInfo);
+
+			relocationSection = FindSection(relocationSection->name, outSections);
 
 			bool deleted = false;
 
@@ -219,7 +297,7 @@ Ceng::CRESULT Linker::LinkProgram(
 			case RelocationType::rel32_add:
 				{
 					Ceng::INT32* ptr =
-						(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+						(Ceng::INT32*)&relocationSection->codeBuffer[newWriteOffset];
 
 					if (symbol == nullptr)
 					{
@@ -228,7 +306,7 @@ Ceng::CRESULT Linker::LinkProgram(
 					else if (symbol->GetSection()->name == relocationSection->name)
 					{
 						Ceng::UINT64 newSymbolOffset = symbol->Offset() +
-							symbol->GetSection()->Offset();
+							symbolOffsetChange;
 
 						*ptr = Ceng::INT32(newSymbolOffset - (newWriteOffset + relocation.ipDelta));
 
@@ -245,9 +323,9 @@ Ceng::CRESULT Linker::LinkProgram(
 				if (symbol != nullptr)
 				{
 					Ceng::INT32* ptr =
-						(Ceng::INT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+						(Ceng::INT32*)&relocationSection->codeBuffer[newWriteOffset];
 
-					*ptr += Ceng::INT32(symbol->GetSection()->Offset());
+					*ptr += Ceng::INT32(symbolOffsetChange);
 				}
 
 				break;
@@ -257,9 +335,9 @@ Ceng::CRESULT Linker::LinkProgram(
 				if (symbol != nullptr)
 				{
 					Ceng::UINT32* ptr =
-						(Ceng::UINT32*)&relocationSection->codeBuffer[relocation.writeOffset];
+						(Ceng::UINT32*)&relocationSection->codeBuffer[newWriteOffset];
 
-					*ptr += Ceng::UINT32(symbol->GetSection()->Offset());
+					*ptr += Ceng::UINT32(symbolOffsetChange);
 				}
 
 				break;
@@ -268,9 +346,9 @@ Ceng::CRESULT Linker::LinkProgram(
 				if (symbol != nullptr)
 				{
 					Ceng::UINT64* ptr =
-						(Ceng::UINT64*)&relocationSection->codeBuffer[relocation.writeOffset];
+						(Ceng::UINT64*)&relocationSection->codeBuffer[newWriteOffset];
 
-					*ptr += Ceng::UINT64(symbol->GetSection()->Offset());
+					*ptr += Ceng::UINT64(symbolOffsetChange);
 				}
 
 				break;
@@ -299,23 +377,6 @@ Ceng::CRESULT Linker::LinkProgram(
 		}			
 	}
 
-	// Copy sections to new buffer according to offsets
-	// calculated earlier
-
-	for (size_t k = 0; k < uniqueSections.size(); ++k)
-	{
-		for (auto& file : objects)
-		{
-			for (auto& sect : file->sections)
-			{
-				if (sect->name == uniqueSections[k].section->name)
-				{
-					sect->Append(outSections[k]->codeBuffer);
-				}
-			}
-		}
-	}
-
 	for (auto& file : objects)
 	{
 		for (auto& x : file->symbols)
@@ -337,7 +398,7 @@ Ceng::CRESULT Linker::LinkProgram(
 				);
 
 				outSymbols.back()->SetOffset(x->Offset() +
-					x->GetSection()->Offset());
+					GetSectionOffset(file, x->GetSection(), sectionInfo));
 			}
 		}
 	}
