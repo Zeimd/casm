@@ -305,6 +305,8 @@ Ceng::CRESULT ProgramBuilder::Build(const Ceng::String& outName, ObjectCode** ou
 				std::make_shared<Symbol>(x->name, x->GetSection()->GetObjectSection(),
 					x->Type(), x->IsDefined(), x->IsGlobal())
 			);
+
+			objSymbols.back()->SetOffset(x->Offset());
 		}
 	}
 
