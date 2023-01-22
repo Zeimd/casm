@@ -91,6 +91,29 @@ Ceng::CRESULT Linker::LinkProgram(
 
 	// TODO: initialize section offset table
 
+	class FileInfo
+	{
+	public:
+		ObjectCode* file;
+		std::vector<SectionInfo> sections;
+	};
+
+	std::vector<FileInfo> sectionInfo;
+
+	for (auto& file : objects)
+	{
+		FileInfo temp;
+
+		temp.file = file;
+
+		for (auto& section : file->sections)
+		{
+			temp.sections.emplace_back(section.get(), nullptr, section->options, 0);
+		}
+
+		sectionInfo.push_back(temp);
+	}
+
 
 	// Gather unique section names
 
